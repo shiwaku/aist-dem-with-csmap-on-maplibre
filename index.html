@@ -1,0 +1,673 @@
+<html>
+
+<head>
+  <title>産総研 シームレス標高タイル（陸域統合DEM）+CS立体図</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
+  <link href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" rel="stylesheet" />
+  <script src="https://unpkg.com/pmtiles@2.11.0/dist/index.js"></script>
+  <script src="https://unpkg.com/@maplibre/maplibre-gl-geocoder@1.2.0/dist/maplibre-gl-geocoder.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/@maplibre/maplibre-gl-geocoder@1.2.0/dist/maplibre-gl-geocoder.css"
+    type="text/css" />
+  <style>
+    body {
+      margin: 0;
+    }
+
+    #map {
+      height: 100%;
+      width: 100%;
+    }
+
+    .map-overlay {
+      font: bold 12px/14px "Helvetica Neue", Arial, Helvetica, sans-serif;
+      position: absolute;
+      width: 180px;
+      bottom: 20px;
+      left: 0;
+      padding: 10px;
+    }
+
+    .map-overlay .map-overlay-inner {
+      background-color: #fff;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+      border-radius: 3px;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+
+    .map-overlay label {
+      display: block;
+      margin: 0 0 0px;
+      font-size: 12px;
+      top: 100px;
+      left: 10px;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .map-overlay input {
+      background-color: transparent;
+      display: inline-block;
+      width: 100%;
+      position: relative;
+      margin: 0;
+      cursor: ew-resize;
+    }
+
+    .maplibregl-ctrl-geocoder {
+      font-size: 14px;
+      line-height: 12px;
+      font-family: "Open Sans", "Helvetica Neue", Arial, Helvetica, sans-serif;
+      position: relative;
+      background-color: #fff;
+      width: 80%;
+      min-width: 100px;
+      z-index: 1;
+      border-radius: 5px;
+      transition: width 0.25s, min-width 0.25s;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .maplibregl-ctrl-geocoder .suggestions {
+      font-size: 14px;
+    }
+
+    #info {
+      padding: 6px 8px;
+      font: 12px/14px Arial, Helvetica, sans-serif;
+      color: navy;
+      background: rgba(255, 255, 255, 0.8);
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+      border-radius: 5px;
+      width: fit-content;
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 10;
+    }
+
+    .yubi {
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    .checkbox-button-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+    }
+
+    .column {
+      display: flex;
+      flex-direction: column;
+      margin-right: 20px;
+    }
+
+    .map-center-marker {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 30px;
+      pointer-events: none;
+    }
+
+    .coords-display {
+      position: absolute;
+      font: bold 12px/14px "Helvetica Neue", Arial, Helvetica, sans-serif;
+      bottom: 125px;
+      left: 0px;
+      margin: 10px;
+      padding: 5px;
+      background: rgba(255, 255, 255, 1);
+      border-radius: 5px;
+      font-size: 12px;
+      z-index: 1;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="map"></div>
+  <div class="map-center-marker">+</div>
+  <div class="coords-display" id="coords"></div>
+  <div id="info">
+    <details>
+      <summary class="yubi">
+        <strong>CS立体図</strong>
+      </summary>
+      <fieldset>
+        <div class="checkbox-button-container">
+          <div class="column">
+            <div>
+              <input type="checkbox" id="fukushima-cs" value="fukushima-cs" />
+              <label for="fukushima-cs">福島県CS立体図</label>
+            </div>
+            <div>
+              <input type="checkbox" id="tochigi-cs" value="tochigi-cs" />
+              <label for="tochigi-cs">栃木県CS立体図</label>
+            </div>
+            <div>
+              <input type="checkbox" id="tokyo-tama-cs" value="tokyo-tama-cs" />
+              <label for="toyko-tama-cs">東京都(多摩地域)CS立体図</label>
+            </div>
+            <div>
+              <input type="checkbox" id="tokyo-shima-cs" value="tokyo-shima-cs" />
+              <label for="toyko-shima-cs">東京都(島しょ地域)CS立体図</label>
+            </div>
+            <div>
+              <input type="checkbox" id="noto-cs" value="noto-cs" />
+              <label for="noto-cs">能登(石川県)CS立体図</label>
+            </div>
+            <div>
+              <input type="checkbox" id="nagano-cs" value="nagano-cs" />
+              <label for="nagano-cs">長野県CS立体図</label>
+            </div>
+            <div>
+              <input type="checkbox" id="gifu-cs" value="gifu-cs" />
+              <label for="gifu-cs">岐阜県CS立体図</label>
+            </div>
+            <div>
+              <input type="checkbox" id="shizuoka-cs" value="shizuoka-cs" />
+              <label for="shizuoka-cs">静岡県CS立体図</label>
+            </div>
+            <div>
+              <input type="checkbox" id="osaka-cs" value="osaka-cs" />
+              <label for="osaka-cs">大阪府CS立体図</label>
+            </div>
+            <div>
+              <input type="checkbox" id="hyogo-cs" value="hyogo-cs" />
+              <label for="hyogo-cs">兵庫県CS立体図</label>
+            </div>
+            <div>
+              <input type="checkbox" id="wakayama-cs" value="wakayama-cs" />
+              <label for="wakayama-cs">和歌山県CS立体図</label>
+            </div>
+            <div>
+              <input type="checkbox" id="okayama-cs" value="okayama-cs" />
+              <label for="okayama-cs">岡山県CS立体図</label>
+            </div>
+            <div>
+              <input type="checkbox" id="hiroshima-cs" value="hiroshima-cs" />
+              <label for="hiroshima-cs">広島県CS立体図(林野庁0.5m)</label>
+            </div>
+            <div>
+              <input type="checkbox" id="hiroshima-05m-cs" value="hiroshima-05m-cs" checked />
+              <label for="hiroshima-05m-cs">広島県CS立体図(広島県0.5m)</label>
+            </div>
+            <div>
+              <input type="checkbox" id="hiroshima-1m-cs" value="hiroshima-1m-cs" />
+              <label for="hiroshima-1m-cs">広島県CS立体図(広島県1m)</label>
+            </div>
+            <div>
+              <input type="checkbox" id="ehime-cs" value="ehime-cs" />
+              <label for="ehime-cs">愛媛県CS立体図</label>
+            </div>
+            <div>
+              <input type="checkbox" id="kochi-cs" value="kochi-cs" />
+              <label for="kochi-cs">高知県CS立体図</label>
+            </div>
+            <div>
+              <input type="checkbox" id="kumamoto-oita-cs" value="kumamoto-oita-cs" />
+              <label for="kumamoto-oita-cs">熊本県・大分県CS立体図</label>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+      <summary class="yubi">
+        <strong>各種レイヤー</strong>
+      </summary>
+      <fieldset>
+        <div class="checkbox-button-container">
+          <div class="column">
+            <div>
+              <input type="checkbox" id="landslide" value="landslide" />
+              <label for="landslide">地すべり地形分布図</label>
+              <label id="open-legend-landslide" style="text-decoration: underline; cursor: pointer">凡例</label>
+            </div>
+            <div>
+              <input type="checkbox" id="plateau-lod1" value="plateau-lod1" />
+              <label for="plateau-lod1">3D都市モデルPLATEAU建物LOD1(123都市)</label>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </details>
+  </div>
+  <div class="map-overlay top">
+    <div class="map-overlay-inner">
+      <label>CS立体図 不透明度:
+        <span id="cs-slider-opacity-value">100%</span></label>
+      <input id="cs-slider-opacity" type="range" min="0" max="100" step="1" value="100" />
+      <label>陰影起伏図 不透明度:
+        <span id="hillshade-slider-opacity-value">0%</span></label>
+      <input id="hillshade-slider-opacity" type="range" min="0" max="100" step="1" value="0" />
+    </div>
+  </div>
+  <script type="module">
+    // Terrain-RGB形式への変換モジュール
+    import { makeNumPngProtocol } from "./numPngProtocol.js";
+    maplibregl.addProtocol("numpng", makeNumPngProtocol());
+
+    // addProtocolの設定
+    let protocol = new pmtiles.Protocol();
+    maplibregl.addProtocol("pmtiles", protocol.tile);
+
+    const map = new maplibregl.Map({
+      container: "map",
+      style: "std_2.json",
+      zoom: 8.98,
+      minZoom: 1,
+      maxZoom: 23,
+      pitch: 0,
+      bearing: 0,
+      maxPitch: 85,
+      center: [132.7751, 34.5659],
+      hash: true,
+      attributionControl: false,
+    });
+
+    //ジオコーダー（国土地理院 地名検索API）
+    var geocoder_api = {
+      forwardGeocode: async (config) => {
+        const features = [];
+        const Text_Prefix = config.query.substr(0, 3);
+        try {
+          let request =
+            "https://msearch.gsi.go.jp/address-search/AddressSearch?q=" +
+            config.query;
+          const response = await fetch(request);
+          const geojson = await response.json();
+
+          for (var i = 0; i < geojson.length; i++) {
+            if (geojson[i].properties.title.indexOf(Text_Prefix) !== -1) {
+              let point = {
+                type: "Feature",
+                geometry: {
+                  type: "Point",
+                  coordinates: geojson[i].geometry.coordinates,
+                },
+                place_name: geojson[i].properties.title,
+                properties: geojson[i].properties,
+                text: geojson[i].properties.title,
+                place_type: ["place"],
+                center: geojson[i].geometry.coordinates,
+              };
+              features.push(point);
+            }
+          }
+        } catch (e) {
+          console.error(`Failed to forwardGeocode with error: ${e}`);
+        }
+        return {
+          features: features,
+        };
+      },
+    };
+    map.addControl(
+      new MaplibreGeocoder(geocoder_api, { maplibregl: maplibregl }),
+      "top-right"
+    );
+
+    // ズーム・回転
+    map.addControl(new maplibregl.NavigationControl());
+
+    // フルスクリーンモードのオンオフ
+    map.addControl(new maplibregl.FullscreenControl());
+
+    // 現在位置表示
+    map.addControl(
+      new maplibregl.GeolocateControl({
+        positionOptions: {
+          enableHighAccuracy: false,
+        },
+        fitBoundsOptions: { maxZoom: 18 },
+        trackUserLocation: true,
+        showUserLocation: true,
+      })
+    );
+
+    // スケール表示
+    map.addControl(
+      new maplibregl.ScaleControl({
+        maxWidth: 200,
+        unit: "metric",
+      })
+    );
+
+    // Attributionを折りたたみ表示
+    map.addControl(
+      new maplibregl.AttributionControl({
+        compact: true,
+        customAttribution:
+          '（<a href="https://twitter.com/shi__works" target="_blank">Twitter</a> | <a href="https://github.com/shi-works/aist-dem-with-cs-on-maplibre-gl-js" target="_blank">Github</a>） ',
+      })
+    );
+
+    // 3D地形コントロール
+    map.addControl(
+      new maplibregl.TerrainControl({
+        source: "aist-dem",
+        exaggeration: 1, // 標高を強調する倍率
+      })
+    );
+
+    // 中心の座標を表示する関数
+    function updateCoordsDisplay() {
+      var center = map.getCenter();
+      var lat = center.lat.toFixed(5);
+      var lng = center.lng.toFixed(5);
+      document.getElementById("coords").innerHTML =
+        "中心座標: " +
+        lat +
+        ", " +
+        lng +
+        "<br>" +
+        '<a href="https://www.google.com/maps?q=' +
+        lat +
+        "," +
+        lng +
+        '&hl=ja" target="_blank">🌎GoogleMaps</a>' +
+        " " +
+        '<a href="https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=' +
+        lat +
+        "," +
+        lng +
+        '&hl=ja" target="_blank">📷StreetView</a>';
+    }
+
+    map.on("load", () => {
+      // 産総研 シームレス標高タイルソース
+      map.addSource("aist-dem", {
+        type: "raster-dem",
+        tiles: ["numpng://tiles.gsj.jp/tiles/elev/land/{z}/{y}/{x}.png"],
+        attribution:
+          '<a href="https://tiles.gsj.jp/tiles/elev/tiles.html" target="_blank">産業技術総合研究所 シームレス標高タイル(陸域統合DEM)</a>',
+        tileSize: 256,
+      });
+
+      // 産総研 シームレス標高タイルセット
+      // map.setTerrain({ source: 'aist-dem', exaggeration: 1 });
+
+      // 3D都市モデルPLATEAU建物（PMTiles）ソース
+      map.addSource("plateau-lod1", {
+        type: "vector",
+        url: "pmtiles://https://shiworks.xsrv.jp/pmtiles-data/plateau/PLATEAU_2022_LOD1.pmtiles",
+        minzoom: 16,
+        maxzoom: 16,
+        attribution:
+          '<a href="https://www.geospatial.jp/ckan/dataset/plateau">国土交通省 3D都市モデルPLATEAU（建物データLOD1）</a>',
+      });
+
+      // 3D都市モデルPLATEAU建物（PMTiles）レイヤ
+      map.addLayer({
+        id: "plateau-lod1",
+        source: "plateau-lod1",
+        "source-layer": "PLATEAU",
+        minzoom: 14,
+        maxzoom: 23,
+        type: "fill-extrusion",
+        layout: {
+          visibility: "none",
+        },
+        paint: {
+          "fill-extrusion-color": "#FFFFFF",
+          "fill-extrusion-opacity": 1,
+          "fill-extrusion-height": ["get", "measuredHeight"],
+        },
+      });
+
+      // スライダーCS立体図の不透明度を制御
+      const cs_sliderOpactiy = document.getElementById("cs-slider-opacity");
+      const cs_sliderOpactiyValue = document.getElementById(
+        "cs-slider-opacity-value"
+      );
+
+      cs_sliderOpactiy.addEventListener("input", (e) => {
+        map.setPaintProperty(
+          "nagano-cs",
+          "raster-opacity",
+          parseInt(e.target.value, 10) / 100
+        );
+        map.setPaintProperty(
+          "hiroshima-cs",
+          "raster-opacity",
+          parseInt(e.target.value, 10) / 100
+        );
+        map.setPaintProperty(
+          "hiroshima-05m-cs",
+          "raster-opacity",
+          parseInt(e.target.value, 10) / 100
+        );
+        map.setPaintProperty(
+          "hiroshima-1m-cs",
+          "raster-opacity",
+          parseInt(e.target.value, 10) / 100
+        );
+        map.setPaintProperty(
+          "okayama-cs",
+          "raster-opacity",
+          parseInt(e.target.value, 10) / 100
+        );
+        map.setPaintProperty(
+          "ehime-cs",
+          "raster-opacity",
+          parseInt(e.target.value, 10) / 100
+        );
+        map.setPaintProperty(
+          "kochi-cs",
+          "raster-opacity",
+          parseInt(e.target.value, 10) / 100
+        );
+        map.setPaintProperty(
+          "fukushima-cs",
+          "raster-opacity",
+          parseInt(e.target.value, 10) / 100
+        );
+        map.setPaintProperty(
+          "kumamoto-oita-cs",
+          "raster-opacity",
+          parseInt(e.target.value, 10) / 100
+        );
+        map.setPaintProperty(
+          "hyogo-cs",
+          "raster-opacity",
+          parseInt(e.target.value, 10) / 100
+        );
+        map.setPaintProperty(
+          "tochigi-cs",
+          "raster-opacity",
+          parseInt(e.target.value, 10) / 100
+        );
+        map.setPaintProperty(
+          "shizuoka-cs",
+          "raster-opacity",
+          parseInt(e.target.value, 10) / 100
+        );
+        map.setPaintProperty(
+          "gifu-cs",
+          "raster-opacity",
+          parseInt(e.target.value, 10) / 100
+        );
+        map.setPaintProperty(
+          "osaka-cs",
+          "raster-opacity",
+          parseInt(e.target.value, 10) / 100
+        );
+        map.setPaintProperty(
+          "noto-cs",
+          "raster-opacity",
+          parseInt(e.target.value, 10) / 100
+        );
+        map.setPaintProperty(
+          "tokyo-tama-cs",
+          "raster-opacity",
+          parseInt(e.target.value, 10) / 100
+        );
+        map.setPaintProperty(
+          "tokyo-shima-01-cs",
+          "raster-opacity",
+          parseInt(e.target.value, 10) / 100
+        );
+        map.setPaintProperty(
+          "tokyo-shima-02-cs",
+          "raster-opacity",
+          parseInt(e.target.value, 10) / 100
+        );
+        map.setPaintProperty(
+          "tokyo-shima-03-cs",
+          "raster-opacity",
+          parseInt(e.target.value, 10) / 100
+        );
+        map.setPaintProperty(
+          "tokyo-shima-04-cs",
+          "raster-opacity",
+          parseInt(e.target.value, 10) / 100
+        );
+        map.setPaintProperty(
+          "tokyo-shima-05-cs",
+          "raster-opacity",
+          parseInt(e.target.value, 10) / 100
+        );
+        map.setPaintProperty(
+          "tokyo-shima-06-cs",
+          "raster-opacity",
+          parseInt(e.target.value, 10) / 100
+        );
+        map.setPaintProperty(
+          "wakayama-cs",
+          "raster-opacity",
+          parseInt(e.target.value, 10) / 100
+        );
+        cs_sliderOpactiyValue.textContent = e.target.value + "%";
+      });
+
+      // スライダーで陰影起伏図の不透明度を制御
+      const hillshade_sliderOpactiy = document.getElementById(
+        "hillshade-slider-opacity"
+      );
+      const hillshade_sliderOpactiyValue = document.getElementById(
+        "hillshade-slider-opacity-value"
+      );
+
+      hillshade_sliderOpactiy.addEventListener("input", (e) => {
+        map.setPaintProperty(
+          "hillshade",
+          "raster-opacity",
+          parseInt(e.target.value, 10) / 100
+        );
+        hillshade_sliderOpactiyValue.textContent = e.target.value + "%";
+      });
+
+      map.showTileBoundaries = false;
+
+      updateCoordsDisplay(); // 初期座標を表示
+    });
+
+    // ============================== レイヤの表示・非表示切り替え制御 ==============================
+
+    // レイヤ表示・非表示切り替え関数
+    function toggleMapLayerVisibility(checkboxId, layerId) {
+      if (checkboxId != "tokyo-shima-cs") {
+        document
+          .getElementById(checkboxId)
+          .addEventListener("change", function (e) {
+            map.setLayoutProperty(
+              layerId,
+              "visibility",
+              e.target.checked ? "visible" : "none"
+            );
+          });
+      } else {
+        document
+          .getElementById(checkboxId)
+          .addEventListener("change", function (e) {
+            map.setLayoutProperty(
+              "tokyo-shima-01-cs",
+              "visibility",
+              e.target.checked ? "visible" : "none"
+            );
+            map.setLayoutProperty(
+              "tokyo-shima-02-cs",
+              "visibility",
+              e.target.checked ? "visible" : "none"
+            );
+            map.setLayoutProperty(
+              "tokyo-shima-03-cs",
+              "visibility",
+              e.target.checked ? "visible" : "none"
+            );
+            map.setLayoutProperty(
+              "tokyo-shima-04-cs",
+              "visibility",
+              e.target.checked ? "visible" : "none"
+            );
+            map.setLayoutProperty(
+              "tokyo-shima-05-cs",
+              "visibility",
+              e.target.checked ? "visible" : "none"
+            );
+            map.setLayoutProperty(
+              "tokyo-shima-06-cs",
+              "visibility",
+              e.target.checked ? "visible" : "none"
+            );
+          });
+      }
+    }
+
+    // レイヤ表示・非表示切り替え制御
+    // CS立体図
+    toggleMapLayerVisibility("fukushima-cs", "fukushima-cs");
+    toggleMapLayerVisibility("tochigi-cs", "tochigi-cs");
+    toggleMapLayerVisibility("tokyo-tama-cs", "tokyo-tama-cs");
+    toggleMapLayerVisibility("tokyo-shima-cs", "tokyo-shima-cs");
+    toggleMapLayerVisibility("noto-cs", "noto-cs");
+    toggleMapLayerVisibility("nagano-cs", "nagano-cs");
+    toggleMapLayerVisibility("gifu-cs", "gifu-cs");
+    toggleMapLayerVisibility("shizuoka-cs", "shizuoka-cs");
+    toggleMapLayerVisibility("osaka-cs", "osaka-cs");
+    toggleMapLayerVisibility("hyogo-cs", "hyogo-cs");
+    toggleMapLayerVisibility("wakayama-cs", "wakayama-cs");
+    toggleMapLayerVisibility("okayama-cs", "okayama-cs");
+    toggleMapLayerVisibility("hiroshima-cs", "hiroshima-cs");
+    toggleMapLayerVisibility("hiroshima-05m-cs", "hiroshima-05m-cs");
+    toggleMapLayerVisibility("hiroshima-1m-cs", "hiroshima-1m-cs");
+    toggleMapLayerVisibility("ehime-cs", "ehime-cs");
+    toggleMapLayerVisibility("kochi-cs", "kochi-cs");
+    toggleMapLayerVisibility("kumamoto-oita-cs", "kumamoto-oita-cs");
+    toggleMapLayerVisibility("plateau-lod1", "plateau-lod1");
+    toggleMapLayerVisibility("landslide", "landslide");
+
+    /*
+          // 各種レイヤー
+          toggleMapLayerVisibility('landslide', 'landslide');
+          */
+
+    // 地図が移動したら中心の座標を更新
+    map.on("move", function () {
+      updateCoordsDisplay(); // 座標を更新
+    });
+
+    // 地すべり地形分布図凡例
+
+    // イベントリスナーを追加
+    document.addEventListener("DOMContentLoaded", () => {
+      document
+        .getElementById("open-legend-landslide")
+        .addEventListener("click", OpenLegendRoad);
+    });
+
+    function OpenLegendRoad() {
+      // 凡例の内容を含むウェブページのURL
+      var legendUrl = "./legend-landslide.png";
+
+      // 新しいウィンドウを開く
+      window.open(legendUrl, "Legend", "width=1800,height=1200");
+    }
+  </script>
+</body>
+
+</html>
