@@ -2,7 +2,7 @@
 
 ## Public Website
 
-https://shi-works.github.io/aist-dem-with-cs-on-maplibre-gl-js/
+https://shiwaku.github.io/aist-dem-with-csmap-on-maplibre/
 
 ## 長野県林業総合センター
 
