@@ -134,7 +134,15 @@
       "tiles": [
         "https://www2.ffpri.go.jp/soilmap/tile/cs_noto/{z}/{x}/{y}.png"
       ],
-      "attribution": "<a href='https://www2.ffpri.go.jp/soilmap/data-src.html' target='_blank'>能登(石川県)CS立体図</a>",
+      "attribution": "<a href='https://www2.ffpri.go.jp/soilmap/data-src.html' target='_blank'>能登(石川県)CS立体図(発災前)</a>",
+      "tileSize": 256
+    },
+    "noto-cs-af": {
+      "type": "raster",
+      "tiles": [
+        "https://shiworks.xsrv.jp/proxy.php?url=https://rinya.geospatial.jp/tile/csmaptile_noto/{z}/{x}/{y}.png"
+      ],
+      "attribution": "<a href='https://www2.ffpri.go.jp/soilmap/data-src.html' target='_blank'>能登(石川県)CS立体図(発災後)</a>",
       "tileSize": 256
     },
     "tokyo-tama-cs": {
@@ -412,6 +420,17 @@
       "id": "noto-cs",
       "type": "raster",
       "source": "noto-cs",
+      "layout": {
+        "visibility": "none"
+      },
+      "paint": {
+        "raster-opacity": 1
+      }
+    },
+    {
+      "id": "noto-cs-af",
+      "type": "raster",
+      "source": "noto-cs-af",
       "layout": {
         "visibility": "none"
       },

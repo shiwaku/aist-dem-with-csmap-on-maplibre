@@ -159,7 +159,11 @@
             </div>
             <div>
               <input type="checkbox" id="noto-cs" value="noto-cs" />
-              <label for="noto-cs">能登(石川県)CS立体図</label>
+              <label for="noto-cs">能登(石川県)CS立体図(発災前)</label>
+            </div>
+            <div>
+              <input type="checkbox" id="noto-cs-af" value="noto-cs-af" />
+              <label for="noto-cs-af">能登(石川県)CS立体図(発災後)</label>
             </div>
             <div>
               <input type="checkbox" id="nagano-cs" value="nagano-cs" />
@@ -342,7 +346,7 @@
       new maplibregl.AttributionControl({
         compact: true,
         customAttribution:
-          '（<a href="https://twitter.com/shi__works" target="_blank">Twitter</a> | <a href="https://github.com/shi-works/aist-dem-with-cs-on-maplibre-gl-js" target="_blank">Github</a>） ',
+          '（<a href="https://twitter.com/shi__works" target="_blank">X(旧Twitter)</a> | <a href="https://github.com/shiwaku/aist-dem-with-csmap-on-maplibre" target="_blank">Github</a>） ',
       })
     );
 
@@ -502,6 +506,11 @@
           parseInt(e.target.value, 10) / 100
         );
         map.setPaintProperty(
+          "noto-cs-af",
+          "raster-opacity",
+          parseInt(e.target.value, 10) / 100
+        );
+        map.setPaintProperty(
           "tokyo-tama-cs",
           "raster-opacity",
           parseInt(e.target.value, 10) / 100
@@ -625,6 +634,7 @@
     toggleMapLayerVisibility("tokyo-tama-cs", "tokyo-tama-cs");
     toggleMapLayerVisibility("tokyo-shima-cs", "tokyo-shima-cs");
     toggleMapLayerVisibility("noto-cs", "noto-cs");
+    toggleMapLayerVisibility("noto-cs-af", "noto-cs-af");
     toggleMapLayerVisibility("nagano-cs", "nagano-cs");
     toggleMapLayerVisibility("gifu-cs", "gifu-cs");
     toggleMapLayerVisibility("shizuoka-cs", "shizuoka-cs");
