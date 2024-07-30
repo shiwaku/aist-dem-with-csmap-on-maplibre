@@ -278,7 +278,7 @@
       "type": "raster",
       "source": "hiroshima-05m-cs",
       "layout": {
-        "visibility": "visible"
+        "visibility": "none"
       },
       "paint": {
         "raster-opacity": 1
@@ -432,7 +432,7 @@
       "type": "raster",
       "source": "noto-cs-af",
       "layout": {
-        "visibility": "none"
+        "visibility": "visible"
       },
       "paint": {
         "raster-opacity": 1

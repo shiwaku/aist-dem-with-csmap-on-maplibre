@@ -162,7 +162,7 @@
               <label for="noto-cs">能登(石川県)CS立体図(発災前)</label>
             </div>
             <div>
-              <input type="checkbox" id="noto-cs-af" value="noto-cs-af" />
+              <input type="checkbox" id="noto-cs-af" value="noto-cs-af" checked />
               <label for="noto-cs-af">能登(石川県)CS立体図(発災後)</label>
             </div>
             <div>
@@ -198,7 +198,7 @@
               <label for="hiroshima-cs">広島県CS立体図(林野庁0.5m)</label>
             </div>
             <div>
-              <input type="checkbox" id="hiroshima-05m-cs" value="hiroshima-05m-cs" checked />
+              <input type="checkbox" id="hiroshima-05m-cs" value="hiroshima-05m-cs" />
               <label for="hiroshima-05m-cs">広島県CS立体図(広島県0.5m)</label>
             </div>
             <div>
@@ -262,13 +262,13 @@
     const map = new maplibregl.Map({
       container: "map",
       style: "std_2.json",
-      zoom: 8.98,
+      zoom: 9.11,
       minZoom: 1,
       maxZoom: 23,
       pitch: 0,
       bearing: 0,
       maxPitch: 85,
-      center: [132.7751, 34.5659],
+      center: [136.965, 37.0879],
       hash: true,
       attributionControl: false,
     });
