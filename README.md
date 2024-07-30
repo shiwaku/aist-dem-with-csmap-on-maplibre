@@ -37,7 +37,7 @@ https://shiwaku.github.io/aist-dem-with-csmap-on-maplibre/
   - 概要：林野庁が取得した LiDAR データ（H28.6 ～ H28.9）による 0.5mDEM を使用して作成。
   - ライセンス：[森林土壌デジタルマップ・利用規約](https://www2.ffpri.go.jp/soilmap/#)参照。
 
-- 能登(石川県) CS立体図
+- 能登(石川県) CS立体図(発災前)
   - 出典：https://www2.ffpri.go.jp/soilmap/data-src.html
   - 概要：石川県が取得した LiDAR データ（2020 年 7 月～ 2023 年 2 月）による 0.5mDEM を使用して作成。
   - ライセンス：[森林土壌デジタルマップ・利用規約](https://www2.ffpri.go.jp/soilmap/#)参照。
