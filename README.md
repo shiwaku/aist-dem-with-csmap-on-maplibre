@@ -13,53 +13,58 @@ https://shiwaku.github.io/aist-dem-with-csmap-on-maplibre/
 
 ## 森林総合研究所
 
-- 広島県(林野庁)および岡山県(林野庁) CS 立体図
+- 広島県(林野庁)および岡山県(林野庁) CS立体図
 
   - 出典：https://www2.ffpri.go.jp/soilmap/data-src.html
   - 概要：林野庁が取得した LiDAR データ（2018 年 9 月～ 2019 年 1 月）による 0.5mDEM を使用して作成。
   - ライセンス：[森林土壌デジタルマップ・利用規約](https://www2.ffpri.go.jp/soilmap/#)参照。
 
-- 愛媛県(林野庁)および高知県(林野庁) CS 立体図
+- 愛媛県(林野庁)および高知県(林野庁) CS立体図
 
   - 出典：https://www2.ffpri.go.jp/soilmap/data-src.html
   - 概要：林野庁が取得した LiDAR データ（2018 年 9 月～ 2019 年 1 月）による 0.5mDEM を使用して作成。
   - ライセンス：[森林土壌デジタルマップ・利用規約](https://www2.ffpri.go.jp/soilmap/#)参照。
 
-- 福島県(林野庁) CS 立体図
+- 福島県(林野庁) CS立体図
 
   - 出典：https://www2.ffpri.go.jp/soilmap/data-src.html
   - 概要：林野庁が取得した LiDAR データ（H23.12 ～ H25.3）による 1mDEM を使用して作成。
   - ライセンス：[森林土壌デジタルマップ・利用規約](https://www2.ffpri.go.jp/soilmap/#)参照。
 
-- 熊本県・大分県(林野庁) CS 立体図
+- 熊本県・大分県(林野庁) CS立体図
 
   - 出典：https://www2.ffpri.go.jp/soilmap/data-src.html
   - 概要：林野庁が取得した LiDAR データ（H28.6 ～ H28.9）による 0.5mDEM を使用して作成。
   - ライセンス：[森林土壌デジタルマップ・利用規約](https://www2.ffpri.go.jp/soilmap/#)参照。
 
-- 能登(石川県) CS 立体図
+- 能登(石川県) CS立体図
   - 出典：https://www2.ffpri.go.jp/soilmap/data-src.html
   - 概要：石川県が取得した LiDAR データ（2020 年 7 月～ 2023 年 2 月）による 0.5mDEM を使用して作成。
   - ライセンス：[森林土壌デジタルマップ・利用規約](https://www2.ffpri.go.jp/soilmap/#)参照。
 
 ## 林野庁
 
-- 栃木県 CS 立体図
+- 栃木県 CS立体図
 
   - 出典：https://www.geospatial.jp/ckan/dataset/csmap_tochigi
   - 概要：令和３～４年度に栃木県が実施した航空レーザ測量データを使用して作成。
   - ライセンス：[利用規約](https://www.geospatial.jp/ckan/dataset/csmap_tochigi/resource/4dffe2ac-511f-49eb-87c4-29c936ed2cb7)参照。
 
-- 兵庫県 CS 立体図(0.5m)
+- 兵庫県 CS立体図(0.5m)
 
   - 出典：https://www.geospatial.jp/ckan/dataset/csmap_hyogo
   - 概要：兵庫県（令和２～３年度）及び国土交通省近畿地方整備局六甲砂防事務所（平成 24 ～ 25 年度）が実施した航空レーザ測量データを使用して作成。
   - ライセンス：[利用規約](https://www.geospatial.jp/ckan/dataset/csmap_hyogo/resource/ab5fab0d-99a1-4638-9807-a09eb53e14b7)参照。
 
-- 高知県 CS 立体図
+- 高知県 CS立体図
   - 出典：https://www.geospatial.jp/ckan/dataset/csmap_kochi
   - 概要：平成 30 年度に林野庁が実施した航空レーザ測量データを基に、高知県が作成した。
   - ライセンス：[利用規約](https://www.geospatial.jp/ckan/dataset/csmap_kochi/resource/86bbb203-3025-4c58-b130-b8fe692f9c09)参照。
+
+-  能登地域 CS立体図(発災後)
+  - 出典：https://www.geospatial.jp/ckan/dataset/2024noto_rinya
+  - 概要：和６年能登半島地震の発災後に林野庁と国土地理院が連携して実施した航空レーザ測量の速報成果を解析し、作成した微地形表現図です。
+  - ライセンス：クリエイティブ・コモンズ・ライセンス表示4.0と互換性があります。[利用規約](https://www.geospatial.jp/ckan/dataset/2024noto_rinya/resource/2d07d2e8-d344-452f-b98f-c4171b14a542)参照。
 
 ## [open-hinata](https://kenzkenz.xsrv.jp/open-hinata/open-hinata.html)
 
@@ -73,7 +78,7 @@ https://shiwaku.github.io/aist-dem-with-csmap-on-maplibre/
     - ライセンス：-
 -->
 
-- 岐阜県 CS 立体図
+- 岐阜県 CS立体図
   - 出典：https://kenzkenz.xsrv.jp/open-hinata/open-hinata.html
     - 原初データ出典：[岐阜県 CS 立体図 2019（GeoTIFF 形式）](https://www.geospatial.jp/ckan/dataset/cs-2019-geotiff)
   - 概要：G 空間情報センターにて公開されている、岐阜県 CS 立体図 2019（GeoTIFF 形式）を[@kenzkenz](https://twitter.com/kenzkenz)様がラスタータイル化したデータです。
@@ -81,7 +86,7 @@ https://shiwaku.github.io/aist-dem-with-csmap-on-maplibre/
 
 ## [shi-works](https://twitter.com/shi__works)
 
-- 大阪府 CS 立体図
+- 大阪府 CS立体図
 
   - 出典（タイル URL）：`https://xs489works.xsrv.jp/raster-tiles/pref-osaka/osaka-cs-tiles/{z}/{x}/{y}.png`
     - 原初データ出典：[大阪府 微地形地図](https://www.geospatial.jp/ckan/dataset/cs)
@@ -91,7 +96,7 @@ https://shiwaku.github.io/aist-dem-with-csmap-on-maplibre/
   - タイルサイズ：256x256 ピクセル
   - ライセンス：[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 
-- 静岡県 CS 立体図
+- 静岡県 CS立体図
 
   - 出典（タイル URL）：`https://shiworks.xsrv.jp/raster-tiles/pref-shizuoka/shizuoka-cs-tiles/{z}/{x}/{y}.png`
     - 原初データ出典：[VIRTUAL SHIZUOKA 静岡県 CS 立体図](https://www.geospatial.jp/ckan/dataset/shizuoka-2023-csmap)
@@ -102,7 +107,7 @@ https://shiwaku.github.io/aist-dem-with-csmap-on-maplibre/
   - タイルサイズ：256x256 ピクセル
   - ライセンス：[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 
-- 東京都(多摩地域) CS 立体図（**試験公開中のため、予告なく変更または公開を中止する場合があります。**）
+- 東京都(多摩地域) CS立体図（**試験公開中のため、予告なく変更または公開を中止する場合があります。**）
 
   - 出典（タイル URL）：`https://shiworks.xsrv.jp/raster-tiles/tokyo-digitaltwin/tokyopc-tama-2023-cs-tiles/{z}/{x}/{y}.png`
     - 原初データ出典：[東京都デジタルツイン実現プロジェクト 多摩地域点群データ（グリッドデータ（0.25m））](https://www.geospatial.jp/ckan/dataset/tokyopc-tama-2023)
@@ -113,7 +118,7 @@ https://shiwaku.github.io/aist-dem-with-csmap-on-maplibre/
   - タイルサイズ：256x256 ピクセル
   - ライセンス：[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 
-- 東京都(島しょ地域) CS 立体図（**試験公開中のため、予告なく変更または公開を中止する場合があります。**）
+- 東京都(島しょ地域) CS立体図（**試験公開中のため、予告なく変更または公開を中止する場合があります。**）
 
   - 出典（タイル URL）
   - 伊豆大島：`https://xs489works.xsrv.jp/raster-tiles/tokyo-digitaltwin/tokyopc-shima-01-2023-cs-tiles/{z}/{x}/{y}.png`
@@ -130,7 +135,7 @@ https://shiwaku.github.io/aist-dem-with-csmap-on-maplibre/
   - タイルサイズ：256x256 ピクセル
   - ライセンス：[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 
-- 和歌山県 CS 立体図（**試験公開中のため、予告なく変更または公開を中止する場合があります。**）
+- 和歌山県 CS立体図（**試験公開中のため、予告なく変更または公開を中止する場合があります。**）
 
   - 出典（タイル URL）：`https://xs489works.xsrv.jp/raster-tiles/pref-wakayama/wakayamapc-cs-tiles/{z}/{x}/{y}.png`
     - 原初データ出典：[和歌山県 3 次元点群データ](https://www.pref.wakayama.lg.jp/prefg/012100/d00213012.html)
@@ -141,7 +146,7 @@ https://shiwaku.github.io/aist-dem-with-csmap-on-maplibre/
   - タイルサイズ：256x256 ピクセル
   - ライセンス：[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 
-- 広島県 CS 立体図(1m)（**試験公開中のため、予告なく変更または公開を中止する場合があります。**）
+- 広島県 CS立体図(1m)（**試験公開中のため、予告なく変更または公開を中止する場合があります。**）
 
   - 出典（タイル URL）：`https://xs489works.xsrv.jp/raster-tiles/pref-hiroshima/hiroshimapc-cs-tiles/{z}/{x}/{y}.png`
     - 原初データ出典：[広島県 3 次元点群データ](https://hiroshima-dobox.jp/index2)
@@ -152,7 +157,7 @@ https://shiwaku.github.io/aist-dem-with-csmap-on-maplibre/
   - タイルサイズ：256x256 ピクセル
   - ライセンス：[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 
-- 広島県 CS 立体図(0.5m)（**試験公開中のため、予告なく変更または公開を中止する場合があります。**）
+- 広島県 CS立体図(0.5m)（**試験公開中のため、予告なく変更または公開を中止する場合があります。**）
   - 出典（タイル URL）：`https://shiworks.xsrv.jp/raster-tiles/pref-hiroshima/hiroshimapc-2022-cs-tiles/{z}/{x}/{y}.png`
     - 原初データ出典：[広島県 3 次元点群データ](https://hiroshima-dobox.jp/index2)
     - 概要：広島県がオープンデータとして公開している土砂災害防止法に基づく基礎調査で取得した航空レーザ測量成果です（2022年度）。
