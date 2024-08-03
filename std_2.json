@@ -20,6 +20,12 @@
       ],
       "attribution": "<a href='https://maps.gsi.go.jp/development/ichiran.html#hillshademap' target='_blank'>地理院タイル(陰影起伏図)</a>"
     },
+    "niigata-nagaoka-cs": {
+      "type": "raster",
+      "tiles": ["https://shiworks.xsrv.jp/proxy.php?url=https://rinya.geospatial.jp/tile/csmaptile_nagaoka/{z}/{x}/{y}.png"],
+      "attribution": "<a href='https://www.geospatial.jp/ckan/dataset/2024nagaoka_rinya' target='_blank'>新潟県(長岡地域)CS立体図</a>",
+      "tileSize": 256
+    },
     "nagano-cs": {
       "type": "raster",
       "tiles": ["https://tile.geospatial.jp/CS/VER2/{z}/{x}/{y}.png"],
@@ -249,6 +255,17 @@
       "source": "h",
       "paint": {
         "raster-opacity": 0
+      }
+    },
+    {
+      "id": "niigata-nagaoka-cs",
+      "type": "raster",
+      "source": "niigata-nagaoka-cs",
+      "layout": {
+        "visibility": "none"
+      },
+      "paint": {
+        "raster-opacity": 1
       }
     },
     {
