@@ -63,8 +63,13 @@ https://shiwaku.github.io/aist-dem-with-csmap-on-maplibre/
 
 - 能登地域 CS立体図(発災後)
   - 出典：https://www.geospatial.jp/ckan/dataset/2024noto_rinya
-  - 概要：和６年能登半島地震の発災後に林野庁と国土地理院が連携して実施した航空レーザ測量の速報成果を解析し、作成した微地形表現図です。
+  - 概要：令和６年能登半島地震の発災後に林野庁と国土地理院が連携して実施した航空レーザ測量の速報成果を解析し、作成した微地形表現図です。
   - ライセンス：クリエイティブ・コモンズ・ライセンス表示4.0と互換性があります。[利用規約](https://www.geospatial.jp/ckan/dataset/2024noto_rinya/resource/2d07d2e8-d344-452f-b98f-c4171b14a542)参照。
+
+- 新潟県(長岡地域) CS立体図(発災後)
+  - 出典：https://www.geospatial.jp/ckan/dataset/2024nagaoka_rinya
+  - 概要：令和６年能登半島地震の発災後に林野庁と国土地理院が連携して実施した航空レーザ測量の速報成果を解析し、作成した微地形表現図です。データの範囲は、長岡市の全域と三条市及び見附市の一部です。
+  - ライセンス：クリエイティブ・コモンズ・ライセンス表示4.0と互換性があります。[利用規約](https://www.geospatial.jp/ckan/dataset/2024nagaoka_rinya/resource/9c76b040-b1ec-4e4b-a595-09b9aeca586c)参照。
 
 ## [open-hinata](https://kenzkenz.xsrv.jp/open-hinata/open-hinata.html)
 
