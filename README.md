@@ -167,6 +167,17 @@ https://shiwaku.github.io/aist-dem-with-csmap-on-maplibre/
   - タイルサイズ：256x256 ピクセル
   - ライセンス：[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 
+- 神奈川県 CS立体図(0.5m)（**試験公開中のため、予告なく変更または公開を中止する場合があります。**）
+  - 出典（タイル URL）：`https://shiworks.xsrv.jp/raster-tiles/pref-kanagawa/kanagawapc-cs-tiles/{z}/{x}/{y}.png`
+    - 原初データ出典：[神奈川県 3 次元点群データ](https://www.geospatial.jp/ckan/dataset?q=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C+3%E6%AC%A1%E5%85%83%E7%82%B9%E7%BE%A4&sort=metadata_modified+desc)
+    - 概要：令和元年度から令和4年度にかけて実施した航空レーザ測量によって得られた３次元点群データです。
+    - データ品質：4点/m2以上の計測密度で行った航空レーザ計測により得られた3次元点群データ及び微地形表現図ほか関連資料です。 データの水平原子はJGD2011、平面直角座標Ⅸ系、垂直原子は東京湾平均海面を基準とする海抜標高です。 森林資源データ解析を主な目的として得られた3次元点群データなので、森林の存在しない市街地、港湾部についてはデータを取得しておりません。また、国有林及び飛行機の航行が制限される軍事基地周辺についてもデータを取得しておりません。
+    - ライセンス：・本データの利用で知りえた情報や資料は、犯罪その他不正な行為に使用しないこと。 ・本データの利用で知りえた情報や資料により、申出者又は第三者に発生した直接的、間接的な損害に対して神奈川県は一切の責任を負わないこと。 ・本データを利用した制作物には「データ提供：（神奈川県環境農政局緑政部森林再生課）」と明示すること。
+  - 概要：神奈川県がオープンデータとして公開している 3 次元点群データ（0.5mグリッドデータ）をもとに、[GMT(the Generic Mapping Tools)](https://www.generic-mapping-tools.org/)の[triangulate](https://docs.generic-mapping-tools.org/dev/triangulate.html)を使用して 0.5mDEM を作成。作成した 0.5mDEM と株式会社[MIERUNE](https://github.com/MIERUNE)開発の[CS 立体図作成ツール(csmap-py)](https://github.com/MIERUNE/csmap-py)を使用して CS 立体図を作成。本データは CS 立体図を Web メルカトル（EPSG:3857）に再投影した上で[gdal2tiles](https://gdal.org/programs/gdal2tiles.html)を使用してラスタータイル化したデータです。
+  - ズームレベル：4 ～ 18
+  - タイルサイズ：256x256 ピクセル
+  - ライセンス：[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+
 ## 国土地理院
 
 - 地理院タイル(地すべり地形分布図日本全国版（防災科学技術研究所）)
