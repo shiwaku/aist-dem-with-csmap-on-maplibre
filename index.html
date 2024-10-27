@@ -273,8 +273,8 @@
       zoom: 9.82,
       minZoom: 1,
       maxZoom: 23,
-      pitch: 64,
-      bearing: -106.2,
+      pitch: 0,
+      bearing: 0,
       maxPitch: 85,
       center: [139.3825, 35.3989],
       hash: true,
@@ -403,7 +403,7 @@
       });
 
       // 標高タイルセット
-      map.setTerrain({ 'source': 'aist-dem-terrain-rgb', 'exaggeration': 1 });
+      // map.setTerrain({ 'source': 'aist-dem-terrain-rgb', 'exaggeration': 1 });
 
       // 3D都市モデルPLATEAU建物（PMTiles）ソース
       map.addSource("plateau-lod1", {
