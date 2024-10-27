@@ -158,6 +158,10 @@
               <label for="toyko-shima-cs">東京都(島しょ地域)CS立体図</label>
             </div>
             <div>
+              <input type="checkbox" id="kanagawa-cs" value="kanagawa-cs" checked/>
+              <label for="kanagawa-cs">神奈川県CS立体図</label>
+            </div>
+            <div>
               <input type="checkbox" id="noto-cs" value="noto-cs" />
               <label for="noto-cs">能登(石川県)CS立体図</label>
             </div>
@@ -202,7 +206,7 @@
               <label for="hiroshima-1m-cs">広島県CS立体図(広島県1m)</label>
             </div>
             <div>
-              <input type="checkbox" id="ehime-cs" value="ehime-cs" checked />
+              <input type="checkbox" id="ehime-cs" value="ehime-cs"/>
               <label for="ehime-cs">愛媛県CS立体図</label>
             </div>
             <div>
@@ -266,13 +270,13 @@
     const map = new maplibregl.Map({
       container: "map",
       style: "std.json",
-      zoom: 17.07,
+      zoom: 9.82,
       minZoom: 1,
       maxZoom: 23,
       pitch: 64,
       bearing: -106.2,
       maxPitch: 85,
-      center: [132.769073, 33.844716],
+      center: [139.3825, 35.3989],
       hash: true,
       attributionControl: false,
     });
@@ -551,6 +555,11 @@
           "raster-opacity",
           parseInt(e.target.value, 10) / 100
         );
+        map.setPaintProperty(
+          "kanagawa-cs",
+          "raster-opacity",
+          parseInt(e.target.value, 10) / 100
+        );
         cs_sliderOpactiyValue.textContent = e.target.value + "%";
       });
 
@@ -634,6 +643,7 @@
     toggleMapLayerVisibility("tochigi-cs", "tochigi-cs");
     toggleMapLayerVisibility("tokyo-tama-cs", "tokyo-tama-cs");
     toggleMapLayerVisibility("tokyo-shima-cs", "tokyo-shima-cs");
+    toggleMapLayerVisibility("kanagawa-cs", "kanagawa-cs");
     toggleMapLayerVisibility("noto-cs", "noto-cs");
     toggleMapLayerVisibility("nagano-cs", "nagano-cs");
     toggleMapLayerVisibility("gifu-cs", "gifu-cs");

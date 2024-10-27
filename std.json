@@ -193,6 +193,14 @@
       "attribution": "<a href='https://www.geospatial.jp/ckan/dataset/tokyopc-shima-2023' target='_blank'>東京都(島しょ地域)CS立体図(東京都デジタルツイン実現プロジェクト 島しょ地域点群データを加工して作成)</a>",
       "tileSize": 256
     },
+    "kanagawa-cs": {
+      "type": "raster",
+      "tiles": [
+        "https://shiworks.xsrv.jp/raster-tiles/pref-kanagawa/kanagawapc-cs-tiles/{z}/{x}/{y}.png"
+      ],
+      "attribution": "<a href='https://www.geospatial.jp/ckan/dataset?q=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C+3%E6%AC%A1%E5%85%83%E7%82%B9%E7%BE%A4&sort=metadata_modified+desc' target='_blank'>神奈川県CS立体図(データ提供:(神奈川県環境農政局緑政部森林再生課))</a>",
+      "tileSize": 256
+    },
     "wakayama-cs": {
       "type": "raster",
       "tiles": [
@@ -303,7 +311,7 @@
       "type": "raster",
       "source": "ehime-cs",
       "layout": {
-        "visibility": "visible"
+        "visibility": "none"
       },
       "paint": {
         "raster-opacity": 1
@@ -425,6 +433,17 @@
       "source": "tokyo-tama-cs",
       "layout": {
         "visibility": "none"
+      },
+      "paint": {
+        "raster-opacity": 1
+      }
+    },
+    {
+      "id": "kanagawa-cs",
+      "type": "raster",
+      "source": "kanagawa-cs",
+      "layout": {
+        "visibility": "visible"
       },
       "paint": {
         "raster-opacity": 1
