@@ -137,6 +137,14 @@
       "attribution": "<a href='https://www2.ffpri.go.jp/soilmap/data-src.html' target='_blank'>能登(石川県)CS立体図</a>",
       "tileSize": 256
     },
+    "tokyo-23ku-cs": {
+      "type": "raster",
+      "tiles": [
+        "https://shiworks.xsrv.jp/raster-tiles/tokyo-digitaltwin/tokyopc-23ku-2024-cs-tiles/{z}/{x}/{y}.png"
+      ],
+      "attribution": "<a href='' target='_blank'>東京都(区部)CS立体図(東京都デジタルツイン実現プロジェクト 区部点群データを加工して作成)</a>",
+      "tileSize": 256
+    },
     "tokyo-tama-cs": {
       "type": "raster",
       "tiles": [
@@ -439,11 +447,22 @@
       }
     },
     {
+      "id": "tokyo-23ku-cs",
+      "type": "raster",
+      "source": "tokyo-23ku-cs",
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "raster-opacity": 1
+      }
+    },
+    {
       "id": "kanagawa-cs",
       "type": "raster",
       "source": "kanagawa-cs",
       "layout": {
-        "visibility": "visible"
+        "visibility": "none"
       },
       "paint": {
         "raster-opacity": 1
@@ -848,64 +867,6 @@
       "paint": {
         "line-color": "rgba(34,24,21,1)",
         "line-width": 1
-      }
-    },
-    {
-      "id": "等高線",
-      "type": "line",
-      "source": "v",
-      "source-layer": "Cntr",
-      "paint": {
-        "line-color": "rgb(200,160,60)",
-        "line-width": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          9,
-          0.7,
-          12,
-          0.7,
-          13,
-          ["case", ["==", ["%", ["get", "vt_alti"], 50], 0], 1.4, 0.7]
-        ],
-        "line-opacity": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          9,
-          0,
-          10,
-          ["case", ["==", ["%", ["get", "vt_alti"], 50], 0], 1, 0],
-          14,
-          ["case", ["==", ["%", ["get", "vt_alti"], 50], 0], 1, 0],
-          15,
-          1,
-          16,
-          ["case", ["==", ["get", "vt_code"], 7353], 0, 1]
-        ]
-      }
-    },
-    {
-      "id": "等高線数値部",
-      "type": "symbol",
-      "source": "v",
-      "source-layer": "Cntr",
-      "filter": ["==", ["get", "vt_code"], 7352],
-      "layout": {
-        "text-allow-overlap": true,
-        "text-ignore-placement": true,
-        "symbol-placement": "line-center",
-        "text-pitch-alignment": "viewport",
-        "text-rotation-alignment": "map",
-        "text-size": 13,
-        "text-font": ["NotoSansJP-Regular"],
-        "text-max-angle": 360,
-        "text-field": ["get", "vt_alti"]
-      },
-      "paint": {
-        "text-color": "rgba(200, 160, 60,1)",
-        "text-halo-color": "rgba(255,255,255,1)",
-        "text-halo-width": 1.5
       }
     },
     {
@@ -2303,7 +2264,7 @@
           "rgba(255,187,153,1)",
           "rgba(0,0,0,0)"
         ],
-        "fill-opacity": 0.5
+        "fill-opacity": 0
       }
     },
     {
@@ -2317,15 +2278,15 @@
           "match",
           ["get", "vt_code"],
           3101,
-          "rgba(255,135,75,1)",
+          "rgba(0,0,0,1)",
           3102,
-          "rgba(255,135,75,1)",
+          "rgba(0,0,0,1)",
           3103,
-          "rgba(255,135,75,1)",
+          "rgba(0,0,0,1)",
           3111,
-          "rgba(255,135,75,1)",
+          "rgba(0,0,0,1)",
           3112,
-          "rgba(255,135,75,1)",
+          "rgba(0,0,0,1)",
           "rgba(0,0,0,0)"
         ],
         "line-width": [
@@ -4038,7 +3999,7 @@
           "rgba(255,187,153,1)",
           "rgba(0,0,0,0)"
         ],
-        "fill-opacity": 0.5
+        "fill-opacity": 0
       }
     },
     {
@@ -4052,15 +4013,15 @@
           "match",
           ["get", "vt_code"],
           3101,
-          "rgba(255,135,75,1)",
+          "rgba(0,0,0,1)",
           3102,
-          "rgba(255,135,75,1)",
+          "rgba(0,0,0,1)",
           3103,
-          "rgba(255,135,75,1)",
+          "rgba(0,0,0,1)",
           3111,
-          "rgba(255,135,75,1)",
+          "rgba(0,0,0,1)",
           3112,
-          "rgba(255,135,75,1)",
+          "rgba(0,0,0,1)",
           "rgba(0,0,0,0)"
         ],
         "line-width": [
@@ -5447,7 +5408,7 @@
           "rgba(255,187,153,1)",
           "rgba(0,0,0,0)"
         ],
-        "fill-opacity": 0.5
+        "fill-opacity": 0
       }
     },
     {
@@ -5461,15 +5422,15 @@
           "match",
           ["get", "vt_code"],
           3101,
-          "rgba(255,135,75,1)",
+          "rgba(0,0,0,1)",
           3102,
-          "rgba(255,135,75,1)",
+          "rgba(0,0,0,1)",
           3103,
-          "rgba(255,135,75,1)",
+          "rgba(0,0,0,1)",
           3111,
-          "rgba(255,135,75,1)",
+          "rgba(0,0,0,1)",
           3112,
-          "rgba(255,135,75,1)",
+          "rgba(0,0,0,1)",
           "rgba(0,0,0,0)"
         ],
         "line-width": [
@@ -6856,7 +6817,7 @@
           "rgba(255,187,153,1)",
           "rgba(0,0,0,0)"
         ],
-        "fill-opacity": 0.5
+        "fill-opacity": 0
       }
     },
     {
@@ -6870,15 +6831,15 @@
           "match",
           ["get", "vt_code"],
           3101,
-          "rgba(255,135,75,1)",
+          "rgba(0,0,0,1)",
           3102,
-          "rgba(255,135,75,1)",
+          "rgba(0,0,0,1)",
           3103,
-          "rgba(255,135,75,1)",
+          "rgba(0,0,0,1)",
           3111,
-          "rgba(255,135,75,1)",
+          "rgba(0,0,0,1)",
           3112,
-          "rgba(255,135,75,1)",
+          "rgba(0,0,0,1)",
           "rgba(0,0,0,0)"
         ],
         "line-width": [
@@ -8265,7 +8226,7 @@
           "rgba(255,187,153,1)",
           "rgba(0,0,0,0)"
         ],
-        "fill-opacity": 0.5
+        "fill-opacity": 0
       }
     },
     {
@@ -8279,15 +8240,15 @@
           "match",
           ["get", "vt_code"],
           3101,
-          "rgba(255,135,75,1)",
+          "rgba(0,0,0,1)",
           3102,
-          "rgba(255,135,75,1)",
+          "rgba(0,0,0,1)",
           3103,
-          "rgba(255,135,75,1)",
+          "rgba(0,0,0,1)",
           3111,
-          "rgba(255,135,75,1)",
+          "rgba(0,0,0,1)",
           3112,
-          "rgba(255,135,75,1)",
+          "rgba(0,0,0,1)",
           "rgba(0,0,0,0)"
         ],
         "line-width": [

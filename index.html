@@ -150,6 +150,10 @@
               <label for="tochigi-cs">栃木県CS立体図</label>
             </div>
             <div>
+              <input type="checkbox" id="tokyo-23ku-cs" value="tokyo-23ku-cs" checked/>
+              <label for="toyko-23ku-cs">東京都(区部)CS立体図</label>
+            </div>
+            <div>
               <input type="checkbox" id="tokyo-tama-cs" value="tokyo-tama-cs" />
               <label for="toyko-tama-cs">東京都(多摩地域)CS立体図</label>
             </div>
@@ -158,7 +162,7 @@
               <label for="toyko-shima-cs">東京都(島しょ地域)CS立体図</label>
             </div>
             <div>
-              <input type="checkbox" id="kanagawa-cs" value="kanagawa-cs" checked/>
+              <input type="checkbox" id="kanagawa-cs" value="kanagawa-cs"/>
               <label for="kanagawa-cs">神奈川県CS立体図</label>
             </div>
             <div>
@@ -232,7 +236,7 @@
               <label id="open-legend-landslide" style="text-decoration: underline; cursor: pointer">凡例</label>
             </div>
             <div>
-              <input type="checkbox" id="plateau-lod1" value="plateau-lod1" checked />
+              <input type="checkbox" id="plateau-lod1" value="plateau-lod1"/>
               <label for="plateau-lod1">3D都市モデルPLATEAU建物LOD1(123都市)</label>
             </div>
           </div>
@@ -424,7 +428,7 @@
         maxzoom: 23,
         type: "fill-extrusion",
         layout: {
-          visibility: "visible",
+          visibility: "none",
         },
         paint: {
           "fill-extrusion-color": "#FFFFFF",
@@ -512,6 +516,11 @@
         );
         map.setPaintProperty(
           "noto-cs",
+          "raster-opacity",
+          parseInt(e.target.value, 10) / 100
+        );
+        map.setPaintProperty(
+          "tokyo-23ku-cs",
           "raster-opacity",
           parseInt(e.target.value, 10) / 100
         );
@@ -641,6 +650,7 @@
     // CS立体図
     toggleMapLayerVisibility("fukushima-cs", "fukushima-cs");
     toggleMapLayerVisibility("tochigi-cs", "tochigi-cs");
+    toggleMapLayerVisibility("tokyo-23ku-cs", "tokyo-23ku-cs");
     toggleMapLayerVisibility("tokyo-tama-cs", "tokyo-tama-cs");
     toggleMapLayerVisibility("tokyo-shima-cs", "tokyo-shima-cs");
     toggleMapLayerVisibility("kanagawa-cs", "kanagawa-cs");
