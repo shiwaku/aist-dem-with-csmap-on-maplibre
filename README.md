@@ -113,7 +113,7 @@ https://shiwaku.github.io/aist-dem-with-csmap-on-maplibre/
     - 原初データ出典：[東京都デジタルツイン実現プロジェクト　区部点群データ（グリッドデータDEM（0.25m））](https://www.geospatial.jp/ckan/dataset/tokyopc-23ku-2024)
     - 概要：航空レーザ測量による 16 点/平方 m 以上の高密度点群データ（グラウンドデータ）を基に作成した 0.25m 格子状の標高データです。
     - ライセンス：[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
-  - 概要：株式会社[MIERUNE](https://github.com/MIERUNE)開発の[CS 立体図作成ツール(csmap-py)](https://github.com/MIERUNE/csmap-py)を利用し、東京都が公開している[東京都デジタルツイン実現プロジェクト　区部点群データ（グリッドデータDEM（0.25m））](https://www.geospatial.jp/ckan/dataset/tokyopc-tama-2023)をもとに、CS 立体図を作成。作成した CS 立体図を Web メルカトル（EPSG:3857）に再投影した上で[gdal2tiles](https://gdal.org/programs/gdal2tiles.html)を使用してラスタータイル化したデータです。
+  - 概要：株式会社[MIERUNE](https://github.com/MIERUNE)開発の[CS 立体図作成ツール(csmap-py)](https://github.com/MIERUNE/csmap-py)を利用し、東京都が公開している[東京都デジタルツイン実現プロジェクト　区部点群データ（グリッドデータDEM（0.25m））](https://www.geospatial.jp/ckan/dataset/tokyopc-23ku-2024)をもとに、CS 立体図を作成。作成した CS 立体図を Web メルカトル（EPSG:3857）に再投影した上で[gdal2tiles](https://gdal.org/programs/gdal2tiles.html)を使用してラスタータイル化したデータです。
   - ズームレベル：4 ～ 19
   - タイルサイズ：256x256 ピクセル
   - ライセンス：[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
