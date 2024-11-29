@@ -236,6 +236,10 @@
               <label id="open-legend-landslide" style="text-decoration: underline; cursor: pointer">凡例</label>
             </div>
             <div>
+              <input type="checkbox" id="moj-xml" value="moj-xml" />
+              <label for="moj-xml">法務省地図XML(2024年)</label>
+            </div>
+            <div>
               <input type="checkbox" id="plateau-lod1" value="plateau-lod1" />
               <label for="plateau-lod1">3D都市モデルPLATEAU建築物LOD1(123都市)</label>
             </div>
@@ -408,6 +412,43 @@
 
       // 標高タイルセット
       // map.setTerrain({ 'source': 'aist-dem-terrain-rgb', 'exaggeration': 1 });
+
+      // 法務省地図XML（PMTiles）ソース
+      map.addSource("moj-xml", {
+        type: "vector",
+        url: "pmtiles://https://data.source.coop/smartmaps/amx-2024-04/MojMap_amx_2024.pmtiles",
+        attribution: '<a href="https://github.com/amx-project">法務省地図XML（amx-project）</a>'
+      });
+
+      // 筆レイヤ（ポリゴン）
+      map.addLayer({
+        "id": "fude-polygon",
+        "source": "moj-xml",
+        "source-layer": "fude",
+        "type": "fill",
+        "layout": {
+          "visibility": "none",
+        },
+        "paint": {
+          'fill-color': '#FFF2CC',
+          'fill-opacity': 0.2
+        }
+      });
+
+      // 筆レイヤ（ライン）
+      map.addLayer({
+        "id": "fude-line",
+        "source": "moj-xml",
+        "source-layer": "fude",
+        "type": "line",
+        "layout": {
+          "visibility": "none",
+        },
+        "paint": {
+          'line-color': '#FF3232',
+          'line-width': 1
+        }
+      });
 
       // 3D都市モデルPLATEAU建物（PMTiles）ソース
       map.addSource("plateau-lod1", {
@@ -599,7 +640,11 @@
 
     // レイヤ表示・非表示切り替え関数
     function toggleMapLayerVisibility(checkboxId, layerId) {
-      if (checkboxId != "tokyo-shima-cs") {
+      // 特殊な処理が必要なチェックボックスIDを配列で定義
+      const specialCheckboxIds = ["tokyo-shima-cs", "moj-xml"];
+
+      if (!specialCheckboxIds.includes(checkboxId)) {
+        // 通常の処理
         document
           .getElementById(checkboxId)
           .addEventListener("change", function (e) {
@@ -610,39 +655,34 @@
             );
           });
       } else {
+        // 特殊な処理
         document
           .getElementById(checkboxId)
           .addEventListener("change", function (e) {
-            map.setLayoutProperty(
-              "tokyo-shima-01-cs",
-              "visibility",
-              e.target.checked ? "visible" : "none"
-            );
-            map.setLayoutProperty(
-              "tokyo-shima-02-cs",
-              "visibility",
-              e.target.checked ? "visible" : "none"
-            );
-            map.setLayoutProperty(
-              "tokyo-shima-03-cs",
-              "visibility",
-              e.target.checked ? "visible" : "none"
-            );
-            map.setLayoutProperty(
-              "tokyo-shima-04-cs",
-              "visibility",
-              e.target.checked ? "visible" : "none"
-            );
-            map.setLayoutProperty(
-              "tokyo-shima-05-cs",
-              "visibility",
-              e.target.checked ? "visible" : "none"
-            );
-            map.setLayoutProperty(
-              "tokyo-shima-06-cs",
-              "visibility",
-              e.target.checked ? "visible" : "none"
-            );
+            let relatedLayers = [];
+
+            // チェックボックスIDに応じて関連レイヤーを設定
+            if (checkboxId === "tokyo-shima-cs") {
+              relatedLayers = [
+                "tokyo-shima-01-cs",
+                "tokyo-shima-02-cs",
+                "tokyo-shima-03-cs",
+                "tokyo-shima-04-cs",
+                "tokyo-shima-05-cs",
+                "tokyo-shima-06-cs"
+              ];
+            } else if (checkboxId === "moj-xml") {
+              relatedLayers = ["fude-line", "fude-polygon"];
+            }
+
+            // すべての関連レイヤーの visibility を設定
+            relatedLayers.forEach(layer => {
+              map.setLayoutProperty(
+                layer,
+                "visibility",
+                e.target.checked ? "visible" : "none"
+              );
+            });
           });
       }
     }
@@ -670,6 +710,7 @@
     toggleMapLayerVisibility("kochi-cs", "kochi-cs");
     toggleMapLayerVisibility("kumamoto-oita-cs", "kumamoto-oita-cs");
     toggleMapLayerVisibility("plateau-lod1", "plateau-lod1");
+    toggleMapLayerVisibility("moj-xml", "moj-xml");
     toggleMapLayerVisibility("landslide", "landslide");
 
     /*
