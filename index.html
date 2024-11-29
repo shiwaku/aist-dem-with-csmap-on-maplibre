@@ -1,7 +1,7 @@
 <html>
 
 <head>
-  <title>産総研 シームレス標高タイル（陸域統合DEM）+CS立体図</title>
+  <title>産総研 シームレス標高タイル（統合DEM）+CS立体図</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://unpkg.com/maplibre-gl@4.5.0/dist/maplibre-gl.js"></script>
@@ -150,7 +150,7 @@
               <label for="tochigi-cs">栃木県CS立体図</label>
             </div>
             <div>
-              <input type="checkbox" id="tokyo-23ku-cs" value="tokyo-23ku-cs" checked/>
+              <input type="checkbox" id="tokyo-23ku-cs" value="tokyo-23ku-cs" />
               <label for="toyko-23ku-cs">東京都(区部)CS立体図</label>
             </div>
             <div>
@@ -162,7 +162,7 @@
               <label for="toyko-shima-cs">東京都(島しょ地域)CS立体図</label>
             </div>
             <div>
-              <input type="checkbox" id="kanagawa-cs" value="kanagawa-cs"/>
+              <input type="checkbox" id="kanagawa-cs" value="kanagawa-cs" checked />
               <label for="kanagawa-cs">神奈川県CS立体図</label>
             </div>
             <div>
@@ -210,7 +210,7 @@
               <label for="hiroshima-1m-cs">広島県CS立体図(広島県1m)</label>
             </div>
             <div>
-              <input type="checkbox" id="ehime-cs" value="ehime-cs"/>
+              <input type="checkbox" id="ehime-cs" value="ehime-cs" />
               <label for="ehime-cs">愛媛県CS立体図</label>
             </div>
             <div>
@@ -236,8 +236,8 @@
               <label id="open-legend-landslide" style="text-decoration: underline; cursor: pointer">凡例</label>
             </div>
             <div>
-              <input type="checkbox" id="plateau-lod1" value="plateau-lod1"/>
-              <label for="plateau-lod1">3D都市モデルPLATEAU建物LOD1(123都市)</label>
+              <input type="checkbox" id="plateau-lod1" value="plateau-lod1" />
+              <label for="plateau-lod1">3D都市モデルPLATEAU建築物LOD1(123都市)</label>
             </div>
           </div>
         </div>
@@ -255,7 +255,7 @@
     </div>
   </div>
   <script type="module">
-    // addProtocolの設定
+    // Protocolの設定
     let protocol = new pmtiles.Protocol();
     maplibregl.addProtocol('pmtiles', (request) => {
       return new Promise((resolve, reject) => {
@@ -273,14 +273,14 @@
     // マップの初期化
     const map = new maplibregl.Map({
       container: "map",
-      style: "std.json",
-      zoom: 10.71,
+      style: "./style/mono.json",
+      zoom: 9.92,
       minZoom: 1,
       maxZoom: 23,
       pitch: 0,
       bearing: 0,
       maxPitch: 85,
-      center: [139.7474, 35.6686],
+      center: [139.359, 35.3965],
       hash: true,
       attributionControl: false,
     });
@@ -412,7 +412,8 @@
       // 3D都市モデルPLATEAU建物（PMTiles）ソース
       map.addSource("plateau-lod1", {
         type: "vector",
-        url: "pmtiles://https://shiworks.xsrv.jp/pmtiles-data/plateau/PLATEAU_2022_LOD1.pmtiles",
+        // url: "pmtiles://https://shiworks.xsrv.jp/pmtiles-data/plateau/PLATEAU_2022_LOD1.pmtiles",
+        url: "pmtiles://https://pmtiles-data.s3.ap-northeast-1.amazonaws.com/plateau/PLATEAU_2022_LOD1.pmtiles",
         minzoom: 16,
         maxzoom: 16,
         attribution:
