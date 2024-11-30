@@ -56,6 +56,19 @@
       cursor: ew-resize;
     }
 
+    .maplibregl-popup .maplibregl-popup-content {
+      padding: 8px 10px;
+      font: 12px/14px Arial, Helvetica, sans-serif;
+      color: black;
+      background: white;
+      background: rgba(255, 255, 255, 0.8);
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+      border-radius: 5px;
+      width: 280px;
+      height: auto;
+      /*overflow: scroll;*/
+    }
+
     .maplibregl-ctrl-geocoder {
       font-size: 14px;
       line-height: 12px;
@@ -709,14 +722,11 @@
     toggleMapLayerVisibility("ehime-cs", "ehime-cs");
     toggleMapLayerVisibility("kochi-cs", "kochi-cs");
     toggleMapLayerVisibility("kumamoto-oita-cs", "kumamoto-oita-cs");
+
+    // CS立体図以外
     toggleMapLayerVisibility("plateau-lod1", "plateau-lod1");
     toggleMapLayerVisibility("moj-xml", "moj-xml");
     toggleMapLayerVisibility("landslide", "landslide");
-
-    /*
-          // 各種レイヤー
-          toggleMapLayerVisibility('landslide', 'landslide');
-          */
 
     // 地図が移動したら中心の座標を更新
     map.on("move", function () {
@@ -739,6 +749,68 @@
       // 新しいウィンドウを開く
       window.open(legendUrl, "Legend", "width=1800,height=1200");
     }
+
+    // クリック時にポップアップ表示
+    map.on('click', (e) => {
+      const features = map.queryRenderedFeatures(e.point); // クリック地点のフィーチャを取得
+
+      if (features.length === 0) return; // フィーチャがなければ何もしない
+
+      let popupContent = '';
+      const uniqueLayers = []; // 処理済みレイヤーIDを記録
+
+      features.forEach((feature) => {
+        const layerId = feature.layer ? feature.layer.id : null; // レイヤーIDを取得
+
+        if (!layerId) {
+          console.warn('レイヤーIDが見つかりません:', feature);
+          return; // レイヤーIDがない場合はスキップ
+        }
+
+        if (!uniqueLayers.includes(layerId)) {
+          uniqueLayers.push(layerId); // 処理済みレイヤーを記録
+
+          // レイヤーごとのポップアップ内容を追加
+          const properties = feature.properties; // フィーチャのプロパティを取得
+          if (layerId === 'plateau-lod1') {
+            popupContent += `
+          <div><strong>建築物モデルLOD1:</strong></div>
+          <div>id: ${properties['id']}</div>
+          <div>source: ${properties['source']}</div>
+          <div>type: ${properties['type']}</div>
+          <div>lod: ${properties['lod']}</div>
+          <div>measuredHeight: ${properties['measuredHeight']}</div>
+          <div>address: ${properties['address']}</div>
+          <div>buildingID: ${properties['buildingID']}</div>
+          <div>prefecture: ${properties['prefecture']}</div>
+          <div>city: ${properties['city']}</div>
+          <div>lod1HeightType: ${properties['lod1HeightType']}</div>
+          <br>
+        `;
+          } else if (layerId === 'fude-polygon') {
+            popupContent += `
+          <div><strong>法務省地図XML:</strong></div>
+          <div>座標系: ${properties['座標系']}</div>
+          <div>測地系判別: ${properties['測地系判別']}</div>
+          <div>地図名: ${properties['地図名']}</div>
+          <div>縮尺分母: ${properties['縮尺分母']}</div>
+          <div>地番区域: ${properties['地番区域']}</div>
+          <div>地番: ${properties['地番']}</div>
+          <div>座標値種別: ${properties['座標値種別']}</div>
+          <br>
+        `;
+          }
+        }
+      });
+
+      // ポップアップを作成して表示
+      if (popupContent) {
+        new maplibregl.Popup()
+          .setLngLat(e.lngLat) // クリック位置にポップアップを設定
+          .setHTML(popupContent.trim()) // ポップアップの内容を設定
+          .addTo(map); // ポップアップを地図に追加
+      }
+    });
   </script>
 </body>
 
