@@ -132,9 +132,9 @@
     "noto-cs": {
       "type": "raster",
       "tiles": [
-        "https://www2.ffpri.go.jp/soilmap/tile/cs_noto/{z}/{x}/{y}.png"
+        "https://rinya.geospatial.jp/tile/csmaptile_noto/{z}/{x}/{y}.png"
       ],
-      "attribution": "<a href='https://www2.ffpri.go.jp/soilmap/data-src.html' target='_blank'>能登(石川県)CS立体図</a>",
+      "attribution": "<a href='https://www.geospatial.jp/ckan/dataset/2024noto_rinya' target='_blank'>林野庁能登地域CS立体図(発災後)</a>",
       "tileSize": 256
     },
     "tokyo-23ku-cs": {
