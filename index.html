@@ -180,7 +180,11 @@
             </div>
             <div>
               <input type="checkbox" id="noto-cs" value="noto-cs" />
-              <label for="noto-cs">能登(石川県)CS立体図</label>
+              <label for="noto-cs">能登(石川県)CS立体図(林野庁)</label>
+            </div>
+            <div>
+              <input type="checkbox" id="noto-cs-test" value="noto-test" />
+              <label for="noto-cs-test">能登(石川県)CS立体図(個人)</label>
             </div>
             <div>
               <input type="checkbox" id="nagano-cs" value="nagano-cs" />
@@ -576,6 +580,11 @@
           parseInt(e.target.value, 10) / 100
         );
         map.setPaintProperty(
+          "noto-cs-test",
+          "raster-opacity",
+          parseInt(e.target.value, 10) / 100
+        );
+        map.setPaintProperty(
           "tokyo-23ku-cs",
           "raster-opacity",
           parseInt(e.target.value, 10) / 100
@@ -722,6 +731,7 @@
     toggleMapLayerVisibility("tokyo-shima-cs", "tokyo-shima-cs");
     toggleMapLayerVisibility("kanagawa-cs", "kanagawa-cs");
     toggleMapLayerVisibility("noto-cs", "noto-cs");
+    toggleMapLayerVisibility("noto-cs-test", "noto-cs-test");
     toggleMapLayerVisibility("nagano-cs", "nagano-cs");
     toggleMapLayerVisibility("gifu-cs", "gifu-cs");
     toggleMapLayerVisibility("shizuoka-cs", "shizuoka-cs");

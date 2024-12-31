@@ -137,6 +137,14 @@
       "attribution": "<a href='https://www.geospatial.jp/ckan/dataset/2024noto_rinya' target='_blank'>林野庁能登地域CS立体図(発災後)</a>",
       "tileSize": 256
     },
+    "noto-cs-test": {
+      "type": "raster",
+      "tiles": [
+        "https://shiworks.xsrv.jp/raster-tiles/rinya/noto-2024-csmap-tiles/{z}/{x}/{y}.png"
+      ],
+      "attribution": "<a href='https://www.geospatial.jp/ckan/dataset/2024noto_dem' target='_blank'>林野庁能登地域CS立体図(能登地域0.5mDEM(発災後)を加工して作成)</a>",
+      "tileSize": 256
+    },
     "tokyo-23ku-cs": {
       "type": "raster",
       "tiles": [
@@ -13018,6 +13026,17 @@
       "id": "noto-cs",
       "type": "raster",
       "source": "noto-cs",
+      "layout": {
+        "visibility": "none"
+      },
+      "paint": {
+        "raster-opacity": 0.8
+      }
+    },
+    {
+      "id": "noto-cs-test",
+      "type": "raster",
+      "source": "noto-cs-test",
       "layout": {
         "visibility": "none"
       },
