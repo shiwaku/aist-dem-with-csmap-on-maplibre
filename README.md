@@ -189,6 +189,16 @@ https://shiwaku.github.io/aist-dem-with-csmap-on-maplibre/
   - タイルサイズ：256x256 ピクセル
   - ライセンス：[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 
+- 能登地域 CS立体図(0.5m)（**試験公開中のため、予告なく変更または公開を中止する場合があります。**）
+  - 出典（タイル URL）：`https://shiworks.xsrv.jp/raster-tiles/rinya/noto-2024-csmap-tiles/{z}/{x}/{y}.png`
+    - 原初データ出典：[林野庁 能登地域 0.5mDEM(発災後)](https://www.geospatial.jp/ckan/dataset/2024noto_dem)
+    - 概要：このデータは、令和６年能登半島地震の発災後（令和６年３～４月）に、林野庁との連携の下、国土地理院が実施した「能登半島地震に係る航空レーザ測量業務（能登北部地区）」、「同（能登中部地区）」、「同（能登南部地区）」の最終成果を基に、林野庁で簡易的に変換した0.5m解像度の数値標高モデルです。グリッドデータを簡易的に変換したものであるため、公共測量の用に供するものではないことを前提に利用してください。令和６年７月に公開した微地形表現図等に使われている速報成果とは異なり、手動フィルタリング/コース間調整等が行われた点群データ（最終成果）を基に作成されています。
+    - ライセンス：出典明示を行うことを条件に、無償で商用利用することもできます。クリエイティブ・コモンズ・ライセンス表示4.0と互換性があります。
+  - 概要：林野庁が公開している、能登地域0.5mDEM(発災後)と株式会社[MIERUNE](https://github.com/MIERUNE)開発の[CS 立体図作成ツール(csmap-py)](https://github.com/MIERUNE/csmap-py)を使用して CS 立体図を作成。本データは CS 立体図を Web メルカトル（EPSG:3857）に再投影した上で[gdal2tiles](https://gdal.org/programs/gdal2tiles.html)を使用してラスタータイル化したデータです。
+  - ズームレベル：4 ～ 18
+  - タイルサイズ：256x256 ピクセル
+  - ライセンス：[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+
 ## 国土地理院
 
 - 地理院タイル(地すべり地形分布図日本全国版（防災科学技術研究所）)
