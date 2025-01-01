@@ -391,30 +391,6 @@
       })
     );
 
-    // 中心の座標を表示する関数
-    function updateCoordsDisplay() {
-      var center = map.getCenter();
-      var lat = center.lat.toFixed(5);
-      var lng = center.lng.toFixed(5);
-      document.getElementById("coords").innerHTML =
-        "中心座標: " +
-        lat +
-        ", " +
-        lng +
-        "<br>" +
-        '<a href="https://www.google.com/maps?q=' +
-        lat +
-        "," +
-        lng +
-        '&hl=ja" target="_blank">🌎GoogleMaps</a>' +
-        " " +
-        '<a href="https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=' +
-        lat +
-        "," +
-        lng +
-        '&hl=ja" target="_blank">📷StreetView</a>';
-    }
-
     map.on("load", () => {
       // 標高タイルソース
       map.addSource("aist-dem-terrain-rgb", {
@@ -433,8 +409,8 @@
       // 法務省地図XML（PMTiles）ソース
       map.addSource("moj-xml", {
         type: "vector",
-        // url: "pmtiles://https://data.source.coop/smartmaps/amx-2024-04/MojMap_amx_2024.pmtiles",
-        url: "pmtiles://https://pmtiles-data.s3.ap-northeast-1.amazonaws.com/moj-xml/MojMap_amx_2024.pmtiles",
+        url: "pmtiles://https://data.source.coop/smartmaps/amx-2024-04/MojMap_amx_2024.pmtiles",
+        // url: "pmtiles://https://pmtiles-data.s3.ap-northeast-1.amazonaws.com/moj-xml/MojMap_amx_2024.pmtiles",
         attribution: '<a href="https://github.com/amx-project">法務省地図XML（amx-project）</a>'
       });
 
@@ -471,8 +447,8 @@
       // 3D都市モデルPLATEAU建築物モデル（PMTiles）ソース
       map.addSource("plateau-lod1", {
         type: "vector",
-        // url: "pmtiles://https://shiworks.xsrv.jp/pmtiles-data/plateau/PLATEAU_2022_LOD1.pmtiles",
-        url: "pmtiles://https://pmtiles-data.s3.ap-northeast-1.amazonaws.com/plateau/PLATEAU_2022_LOD1.pmtiles",
+        url: "pmtiles://https://shiworks.xsrv.jp/pmtiles-data/plateau/PLATEAU_2022_LOD1.pmtiles",
+        // url: "pmtiles://https://pmtiles-data.s3.ap-northeast-1.amazonaws.com/plateau/PLATEAU_2022_LOD1.pmtiles",
         minzoom: 16,
         maxzoom: 16,
         attribution:
@@ -656,8 +632,6 @@
 
       map.showTileBoundaries = false;
 
-      updateCoordsDisplay(); // 初期座標を表示
-
       // Skyレイヤ
       map.setSky({
         "sky-color": "#199EF3",
@@ -668,6 +642,8 @@
         "fog-ground-blend": 0.9,
         "atmosphere-blend": ["interpolate", ["linear"], ["zoom"], 0, 1, 12, 0]
       });
+
+      updateCoordsDisplay(); // 初期座標を表示
 
     });
 
@@ -751,11 +727,6 @@
     toggleMapLayerVisibility("moj-xml", "moj-xml");
     toggleMapLayerVisibility("landslide", "landslide");
 
-    // 地図が移動したら中心の座標を更新
-    map.on("move", function () {
-      updateCoordsDisplay(); // 座標を更新
-    });
-
     // 地すべり地形分布図凡例
 
     // イベントリスナーを追加
@@ -833,6 +804,94 @@
           .setHTML(popupContent.trim()) // ポップアップの内容を設定
           .addTo(map); // ポップアップを地図に追加
       }
+    });
+
+    /// ****************
+    // latLngToTile 緯度経度をタイル座標に変換する関数
+    //  latLng: 緯度経度オブジェクト（lat,lngフィールドを持ちます）
+    //  z: ズームレベル
+    //  戻り値: タイル座標オブジェクト（x, yフィールドを持ちます)
+    //    ※通常，地図ライブラリ内に同様の関数が用意されています．
+    /// ****************
+    function latLngToTile(lat, lng, z) {
+      const
+        w = Math.pow(2, (z === undefined) ? 0 : z) / 2,		// 世界全体のピクセル幅
+        yrad = Math.log(Math.tan(Math.PI * (90 + lat) / 360));
+
+      return { x: (lng / 180 + 1) * w, y: (1 - yrad / Math.PI) * w };
+    };
+
+    /// ****************
+    // getNumericalValue タイルURL，座標，ズームレベルを指定して数値を取得する関数
+    //	url: タイル画像のURLテンプレート．
+    //		ズームレベル，X, Y座標をそれぞれ{z},{x},{y}として埋め込む
+    //	ll: 緯度経度オブジェクト（lat,lngフィールドを持ちます）
+    //  z:　ズームレベル
+    //  factor: 数値を求めるときに使用する係数，デフォルト1
+    //  offset: 数値を求めるときに使用するオフセット，デフォルト0
+    //  invalid: 追加無効値を相当する数値で指定．デフォルトは指定なし
+    //  戻り値: 成功時に数値を受け取るプロミス．無効値の場合はNaNを受け取ります
+    /// ****************
+    function getNumericalValue(url, lat, lng, z, factor = 1, offset = 0, invalid = undefined) {
+      return new Promise(function (resolve, reject) {
+        const
+          p = latLngToTile(lat, lng, z),
+          x = Math.floor(p.x),			// タイルX座標
+          y = Math.floor(p.y),			// タイルY座標
+          i = (p.x - x) * 256,			// タイル内i座標
+          j = (p.y - y) * 256,			// タイル内j座標
+          img = new Image();
+
+        img.crossOrigin = 'anonymous';	// 画像ファイルからデータを取り出すために必要です
+        img.onload = function () {
+          const
+            canvas = document.createElement('canvas'),
+            context = canvas.getContext('2d');
+          let
+            r2,
+            v,
+            data;
+
+          canvas.width = 1;
+          canvas.height = 1;
+          context.drawImage(img, i, j, 1, 1, 0, 0, 1, 1);
+          data = context.getImageData(0, 0, 1, 1).data;
+          r2 = (data[0] < 2 ** 7) ? data[0] : data[0] - 2 ** 8;
+          v = r2 * 2 ** 16 + data[1] * 2 ** 8 + data[2];
+          if (data[3] !== 255 || (invalid != undefined && v == invalid)) {
+            v = NaN;
+          }
+          resolve(v * factor + offset);
+        }
+        img.onerror = function () {
+          reject(null);
+        }
+        // img.src = url.replace('{z}', z).replace('{y}', y).replace('{x}', x);
+        const tileUrl = url.replace('{z}', z).replace('{y}', y).replace('{x}', x);
+        console.log("生成されたタイルURL:", tileUrl);
+        img.src = tileUrl;
+      });
+    };
+
+    // 地図の中心座標と標高を表示する関数
+    function updateCoordsDisplay() {
+      let center = map.getCenter();
+      let lat = center.lat.toFixed(5);
+      let lng = center.lng.toFixed(4);
+      // let elevTile = 'https://tiles.gsj.jp/tiles/elev/mixed/{z}/{y}/{x}.png'
+      let elevTile = 'https://cyberjapandata.gsi.go.jp/xyz/dem_png/{z}/{x}/{y}.png'
+      getNumericalValue(elevTile, lat, lng, Math.trunc(map.getZoom()), 0.01, 0, -(2 ** 23)).then(function (v) {
+        document.getElementById("coords").innerHTML =
+          "中心座標: " + lat + ", " + lng + "<br>" +
+          "標高: " + ((isNaN(v)) ? '取得できません' : v + 'm') + "<br>" +
+          '<a href="https://www.google.com/maps?q=' + lat + "," + lng + '&hl=ja" target="_blank">🌎GoogleMaps</a>' +
+          " " + '<a href="https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=' + lat + "," + lng + '&hl=ja" target="_blank">📷StreetView</a>';
+      });
+    }
+
+    // 地図が移動したら中心の座標を更新
+    map.on("move", function () {
+      updateCoordsDisplay(); // 座標を更新
     });
   </script>
 </body>
