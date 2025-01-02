@@ -4,8 +4,8 @@
   <title>産総研 シームレス標高タイル（統合DEM）+CS立体図</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script src="https://unpkg.com/maplibre-gl@4.5.0/dist/maplibre-gl.js"></script>
-  <link href="https://unpkg.com/maplibre-gl@4.5.0/dist/maplibre-gl.css" rel="stylesheet" />
+  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+  <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet" />
   <script src="https://unpkg.com/pmtiles@2.11.0/dist/index.js"></script>
   <script src="https://unpkg.com/@maplibre/maplibre-gl-geocoder@1.2.0/dist/maplibre-gl-geocoder.min.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/@maplibre/maplibre-gl-geocoder@1.2.0/dist/maplibre-gl-geocoder.css"
@@ -297,7 +297,7 @@
       style: "./style/mono.json",
       zoom: 9.92,
       minZoom: 1,
-      maxZoom: 23,
+      maxZoom: 17.99,
       pitch: 0,
       bearing: 0,
       maxPitch: 85,
@@ -392,18 +392,15 @@
     );
 
     map.on("load", () => {
-      // 標高タイルソース
+      // 産総研 シームレス標高タイルソース
       map.addSource("aist-dem-terrain-rgb", {
         type: 'raster-dem',
-        tiles: ['https://gsj-seamless.jp/seamless/elev/php/terrainRGB.php?url='
-          + 'https://tiles.gsj.jp/tiles/elev/mixed/{z}/{y}/{x}.png',
-        ],
+        tiles: ["https://gbank.gsj.jp/seamless/elev/terrainRGB/mixed/{z}/{y}/{x}.png"],
         attribution: '<a href="https://tiles.gsj.jp/tiles/elev/tiles.html" target="_blank">産総研 シームレス標高タイル(統合DEM)</a>',
-        tileSize: 256,
-        maxzoom: 17
+        tileSize: 256
       });
 
-      // 標高タイルセット
+      // 産総研 シームレス標高タイルセット
       // map.setTerrain({ 'source': 'aist-dem-terrain-rgb', 'exaggeration': 1 });
 
       // 法務省地図XML（PMTiles）ソース
@@ -630,7 +627,7 @@
         hillshade_sliderOpactiyValue.textContent = e.target.value + "%";
       });
 
-      map.showTileBoundaries = false;
+      map.showTileBoundaries = true;
 
       // Skyレイヤ
       map.setSky({
@@ -645,12 +642,33 @@
 
       updateCoordsDisplay(); // 初期座標を表示
 
+      // 地図の中心座標と標高を表示する関数
+      function updateCoordsDisplay() {
+        let center = map.getCenter();
+        let lat = center.lat.toFixed(5);
+        let lng = center.lng.toFixed(5);
+        let elevTile = 'https://tiles.gsj.jp/tiles/elev/mixed/{z}/{y}/{x}.png'
+        getNumericalValue(elevTile, lat, lng, Math.trunc(map.getZoom()), 0.01, 0, -(2 ** 23)).then(function (v) {
+          document.getElementById("coords").innerHTML =
+            "中心座標: " + lat + ", " + lng + "<br>" +
+            "標高: " + ((isNaN(v)) ? '取得できません' : v + 'm') + "<br>" +
+            '<a href="https://www.google.com/maps?q=' + lat + "," + lng + '&hl=ja" target="_blank">🌎GoogleMaps</a>' +
+            " " + '<a href="https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=' + lat + "," + lng + '&hl=ja" target="_blank">📷StreetView</a>';
+        });
+      }
+
+      // 地図が移動したら中心の座標を更新
+      map.on("move", function () {
+        updateCoordsDisplay(); // 座標を更新
+      });
+
     });
 
     // ============================== レイヤの表示・非表示切り替え制御 ==============================
 
     // レイヤ表示・非表示切り替え関数
     function toggleMapLayerVisibility(checkboxId, layerId) {
+
       // 特殊な処理が必要なチェックボックスIDを配列で定義
       const specialCheckboxIds = ["tokyo-shima-cs", "moj-xml"];
 
@@ -813,13 +831,33 @@
     //  戻り値: タイル座標オブジェクト（x, yフィールドを持ちます)
     //    ※通常，地図ライブラリ内に同様の関数が用意されています．
     /// ****************
+    /*
     function latLngToTile(lat, lng, z) {
+      console.log("z=" + z + " " + "lat=" + lat + " " + "lng=" + lng);
       const
         w = Math.pow(2, (z === undefined) ? 0 : z) / 2,		// 世界全体のピクセル幅
         yrad = Math.log(Math.tan(Math.PI * (90 + lat) / 360));
 
       return { x: (lng / 180 + 1) * w, y: (1 - yrad / Math.PI) * w };
     };
+    */
+
+    function latLngToTile(lat, lng, z) {
+      // ズームレベル z におけるタイルの総数
+      const n = Math.pow(2, z);
+      // 経度 lng → タイル X 座標
+      const x = ((lng / 180 + 1) * n) / 2;
+      // 緯度 lat → タイル Y 座標
+      // (メルカトル投影による変換)
+      const latRad = lat * Math.PI / 180;  // 緯度をラジアンに変換
+      const y = n * (
+        1 - Math.log(
+          Math.tan(latRad) + 1 / Math.cos(latRad)
+        ) / Math.PI
+      ) / 2;
+
+      return { x, y };
+    }
 
     /// ****************
     // getNumericalValue タイルURL，座標，ズームレベルを指定して数値を取得する関数
@@ -833,6 +871,7 @@
     //  戻り値: 成功時に数値を受け取るプロミス．無効値の場合はNaNを受け取ります
     /// ****************
     function getNumericalValue(url, lat, lng, z, factor = 1, offset = 0, invalid = undefined) {
+      console.log("z=" + z + " " + "lat=" + lat + " " + "lng=" + lng);
       return new Promise(function (resolve, reject) {
         const
           p = latLngToTile(lat, lng, z),
@@ -841,6 +880,10 @@
           i = (p.x - x) * 256,			// タイル内i座標
           j = (p.y - y) * 256,			// タイル内j座標
           img = new Image();
+
+        console.log("タイルURL=" + url);
+        // console.log("z=" + z + " " + "lat=" + lat + " " + "lng=" + lng);
+        console.log("タイルX座標=" + x + " " + "タイルY座標=" + y);
 
         img.crossOrigin = 'anonymous';	// 画像ファイルからデータを取り出すために必要です
         img.onload = function () {
@@ -866,33 +909,10 @@
         img.onerror = function () {
           reject(null);
         }
-        // img.src = url.replace('{z}', z).replace('{y}', y).replace('{x}', x);
-        const tileUrl = url.replace('{z}', z).replace('{y}', y).replace('{x}', x);
-        console.log("生成されたタイルURL:", tileUrl);
-        img.src = tileUrl;
+        img.src = url.replace('{z}', z).replace('{y}', y).replace('{x}', x);
       });
     };
 
-    // 地図の中心座標と標高を表示する関数
-    function updateCoordsDisplay() {
-      let center = map.getCenter();
-      let lat = center.lat.toFixed(5);
-      let lng = center.lng.toFixed(4);
-      // let elevTile = 'https://tiles.gsj.jp/tiles/elev/mixed/{z}/{y}/{x}.png'
-      let elevTile = 'https://cyberjapandata.gsi.go.jp/xyz/dem_png/{z}/{x}/{y}.png'
-      getNumericalValue(elevTile, lat, lng, Math.trunc(map.getZoom()), 0.01, 0, -(2 ** 23)).then(function (v) {
-        document.getElementById("coords").innerHTML =
-          "中心座標: " + lat + ", " + lng + "<br>" +
-          "標高: " + ((isNaN(v)) ? '取得できません' : v + 'm') + "<br>" +
-          '<a href="https://www.google.com/maps?q=' + lat + "," + lng + '&hl=ja" target="_blank">🌎GoogleMaps</a>' +
-          " " + '<a href="https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=' + lat + "," + lng + '&hl=ja" target="_blank">📷StreetView</a>';
-      });
-    }
-
-    // 地図が移動したら中心の座標を更新
-    map.on("move", function () {
-      updateCoordsDisplay(); // 座標を更新
-    });
   </script>
 </body>
 
