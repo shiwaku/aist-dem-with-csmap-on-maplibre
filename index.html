@@ -647,7 +647,8 @@
         let center = map.getCenter();
         let lat = center.lat.toFixed(5);
         let lng = center.lng.toFixed(5);
-        let elevTile = 'https://tiles.gsj.jp/tiles/elev/mixed/{z}/{y}/{x}.png'
+        // let elevTile = 'https://tiles.gsj.jp/tiles/elev/mixed/{z}/{y}/{x}.png' // 統合DEM
+        let elevTile = 'https://tiles.gsj.jp/tiles/elev/land/{z}/{y}/{x}.png' // 陸域統合DEM
         getNumericalValue(elevTile, lat, lng, Math.trunc(map.getZoom()), 0.01, 0, -(2 ** 23)).then(function (v) {
           document.getElementById("coords").innerHTML =
             "中心座標: " + lat + ", " + lng + "<br>" +
