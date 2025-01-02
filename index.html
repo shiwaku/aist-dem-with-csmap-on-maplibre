@@ -682,7 +682,7 @@
           document.getElementById("coords").innerHTML =
             "中心座標: " + lat + ", " + lng + "<br>" +
             "ズームレベル: " + map.getZoom().toFixed(2) + "<br>" +
-            "標高:(ZL15以下) " + ((isNaN(v)) ? '取得できません' : v.toFixed(2) + 'm') + "<br>" +
+            "標高(ZL15以下):" + ((isNaN(v)) ? '取得できません' : v.toFixed(2) + 'm') + "<br>" +
             '<a href="https://www.google.com/maps?q=' + lat + "," + lng + '&hl=ja" target="_blank">🌎GoogleMaps</a>' +
             " " + '<a href="https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=' + lat + "," + lng + '&hl=ja" target="_blank">📷StreetView</a>';
         });
