@@ -645,6 +645,7 @@
     });
 
     // 地図の中心座標と標高を表示する関数
+    /*
     function updateCoordsDisplay() {
       let center = map.getCenter();
       let lat = center.lat.toFixed(5);
@@ -659,6 +660,35 @@
           " " + '<a href="https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=' + lat + "," + lng + '&hl=ja" target="_blank">📷StreetView</a>';
       });
     }
+    */
+
+    function updateCoordsDisplay() {
+      let center = map.getCenter();
+      let lat = center.lat.toFixed(5);
+      let lng = center.lng.toFixed(5);
+      let zoomLevel = Math.trunc(map.getZoom());
+      let elevTile = 'https://tiles.gsj.jp/tiles/elev/mixed/{z}/{y}/{x}.png'; // 統合DEM
+      // let elevTile = 'https://tiles.gsj.jp/tiles/elev/land/{z}/{y}/{x}.png'; // 陸域統合DEM
+
+      if (zoomLevel > 15) {
+        document.getElementById("coords").innerHTML =
+          "中心座標: " + lat + ", " + lng + "<br>" +
+          "ズームレベル: " + map.getZoom().toFixed(2) + "<br>" +
+          "標高(ZL15以下): 取得できません<br>" +
+          '<a href="https://www.google.com/maps?q=' + lat + "," + lng + '&hl=ja" target="_blank">🌎GoogleMaps</a>' +
+          " " + '<a href="https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=' + lat + "," + lng + '&hl=ja" target="_blank">📷StreetView</a>';
+      } else {
+        getNumericalValue(elevTile, lat, lng, zoomLevel, 0.01, 0, -(2 ** 23)).then(function (v) {
+          document.getElementById("coords").innerHTML =
+            "中心座標: " + lat + ", " + lng + "<br>" +
+            "ズームレベル: " + map.getZoom().toFixed(2) + "<br>" +
+            "標高:(ZL15以下) " + ((isNaN(v)) ? '取得できません' : v.toFixed(2) + 'm') + "<br>" +
+            '<a href="https://www.google.com/maps?q=' + lat + "," + lng + '&hl=ja" target="_blank">🌎GoogleMaps</a>' +
+            " " + '<a href="https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=' + lat + "," + lng + '&hl=ja" target="_blank">📷StreetView</a>';
+        });
+      }
+    }
+
 
     // 地図が移動したら中心の座標を更新
     map.on("move", function () {
