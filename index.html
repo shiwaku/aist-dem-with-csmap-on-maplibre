@@ -627,8 +627,6 @@
         hillshade_sliderOpactiyValue.textContent = e.target.value + "%";
       });
 
-      map.showTileBoundaries = false;
-
       // Skyレイヤ
       map.setSky({
         "sky-color": "#199EF3",
@@ -642,27 +640,29 @@
 
       updateCoordsDisplay(); // 初期座標を表示
 
-      // 地図の中心座標と標高を表示する関数
-      function updateCoordsDisplay() {
-        let center = map.getCenter();
-        let lat = center.lat.toFixed(5);
-        let lng = center.lng.toFixed(5);
-        // let elevTile = 'https://tiles.gsj.jp/tiles/elev/mixed/{z}/{y}/{x}.png' // 統合DEM
-        let elevTile = 'https://tiles.gsj.jp/tiles/elev/land/{z}/{y}/{x}.png' // 陸域統合DEM
-        getNumericalValue(elevTile, lat, lng, Math.trunc(map.getZoom()), 0.01, 0, -(2 ** 23)).then(function (v) {
-          document.getElementById("coords").innerHTML =
-            "中心座標: " + lat + ", " + lng + "<br>" +
-            "標高: " + ((isNaN(v)) ? '取得できません' : v.toFixed(2) + 'm') + "<br>" +
-            '<a href="https://www.google.com/maps?q=' + lat + "," + lng + '&hl=ja" target="_blank">🌎GoogleMaps</a>' +
-            " " + '<a href="https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=' + lat + "," + lng + '&hl=ja" target="_blank">📷StreetView</a>';
-        });
-      }
+      map.showTileBoundaries = true; // タイル境界
 
-      // 地図が移動したら中心の座標を更新
-      map.on("move", function () {
-        updateCoordsDisplay(); // 座標を更新
+    });
+
+    // 地図の中心座標と標高を表示する関数
+    function updateCoordsDisplay() {
+      let center = map.getCenter();
+      let lat = center.lat.toFixed(5);
+      let lng = center.lng.toFixed(5);
+      // let elevTile = 'https://tiles.gsj.jp/tiles/elev/mixed/{z}/{y}/{x}.png' // 統合DEM
+      let elevTile = 'https://tiles.gsj.jp/tiles/elev/land/{z}/{y}/{x}.png' // 陸域統合DEM
+      getNumericalValue(elevTile, lat, lng, Math.trunc(map.getZoom()), 0.01, 0, -(2 ** 23)).then(function (v) {
+        document.getElementById("coords").innerHTML =
+          "中心座標: " + lat + ", " + lng + "<br>" +
+          "標高(ZL=15以下): " + ((isNaN(v)) ? '取得できません' : v.toFixed(2) + 'm') + "<br>" +
+          '<a href="https://www.google.com/maps?q=' + lat + "," + lng + '&hl=ja" target="_blank">🌎GoogleMaps</a>' +
+          " " + '<a href="https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=' + lat + "," + lng + '&hl=ja" target="_blank">📷StreetView</a>';
       });
+    }
 
+    // 地図が移動したら中心の座標を更新
+    map.on("move", function () {
+      updateCoordsDisplay(); // 座標を更新
     });
 
     // ============================== レイヤの表示・非表示切り替え制御 ==============================
