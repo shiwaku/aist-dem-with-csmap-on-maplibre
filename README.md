@@ -1,8 +1,8 @@
-# aist-dem-with-cs-on-maplibre-gl-js
+# aist-dem-with-cs-map-on-maplibre
 
 ## Public Website
 
-https://shiwaku.github.io/aist-dem-with-csmap-on-maplibre/
+https://shiwaku.github.io/aist-dem-with-cs-map-on-maplibre/
 
 ## 長野県林業総合センター
 
