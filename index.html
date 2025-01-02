@@ -651,7 +651,7 @@
         getNumericalValue(elevTile, lat, lng, Math.trunc(map.getZoom()), 0.01, 0, -(2 ** 23)).then(function (v) {
           document.getElementById("coords").innerHTML =
             "中心座標: " + lat + ", " + lng + "<br>" +
-            "標高: " + ((isNaN(v)) ? '取得できません' : v + 'm') + "<br>" +
+            "標高: " + ((isNaN(v)) ? '取得できません' : v.toFixed(2) + 'm') + "<br>" +
             '<a href="https://www.google.com/maps?q=' + lat + "," + lng + '&hl=ja" target="_blank">🌎GoogleMaps</a>' +
             " " + '<a href="https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=' + lat + "," + lng + '&hl=ja" target="_blank">📷StreetView</a>';
         });
