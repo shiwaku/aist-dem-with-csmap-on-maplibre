@@ -1,4 +1,4 @@
-# aist-dem-with-cs-map-on-maplibre
+# aist-dem-with-csmap-on-maplibre
 
 ## Public Website
 
