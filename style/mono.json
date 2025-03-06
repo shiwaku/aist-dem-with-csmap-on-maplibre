@@ -129,6 +129,14 @@
       "attribution": "<a href='https://www.geospatial.jp/ckan/dataset/cs' target='_blank'>大阪府CS立体図</a>",
       "tileSize": 256
     },
+    "nagaoka-cs": {
+      "type": "raster",
+      "tiles": [
+        "https://cf192141.cloudfree.jp/nagaoka/csmap_15_2024/{z}/{x}/{y}.webp"
+      ],
+      "attribution": "<a href='https://www.geospatial.jp/ckan/dataset/rinya-csmap-nagaoka2024' target='_blank'>林野庁長岡地域CS立体図</a>",
+      "tileSize": 256
+    },
     "noto-cs": {
       "type": "raster",
       "tiles": [
@@ -137,7 +145,7 @@
       "attribution": "<a href='https://www.geospatial.jp/ckan/dataset/2024noto_rinya' target='_blank'>林野庁能登地域CS立体図(発災後)</a>",
       "tileSize": 256
     },
-    "noto-cs-test": {
+    "noto-cs-final": {
       "type": "raster",
       "tiles": [
         "https://shiworks.xsrv.jp/raster-tiles/rinya/noto-2024-csmap-tiles/{z}/{x}/{y}.png"
@@ -13023,6 +13031,17 @@
       }
     },
     {
+      "id": "nagaoka-cs",
+      "type": "raster",
+      "source": "nagaoka-cs",
+      "layout": {
+        "visibility": "none"
+      },
+      "paint": {
+        "raster-opacity": 0.8
+      }
+    },
+    {
       "id": "noto-cs",
       "type": "raster",
       "source": "noto-cs",
@@ -13034,9 +13053,9 @@
       }
     },
     {
-      "id": "noto-cs-test",
+      "id": "noto-cs-final",
       "type": "raster",
-      "source": "noto-cs-test",
+      "source": "noto-cs-final",
       "layout": {
         "visibility": "none"
       },

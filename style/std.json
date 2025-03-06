@@ -129,6 +129,14 @@
       "attribution": "<a href='https://www.geospatial.jp/ckan/dataset/cs' target='_blank'>大阪府CS立体図</a>",
       "tileSize": 256
     },
+    "nagaoka-cs": {
+      "type": "raster",
+      "tiles": [
+        "https://cf192141.cloudfree.jp/nagaoka/csmap_15_2024/{z}/{x}/{y}.webp"
+      ],
+      "attribution": "<a href='https://www.geospatial.jp/ckan/dataset/rinya-csmap-nagaoka2024' target='_blank'>長岡地域CS立体図/a>",
+      "tileSize": 256
+    },
     "noto-cs": {
       "type": "raster",
       "tiles": [
@@ -417,6 +425,17 @@
       "id": "osaka-cs",
       "type": "raster",
       "source": "osaka-cs",
+      "layout": {
+        "visibility": "none"
+      },
+      "paint": {
+        "raster-opacity": 1
+      }
+    },
+    {
+      "id": "nagano-cs",
+      "type": "raster",
+      "source": "nagano-cs",
       "layout": {
         "visibility": "none"
       },

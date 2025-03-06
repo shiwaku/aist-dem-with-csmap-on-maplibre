@@ -1,7 +1,7 @@
 <html>
 
 <head>
-  <title>産総研 シームレス標高タイル（統合DEM）+CS立体図</title>
+  <title>CS立体図</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
@@ -179,12 +179,16 @@
               <label for="kanagawa-cs">神奈川県CS立体図</label>
             </div>
             <div>
-              <input type="checkbox" id="noto-cs" value="noto-cs" />
-              <label for="noto-cs">能登(石川県)CS立体図(林野庁)</label>
+              <input type="checkbox" id="nagaoka-cs" value="nagaoka-cs" />
+              <label for="nagaoka-cs">長岡地域CS立体図</label>
             </div>
             <div>
-              <input type="checkbox" id="noto-cs-test" value="noto-test" />
-              <label for="noto-cs-test">能登(石川県)CS立体図(個人)</label>
+              <input type="checkbox" id="noto-cs" value="noto-cs" />
+              <label for="noto-cs">能登(石川県)CS立体図(発災後速報成果)</label>
+            </div>
+            <div>
+              <input type="checkbox" id="noto-cs-final" value="noto-final" />
+              <label for="noto-cs-final">能登(石川県)CS立体図(発災後最終成果)</label>
             </div>
             <div>
               <input type="checkbox" id="nagano-cs" value="nagano-cs" />
@@ -548,12 +552,17 @@
           parseInt(e.target.value, 10) / 100
         );
         map.setPaintProperty(
+          "nagaoka-cs",
+          "raster-opacity",
+          parseInt(e.target.value, 10) / 100
+        );
+        map.setPaintProperty(
           "noto-cs",
           "raster-opacity",
           parseInt(e.target.value, 10) / 100
         );
         map.setPaintProperty(
-          "noto-cs-test",
+          "noto-cs-final",
           "raster-opacity",
           parseInt(e.target.value, 10) / 100
         );
@@ -755,8 +764,9 @@
     toggleMapLayerVisibility("tokyo-tama-cs", "tokyo-tama-cs");
     toggleMapLayerVisibility("tokyo-shima-cs", "tokyo-shima-cs");
     toggleMapLayerVisibility("kanagawa-cs", "kanagawa-cs");
+    toggleMapLayerVisibility("nagaoka-cs", "nagaoka-cs");
     toggleMapLayerVisibility("noto-cs", "noto-cs");
-    toggleMapLayerVisibility("noto-cs-test", "noto-cs-test");
+    toggleMapLayerVisibility("noto-cs-final", "noto-cs-final");
     toggleMapLayerVisibility("nagano-cs", "nagano-cs");
     toggleMapLayerVisibility("gifu-cs", "gifu-cs");
     toggleMapLayerVisibility("shizuoka-cs", "shizuoka-cs");
