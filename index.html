@@ -215,6 +215,10 @@
               <label for="wakayama-cs">和歌山県CS立体図</label>
             </div>
             <div>
+              <input type="checkbox" id="tottori-cs" value="tottori-cs" />
+              <label for="tottori-cs">鳥取県CS立体図</label>
+            </div>
+            <div>
               <input type="checkbox" id="okayama-cs" value="okayama-cs" />
               <label for="okayama-cs">岡山県CS立体図</label>
             </div>
@@ -616,6 +620,11 @@
           "raster-opacity",
           parseInt(e.target.value, 10) / 100
         );
+        map.setPaintProperty(
+          "tottori-cs",
+          "raster-opacity",
+          parseInt(e.target.value, 10) / 100
+        );
         cs_sliderOpactiyValue.textContent = e.target.value + "%";
       });
 
@@ -773,6 +782,7 @@
     toggleMapLayerVisibility("osaka-cs", "osaka-cs");
     toggleMapLayerVisibility("hyogo-cs", "hyogo-cs");
     toggleMapLayerVisibility("wakayama-cs", "wakayama-cs");
+    toggleMapLayerVisibility("tottori-cs", "tottori-cs");
     toggleMapLayerVisibility("okayama-cs", "okayama-cs");
     toggleMapLayerVisibility("hiroshima-cs", "hiroshima-cs");
     toggleMapLayerVisibility("hiroshima-05m-cs", "hiroshima-05m-cs");

@@ -61,10 +61,11 @@
     "ehime-cs": {
       "type": "raster",
       "tiles": [
-        "https://www2.ffpri.go.jp/soilmap/tile/cs_ehime/{z}/{x}/{y}.png"
+        "https://rinya-ehime.geospatial.jp/tile/rinya/2024/csmap_Ehime/{z}/{x}/{y}.png"
       ],
-      "attribution": "<a href='https://www2.ffpri.go.jp/soilmap/data-src.html' target='_blank'>森林総合研究所CS立体図</a>",
-      "tileSize": 256
+      "attribution": "<a href='https://www.geospatial.jp/ckan/dataset/csmap_ehime' target='_blank'>愛媛県CS立体図</a>",
+      "tileSize": 256,
+      "scheme": "tms"
     },
     "kochi-cs": {
       "type": "raster",
@@ -231,6 +232,14 @@
         "https://xs489works.xsrv.jp/raster-tiles/pref-wakayama/wakayamapc-cs-tiles/{z}/{x}/{y}.png"
       ],
       "attribution": "<a href='https://wakayamaken.geocloud.jp/mp/22' target='_blank'>和歌山県CS立体図(和歌山県3次元点群データを加工して作成)</a>",
+      "tileSize": 256
+    },
+    "tottori-cs": {
+      "type": "raster",
+      "tiles": [
+        "https://rinya-tottori.geospatial.jp/tile/rinya/2024/csmap_tottori/{z}/{x}/{y}.png"
+      ],
+      "attribution": "<a href='https://www.geospatial.jp/ckan/dataset/csmap_tottori' target='_blank'>鳥取県CS立体図</a>",
       "tileSize": 256
     },
     "landslide": {
@@ -13155,6 +13164,17 @@
       "id": "tokyo-shima-06-cs",
       "type": "raster",
       "source": "tokyo-shima-06-cs",
+      "layout": {
+        "visibility": "none"
+      },
+      "paint": {
+        "raster-opacity": 0.8
+      }
+    },
+    {
+      "id": "tottori-cs",
+      "type": "raster",
+      "source": "tottori-cs",
       "layout": {
         "visibility": "none"
       },
