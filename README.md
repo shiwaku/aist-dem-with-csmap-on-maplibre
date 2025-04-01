@@ -19,11 +19,13 @@ https://shiwaku.github.io/aist-dem-with-csmap-on-maplibre/
   - 概要：林野庁が取得した LiDAR データ（2018 年 9 月～ 2019 年 1 月）による 0.5mDEM を使用して作成。
   - ライセンス：[森林土壌デジタルマップ・利用規約](https://www2.ffpri.go.jp/soilmap/#)参照。
 
+<!--
 - 愛媛県(林野庁)および高知県(林野庁) CS立体図
 
   - 出典：https://www2.ffpri.go.jp/soilmap/data-src.html
   - 概要：林野庁が取得した LiDAR データ（2018 年 9 月～ 2019 年 1 月）による 0.5mDEM を使用して作成。
   - ライセンス：[森林土壌デジタルマップ・利用規約](https://www2.ffpri.go.jp/soilmap/#)参照。
+-->
 
 - 福島県(林野庁) CS立体図
 
@@ -61,7 +63,6 @@ https://shiwaku.github.io/aist-dem-with-csmap-on-maplibre/
   - 概要：平成 30 年度に林野庁が実施した航空レーザ測量データを基に、高知県が作成した。
   - ライセンス：[利用規約](https://www.geospatial.jp/ckan/dataset/csmap_kochi/resource/86bbb203-3025-4c58-b130-b8fe692f9c09)参照。
 
-
 - 能登地域 CS立体図(発災後)  
   - 出典：https://www.geospatial.jp/ckan/dataset/2024noto_rinya
   - 概要：令和６年能登半島地震の発災後に林野庁と国土地理院が連携して実施した航空レーザ測量の速報成果を解析し、作成した微地形表現図です。
@@ -71,6 +72,18 @@ https://shiwaku.github.io/aist-dem-with-csmap-on-maplibre/
   - 出典：https://www.geospatial.jp/ckan/dataset/rinya-csmap-nagaoka2024
   - 概要：令和６年能登半島地震の発災後に林野庁と国土地理院が連携して実施した航空レーザ測量データを基に、林野庁が作成したCS立体図です。
   - ライセンス：[公共データ利用規約（第1.0版）（PDL1.0）](https://www.digital.go.jp/resources/open_data/public_data_license_v1.0)参照。
+
+## 愛媛県
+- 愛媛県 CS立体図
+  - 出典：https://www.geospatial.jp/ckan/dataset/csmap_ehime
+  - 概要：平成30年度に林野庁が実施した航空レーザ測量データを基に、愛媛県が作成した0.5m解像度の「微地形図（CS立体図）」です。
+  - ライセンス：[愛媛県 利用規約](https://www.geospatial.jp/ckan/dataset/csmap_ehime/resource/fe9620ab-debd-4e0f-9a7c-af86b2e52053)参照。
+
+## 鳥取県
+- 鳥取県 CS立体図
+  - 出典：https://www.geospatial.jp/ckan/dataset/csmap_tottori
+  - 概要：平成30年度～令和6年度に鳥取県等が実施した航空レーザ測量データを使用して作成した「微地形図（CS立体図）」です。
+  - ライセンス：【利用条件】本データには特段の記載がない限り公共データ利用規約（第1.0版）（PDL1.0）が適用されており、商用利用も含め、どなたでも無償でご利用いただけます。
 
 ## [open-hinata](https://kenzkenz.xsrv.jp/open-hinata/open-hinata.html)
 
