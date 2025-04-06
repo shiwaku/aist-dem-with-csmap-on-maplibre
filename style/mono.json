@@ -242,6 +242,14 @@
       "attribution": "<a href='https://www.geospatial.jp/ckan/dataset/csmap_tottori' target='_blank'>鳥取県CS立体図</a>",
       "tileSize": 256
     },
+    "kyoto-cs": {
+      "type": "raster",
+      "tiles": [
+        "https://shiworks2.xsrv.jp/raster-tiles/pref-kyoto/kyoto-csmap-tiles/{z}/{x}/{y}.png"
+      ],
+      "attribution": "<a href='https://www.geospatial.jp/ckan/dataset/dem05_kyoto' target='_blank'>京都府CS立体図(京都府「数値標高モデル（DEM）」を加工して作成)</a>",
+      "tileSize": 256
+    },
     "landslide": {
       "type": "raster",
       "tiles": [
@@ -12974,6 +12982,17 @@
       }
     },
     {
+      "id": "kyoto-cs",
+      "type": "raster",
+      "source": "kyoto-cs",
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "raster-opacity": 0.8
+      }
+    },
+    {
       "id": "hyogo-cs",
       "type": "raster",
       "source": "hyogo-cs",
@@ -13099,7 +13118,7 @@
       "type": "raster",
       "source": "kanagawa-cs",
       "layout": {
-        "visibility": "visible"
+        "visibility": "none"
       },
       "paint": {
         "raster-opacity": 0.8
