@@ -191,6 +191,10 @@
               <label for="noto-cs-final">能登(石川県)CS立体図(発災後最終成果)</label>
             </div>
             <div>
+              <input type="checkbox" id="yamanashi-cs" value="yamanashi-cs" checked/>
+              <label for="yamanashi-cs">山梨県CS立体図</label>
+            </div>
+            <div>
               <input type="checkbox" id="nagano-cs" value="nagano-cs" />
               <label for="nagano-cs">長野県CS立体図</label>
             </div>
@@ -203,7 +207,7 @@
               <label for="shizuoka-cs">静岡県CS立体図</label>
             </div>
             <div>
-              <input type="checkbox" id="kyoto-cs" value="kyoto-cs" checked/>
+              <input type="checkbox" id="kyoto-cs" value="kyoto-cs"/>
               <label for="kyoto-cs">京都府CS立体図</label>
             </div>
             <div>
@@ -634,6 +638,11 @@
           "raster-opacity",
           parseInt(e.target.value, 10) / 100
         );
+        map.setPaintProperty(
+          "yamanashi-cs",
+          "raster-opacity",
+          parseInt(e.target.value, 10) / 100
+        );
         cs_sliderOpactiyValue.textContent = e.target.value + "%";
       });
 
@@ -785,6 +794,7 @@
     toggleMapLayerVisibility("nagaoka-cs", "nagaoka-cs");
     toggleMapLayerVisibility("noto-cs", "noto-cs");
     toggleMapLayerVisibility("noto-cs-final", "noto-cs-final");
+    toggleMapLayerVisibility("yamanashi-cs", "yamanashi-cs");
     toggleMapLayerVisibility("nagano-cs", "nagano-cs");
     toggleMapLayerVisibility("gifu-cs", "gifu-cs");
     toggleMapLayerVisibility("shizuoka-cs", "shizuoka-cs");

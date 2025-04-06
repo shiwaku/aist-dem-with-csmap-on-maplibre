@@ -250,6 +250,14 @@
       "attribution": "<a href='https://www.geospatial.jp/ckan/dataset/dem05_kyoto' target='_blank'>京都府CS立体図(京都府「数値標高モデル（DEM）」を加工して作成)</a>",
       "tileSize": 256
     },
+    "yamanashi-cs": {
+      "type": "raster",
+      "tiles": [
+        "https://shiworks2.xsrv.jp/raster-tiles/pref-yamanashi/yamanashi-csmap-tiles/{z}/{x}/{y}.png"
+      ],
+      "attribution": "<a href='https://www.geospatial.jp/ckan/dataset/yamanashi-pointcloud-2024' target='_blank'>山梨県CS立体図(山梨県グリッドデータDEMを加工して作成)</a>",
+      "tileSize": 256
+    },
     "landslide": {
       "type": "raster",
       "tiles": [
@@ -12986,7 +12994,7 @@
       "type": "raster",
       "source": "kyoto-cs",
       "layout": {
-        "visibility": "visible"
+        "visibility": "none"
       },
       "paint": {
         "raster-opacity": 0.8
@@ -13009,6 +13017,28 @@
       "source": "tochigi-cs",
       "layout": {
         "visibility": "none"
+      },
+      "paint": {
+        "raster-opacity": 0.8
+      }
+    },
+    {
+      "id": "kanagawa-cs",
+      "type": "raster",
+      "source": "kanagawa-cs",
+      "layout": {
+        "visibility": "none"
+      },
+      "paint": {
+        "raster-opacity": 0.8
+      }
+    },
+    {
+      "id": "yamanashi-cs",
+      "type": "raster",
+      "source": "yamanashi-cs",
+      "layout": {
+        "visibility": "visible"
       },
       "paint": {
         "raster-opacity": 0.8
@@ -13106,17 +13136,6 @@
       "id": "tokyo-23ku-cs",
       "type": "raster",
       "source": "tokyo-23ku-cs",
-      "layout": {
-        "visibility": "none"
-      },
-      "paint": {
-        "raster-opacity": 0.8
-      }
-    },
-    {
-      "id": "kanagawa-cs",
-      "type": "raster",
-      "source": "kanagawa-cs",
       "layout": {
         "visibility": "none"
       },
