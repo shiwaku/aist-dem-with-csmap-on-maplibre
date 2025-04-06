@@ -218,6 +218,16 @@ https://shiwaku.github.io/aist-dem-with-csmap-on-maplibre/
   - タイルサイズ：256x256 ピクセル
   - ライセンス：[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 
+- 京都府 CS立体図(0.5m)（**試験公開中のため、予告なく変更または公開を中止する場合があります。**）
+  - 出典（タイル URL）：`https://shiworks2.xsrv.jp/raster-tiles/pref-kyoto/kyoto-csmap-tiles/{z}/{x}/{y}.png`
+    - 原初データ出典：[京都府「数値標高モデル（DEM）」](https://www.geospatial.jp/ckan/dataset/dem05_kyoto)
+    - 概要：平成31年～令和5年にかけて、航空レーザ測量により計測されたデータを使用して作成した0.5ｍ解像度の「数値標高モデル（DEM）」です。「数値標高モデル（DEM）」は標高値（メートル）のメッシュデータです。
+    - ライセンス：公共データ利用規約（第1.0版）」（PDL1.0）
+  - 概要：京都府が公開している、京都府「数値標高モデル（DEM）」と株式会社[MIERUNE](https://github.com/MIERUNE)開発の[CS 立体図作成ツール(csmap-py)](https://github.com/MIERUNE/csmap-py)を使用して CS 立体図を作成。本データは CS 立体図を Web メルカトル（EPSG:3857）に再投影した上で[gdal2tiles](https://gdal.org/programs/gdal2tiles.html)を使用してラスタータイル化したデータです。
+  - ズームレベル：4 ～ 18
+  - タイルサイズ：256x256 ピクセル
+  - ライセンス：[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+
 ## 国土地理院
 
 - 地理院タイル(地すべり地形分布図日本全国版（防災科学技術研究所）)
