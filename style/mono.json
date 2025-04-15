@@ -258,6 +258,14 @@
       "attribution": "<a href='https://www.geospatial.jp/ckan/dataset/yamanashi-pointcloud-2024' target='_blank'>山梨県CS立体図(山梨県グリッドデータDEMを加工して作成)</a>",
       "tileSize": 256
     },
+    "toyama-cs": {
+      "type": "raster",
+      "tiles": [
+        "https://shiworks2.xsrv.jp/raster-tiles/pref-toyama/toyama-csmap-tiles/{z}/{x}/{y}.png"
+      ],
+      "attribution": "<a href='https://www.geospatial.jp/ckan/dataset/dem' target='_blank'>富山県CS立体図(富山県 数値標高モデル（DEM）を加工して作成)</a>",
+      "tileSize": 256
+    },
     "landslide": {
       "type": "raster",
       "tiles": [
@@ -13038,7 +13046,7 @@
       "type": "raster",
       "source": "yamanashi-cs",
       "layout": {
-        "visibility": "visible"
+        "visibility": "none"
       },
       "paint": {
         "raster-opacity": 0.8
@@ -13094,6 +13102,17 @@
       "source": "nagaoka-cs",
       "layout": {
         "visibility": "none"
+      },
+      "paint": {
+        "raster-opacity": 0.8
+      }
+    },
+    {
+      "id": "toyama-cs",
+      "type": "raster",
+      "source": "toyama-cs",
+      "layout": {
+        "visibility": "visible"
       },
       "paint": {
         "raster-opacity": 0.8

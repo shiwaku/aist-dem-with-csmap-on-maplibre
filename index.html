@@ -183,6 +183,10 @@
               <label for="nagaoka-cs">長岡地域CS立体図</label>
             </div>
             <div>
+              <input type="checkbox" id="toyama-cs" value="toyama-cs" checked/>
+              <label for="toyama-cs">富山県CS立体図</label>
+            </div>
+            <div>
               <input type="checkbox" id="noto-cs" value="noto-cs" />
               <label for="noto-cs">能登(石川県)CS立体図(発災後速報成果)</label>
             </div>
@@ -191,7 +195,7 @@
               <label for="noto-cs-final">能登(石川県)CS立体図(発災後最終成果)</label>
             </div>
             <div>
-              <input type="checkbox" id="yamanashi-cs" value="yamanashi-cs" checked/>
+              <input type="checkbox" id="yamanashi-cs" value="yamanashi-cs"/>
               <label for="yamanashi-cs">山梨県CS立体図</label>
             </div>
             <div>
@@ -311,13 +315,13 @@
     const map = new maplibregl.Map({
       container: "map",
       style: "./style/mono.json",
-      zoom: 9.37,
+      zoom: 9.39,
       minZoom: 0,
       maxZoom: 23,
       pitch: 0,
       bearing: 0,
       maxPitch: 85,
-      center: [138.7035, 35.5613],
+      center: [137.2426, 36.6161],
       hash: true,
       attributionControl: false,
     });
@@ -643,6 +647,11 @@
           "raster-opacity",
           parseInt(e.target.value, 10) / 100
         );
+        map.setPaintProperty(
+          "toyama-cs",
+          "raster-opacity",
+          parseInt(e.target.value, 10) / 100
+        );
         cs_sliderOpactiyValue.textContent = e.target.value + "%";
       });
 
@@ -792,6 +801,7 @@
     toggleMapLayerVisibility("tokyo-shima-cs", "tokyo-shima-cs");
     toggleMapLayerVisibility("kanagawa-cs", "kanagawa-cs");
     toggleMapLayerVisibility("nagaoka-cs", "nagaoka-cs");
+    toggleMapLayerVisibility("toyama-cs", "toyama-cs");
     toggleMapLayerVisibility("noto-cs", "noto-cs");
     toggleMapLayerVisibility("noto-cs-final", "noto-cs-final");
     toggleMapLayerVisibility("yamanashi-cs", "yamanashi-cs");
