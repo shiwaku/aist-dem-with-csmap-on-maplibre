@@ -102,6 +102,11 @@ map.addControl(
   })
 );
 
+const layerIds = [
+  "plateau-lod1",
+  "fude-polygon"
+];
+
 map.on("load", () => {
   // 産総研 シームレス標高タイルソース
   map.addSource("aist-dem-terrain-rgb", {
@@ -257,6 +262,7 @@ map.on("load", () => {
   });
 
   updateCoordsDisplay(); // 初期座標を表示
+  layerIds.forEach(addPopupHandler);
 
   // map.showTileBoundaries = true; // タイル境界
 
@@ -382,67 +388,31 @@ function OpenLegendRoad() {
   window.open(legendUrl, "Legend", "width=1800,height=1200");
 }
 
-// クリック時にポップアップ表示
-map.on('click', (e) => {
-  const features = map.queryRenderedFeatures(e.point); // クリック地点のフィーチャを取得
-
-  if (features.length === 0) return; // フィーチャがなければ何もしない
-
-  let popupContent = '';
-  const uniqueLayers = []; // 処理済みレイヤーIDを記録
-
-  features.forEach((feature) => {
-    const layerId = feature.layer ? feature.layer.id : null; // レイヤーIDを取得
-
-    if (!layerId) {
-      console.warn('レイヤーIDが見つかりません:', feature);
-      return; // レイヤーIDがない場合はスキップ
-    }
-
-    if (!uniqueLayers.includes(layerId)) {
-      uniqueLayers.push(layerId); // 処理済みレイヤーを記録
-
-      // レイヤーごとのポップアップ内容を追加
-      const properties = feature.properties; // フィーチャのプロパティを取得
-      if (layerId === 'plateau-lod1') {
-        popupContent += `
-          <div><strong>建築物モデルLOD1:</strong></div>
-          <div>id: ${properties['id']}</div>
-          <div>source: ${properties['source']}</div>
-          <div>type: ${properties['type']}</div>
-          <div>lod: ${properties['lod']}</div>
-          <div>measuredHeight: ${properties['measuredHeight']}</div>
-          <div>address: ${properties['address']}</div>
-          <div>buildingID: ${properties['buildingID']}</div>
-          <div>prefecture: ${properties['prefecture']}</div>
-          <div>city: ${properties['city']}</div>
-          <div>lod1HeightType: ${properties['lod1HeightType']}</div>
-          <br>
-        `;
-      } else if (layerId === 'fude-polygon') {
-        popupContent += `
-          <div><strong>法務省地図XML:</strong></div>
-          <div>座標系: ${properties['座標系']}</div>
-          <div>測地系判別: ${properties['測地系判別']}</div>
-          <div>地図名: ${properties['地図名']}</div>
-          <div>縮尺分母: ${properties['縮尺分母']}</div>
-          <div>地番区域: ${properties['地番区域']}</div>
-          <div>地番: ${properties['地番']}</div>
-          <div>座標値種別: ${properties['座標値種別']}</div>
-          <br>
-        `;
-      }
-    }
+function addPopupHandler(layerId) {
+  map.on("click", layerId, (e) => {
+    const feature = e.features[0];
+    const coords = [e.lngLat.lng, e.lngLat.lat];  // ← これだけで OK
+    createPopup(coords, feature.properties);
   });
+}
 
-  // ポップアップを作成して表示
-  if (popupContent) {
-    new maplibregl.Popup()
-      .setLngLat(e.lngLat) // クリック位置にポップアップを設定
-      .setHTML(popupContent.trim()) // ポップアップの内容を設定
-      .addTo(map); // ポップアップを地図に追加
-  }
-});
+/**
+ * プロパティからテーブルを生成し、Popup を表示
+ */
+function createPopup(coordinates, properties) {
+  const table = document.createElement("table");
+  table.className = "popup-table";
+  table.innerHTML =
+    "<tr><th>属性</th><th>値</th></tr>" +
+    Object.entries(properties)
+      .map(([k, v]) => `<tr><td>${k}</td><td>${v}</td></tr>`)
+      .join("");
+
+  new maplibregl.Popup({ maxWidth: "300px" })
+    .setLngLat(coordinates)
+    .setDOMContent(table)
+    .addTo(map);
+}
 
 /// ****************
 // latLngToTile 緯度経度をタイル座標に変換する関数

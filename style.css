@@ -134,3 +134,22 @@
         z-index: 1;
         width: 190px;
     }
+
+    .popup-table {
+        border-collapse: collapse;
+        width: 100%;
+        table-layout: fixed;
+    }
+
+    .popup-table th,
+    .popup-table td {
+        border: 1px solid #ddd;
+        text-align: left;
+        padding: 8px;
+        overflow-wrap: break-word;
+        font-size: 14px;
+    }
+
+    .popup-table th {
+        background-color: #f2f2f2;
+    }
