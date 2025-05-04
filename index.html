@@ -423,8 +423,8 @@
       // 産総研 シームレス標高タイルソース
       map.addSource("aist-dem-terrain-rgb", {
         type: 'raster-dem',
-        tiles: ["https://gbank.gsj.jp/seamless/elev/terrainRGB/mixed/{z}/{y}/{x}.png"],
-        attribution: '<a href="https://tiles.gsj.jp/tiles/elev/tiles.html" target="_blank">産総研 シームレス標高タイル(統合DEM)</a>',
+        tiles: ["https://gbank.gsj.jp/seamless/elev/terrainRGB/land/{z}/{y}/{x}.png"],
+        attribution: '<a href="https://tiles.gsj.jp/tiles/elev/tiles.html" target="_blank">産総研 シームレス標高タイル(陸域統合DEM)</a>',
         tileSize: 256
       });
 
@@ -720,8 +720,8 @@
       let lat = center.lat.toFixed(5);
       let lng = center.lng.toFixed(5);
       let zoomLevel = Math.trunc(map.getZoom());
-      let elevTile = 'https://tiles.gsj.jp/tiles/elev/mixed/{z}/{y}/{x}.png'; // 統合DEM
-      // let elevTile = 'https://tiles.gsj.jp/tiles/elev/land/{z}/{y}/{x}.png'; // 陸域統合DEM
+      // let elevTile = 'https://tiles.gsj.jp/tiles/elev/mixed/{z}/{y}/{x}.png'; // 統合DEM
+      let elevTile = 'https://tiles.gsj.jp/tiles/elev/land/{z}/{y}/{x}.png'; // 陸域統合DEM
 
       if (zoomLevel > 15) {
         document.getElementById("coords").innerHTML =
