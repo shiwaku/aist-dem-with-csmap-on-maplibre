@@ -181,169 +181,51 @@ map.on("load", () => {
     },
   });
 
-  // スライダーCS立体図の不透明度を制御
-  const cs_sliderOpactiy = document.getElementById("cs-slider-opacity");
-  const cs_sliderOpactiyValue = document.getElementById(
-    "cs-slider-opacity-value"
-  );
+  const csLayerIds = [
+    "nagano-cs",
+    "hiroshima-cs",
+    "hiroshima-05m-cs",
+    "hiroshima-1m-cs",
+    "okayama-cs",
+    "ehime-cs",
+    "kochi-cs",
+    "fukushima-cs",
+    "kumamoto-oita-cs",
+    "hyogo-cs",
+    "tochigi-cs",
+    "shizuoka-cs",
+    "gifu-cs",
+    "osaka-cs",
+    "nagaoka-cs",
+    "noto-cs",
+    "noto-cs-final",
+    "tokyo-23ku-cs",
+    "tokyo-tama-cs",
+    "tokyo-shima-01-cs",
+    "tokyo-shima-02-cs",
+    "tokyo-shima-03-cs",
+    "tokyo-shima-04-cs",
+    "tokyo-shima-05-cs",
+    "tokyo-shima-06-cs",
+    "wakayama-cs",
+    "kanagawa-cs",
+    "tottori-cs",
+    "kyoto-cs",
+    "yamanashi-cs",
+    "toyama-cs",
+  ];
 
-  cs_sliderOpactiy.addEventListener("input", (e) => {
-    map.setPaintProperty(
-      "nagano-cs",
-      "raster-opacity",
-      parseInt(e.target.value, 10) / 100
-    );
-    map.setPaintProperty(
-      "hiroshima-cs",
-      "raster-opacity",
-      parseInt(e.target.value, 10) / 100
-    );
-    map.setPaintProperty(
-      "hiroshima-05m-cs",
-      "raster-opacity",
-      parseInt(e.target.value, 10) / 100
-    );
-    map.setPaintProperty(
-      "hiroshima-1m-cs",
-      "raster-opacity",
-      parseInt(e.target.value, 10) / 100
-    );
-    map.setPaintProperty(
-      "okayama-cs",
-      "raster-opacity",
-      parseInt(e.target.value, 10) / 100
-    );
-    map.setPaintProperty(
-      "ehime-cs",
-      "raster-opacity",
-      parseInt(e.target.value, 10) / 100
-    );
-    map.setPaintProperty(
-      "kochi-cs",
-      "raster-opacity",
-      parseInt(e.target.value, 10) / 100
-    );
-    map.setPaintProperty(
-      "fukushima-cs",
-      "raster-opacity",
-      parseInt(e.target.value, 10) / 100
-    );
-    map.setPaintProperty(
-      "kumamoto-oita-cs",
-      "raster-opacity",
-      parseInt(e.target.value, 10) / 100
-    );
-    map.setPaintProperty(
-      "hyogo-cs",
-      "raster-opacity",
-      parseInt(e.target.value, 10) / 100
-    );
-    map.setPaintProperty(
-      "tochigi-cs",
-      "raster-opacity",
-      parseInt(e.target.value, 10) / 100
-    );
-    map.setPaintProperty(
-      "shizuoka-cs",
-      "raster-opacity",
-      parseInt(e.target.value, 10) / 100
-    );
-    map.setPaintProperty(
-      "gifu-cs",
-      "raster-opacity",
-      parseInt(e.target.value, 10) / 100
-    );
-    map.setPaintProperty(
-      "osaka-cs",
-      "raster-opacity",
-      parseInt(e.target.value, 10) / 100
-    );
-    map.setPaintProperty(
-      "nagaoka-cs",
-      "raster-opacity",
-      parseInt(e.target.value, 10) / 100
-    );
-    map.setPaintProperty(
-      "noto-cs",
-      "raster-opacity",
-      parseInt(e.target.value, 10) / 100
-    );
-    map.setPaintProperty(
-      "noto-cs-final",
-      "raster-opacity",
-      parseInt(e.target.value, 10) / 100
-    );
-    map.setPaintProperty(
-      "tokyo-23ku-cs",
-      "raster-opacity",
-      parseInt(e.target.value, 10) / 100
-    );
-    map.setPaintProperty(
-      "tokyo-tama-cs",
-      "raster-opacity",
-      parseInt(e.target.value, 10) / 100
-    );
-    map.setPaintProperty(
-      "tokyo-shima-01-cs",
-      "raster-opacity",
-      parseInt(e.target.value, 10) / 100
-    );
-    map.setPaintProperty(
-      "tokyo-shima-02-cs",
-      "raster-opacity",
-      parseInt(e.target.value, 10) / 100
-    );
-    map.setPaintProperty(
-      "tokyo-shima-03-cs",
-      "raster-opacity",
-      parseInt(e.target.value, 10) / 100
-    );
-    map.setPaintProperty(
-      "tokyo-shima-04-cs",
-      "raster-opacity",
-      parseInt(e.target.value, 10) / 100
-    );
-    map.setPaintProperty(
-      "tokyo-shima-05-cs",
-      "raster-opacity",
-      parseInt(e.target.value, 10) / 100
-    );
-    map.setPaintProperty(
-      "tokyo-shima-06-cs",
-      "raster-opacity",
-      parseInt(e.target.value, 10) / 100
-    );
-    map.setPaintProperty(
-      "wakayama-cs",
-      "raster-opacity",
-      parseInt(e.target.value, 10) / 100
-    );
-    map.setPaintProperty(
-      "kanagawa-cs",
-      "raster-opacity",
-      parseInt(e.target.value, 10) / 100
-    );
-    map.setPaintProperty(
-      "tottori-cs",
-      "raster-opacity",
-      parseInt(e.target.value, 10) / 100
-    );
-    map.setPaintProperty(
-      "kyoto-cs",
-      "raster-opacity",
-      parseInt(e.target.value, 10) / 100
-    );
-    map.setPaintProperty(
-      "yamanashi-cs",
-      "raster-opacity",
-      parseInt(e.target.value, 10) / 100
-    );
-    map.setPaintProperty(
-      "toyama-cs",
-      "raster-opacity",
-      parseInt(e.target.value, 10) / 100
-    );
-    cs_sliderOpactiyValue.textContent = e.target.value + "%";
+  const csSlider = document.getElementById("cs-slider-opacity");
+  const csValueLabel = document.getElementById("cs-slider-opacity-value");
+
+  csSlider.addEventListener("input", (e) => {
+    const value = Number(e.target.value);
+    const opacity = value / 100;
+    csLayerIds.forEach((layerId) => {
+      map.setPaintProperty(layerId, "raster-opacity", opacity);
+    });
+
+    csValueLabel.textContent = `${value}%`;
   });
 
   // スライダーで陰影起伏図の不透明度を制御
