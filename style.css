@@ -1,155 +1,167 @@
-    body {
-        margin: 0;
-    }
+body {
+    margin: 0;
+}
 
-    #map {
-        height: 100%;
-        width: 100%;
-    }
+#map {
+    height: 100%;
+    width: 100%;
+}
 
-    .map-overlay {
-        font: bold 12px/14px "Helvetica Neue", Arial, Helvetica, sans-serif;
-        position: absolute;
-        width: 180px;
-        bottom: 20px;
-        left: 0;
-        padding: 10px;
-    }
+.map-overlay {
+    font: bold 12px/14px "Helvetica Neue", Arial, Helvetica, sans-serif;
+    position: absolute;
+    width: 180px;
+    bottom: 20px;
+    left: 0;
+    padding: 10px;
+}
 
-    .map-overlay .map-overlay-inner {
-        background-color: rgba(255, 255, 255, 0.8);
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-        border-radius: 5px;
-        padding: 10px;
-        margin-bottom: 10px;
-        width: 180px;
-    }
+.map-overlay .map-overlay-inner {
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    width: 180px;
+}
 
-    .map-overlay label {
-        display: block;
-        margin: 0 0 0px;
-        font-size: 12px;
-        top: 100px;
-        left: 10px;
-        display: block;
-        margin-bottom: 5px;
-    }
+.map-overlay label {
+    display: block;
+    margin: 0 0 0px;
+    font-size: 12px;
+    top: 100px;
+    left: 10px;
+    margin-bottom: 5px;
+}
 
-    .map-overlay input {
-        background-color: transparent;
-        display: inline-block;
-        width: 100%;
-        position: relative;
-        margin: 0;
-        cursor: ew-resize;
-    }
+.map-overlay input {
+    background-color: transparent;
+    display: inline-block;
+    width: 100%;
+    position: relative;
+    margin: 0;
+    cursor: ew-resize;
+}
 
-    .maplibregl-popup .maplibregl-popup-content {
-        padding: 8px 10px;
-        font: 12px/14px Arial, Helvetica, sans-serif;
-        color: black;
-        background: rgba(255, 255, 255, 0.8);
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-        border-radius: 5px;
-        width: 280px;
-        height: auto;
-        /*overflow: scroll;*/
-    }
+.maplibregl-popup .maplibregl-popup-content {
+    padding: 8px 10px;
+    font: 12px/14px Arial, Helvetica, sans-serif;
+    color: black;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    width: 280px;
+    height: auto;
+    z-index: 100;
+    /* overflow: scroll; */
+}
 
-    .maplibregl-ctrl-geocoder {
-        font-size: 14px;
-        line-height: 12px;
-        font-family: "Open Sans", "Helvetica Neue", Arial, Helvetica, sans-serif;
-        position: relative;
-        background-color: rgba(255, 255, 255, 1);
-        width: 80%;
-        min-width: 100px;
-        z-index: 1;
-        border-radius: 5px;
-        transition: width 0.25s, min-width 0.25s;
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-    }
+.maplibregl-ctrl-geocoder {
+    font-size: 14px;
+    line-height: 12px;
+    font-family: "Open Sans", "Helvetica Neue", Arial, Helvetica, sans-serif;
+    position: relative;
+    background-color: rgba(255, 255, 255, 1);
+    width: 80%;
+    min-width: 100px;
+    z-index: 1;
+    border-radius: 5px;
+    transition: width 0.25s, min-width 0.25s;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
 
-    .maplibregl-ctrl-geocoder .suggestions {
-        font-size: 14px;
-    }
+.maplibregl-ctrl-geocoder .suggestions {
+    font-size: 14px;
+}
 
-    #info {
-        padding: 6px 8px;
-        font: 12px/14px Arial, Helvetica, sans-serif;
-        color: navy;
-        background: rgba(255, 255, 255, 0.8);
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-        border-radius: 5px;
-        width: fit-content;
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        z-index: 10;
-        max-height: 350px;
-        overflow-y: auto;
-    }
+#info {
+    padding: 6px 8px;
+    font: 12px/14px Arial, Helvetica, sans-serif;
+    color: navy;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    width: fit-content;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 1;
+    max-height: 400px;
+    overflow-y: auto;
+}
 
-    #info details>fieldset {
-        padding: 0;
-        margin-bottom: 8px;
-    }
+#info details>fieldset {
+    padding: 0;
+    margin-bottom: 8px;
+}
 
-    .yubi {
-        cursor: pointer;
-        z-index: 10;
-    }
+.yubi {
+    cursor: pointer;
+    z-index: 10;
+}
 
-    .checkbox-button-container {
-        display: flex;
-        flex-direction: column;
-        justify-content: start;
-    }
+.checkbox-button-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
 
-    .column {
-        display: flex;
-        flex-direction: column;
-        margin-right: 20px;
-    }
+.column {
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+}
 
-    .map-center-marker {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 30px;
-        pointer-events: none;
-    }
+.map-center-marker {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 30px;
+    pointer-events: none;
+}
 
-    .coords-display {
-        position: absolute;
-        font: bold 12px/14px "Helvetica Neue", Arial, Helvetica, sans-serif;
-        bottom: 125px;
-        left: 0px;
-        margin: 10px;
-        padding: 5px;
-        background: rgba(255, 255, 255, 0.8);
-        border-radius: 5px;
-        font-size: 12px;
-        z-index: 1;
-        width: 190px;
-    }
+.coords-display {
+    position: absolute;
+    font: bold 12px/14px "Helvetica Neue", Arial, Helvetica, sans-serif;
+    bottom: 125px;
+    left: 0px;
+    margin: 10px;
+    padding: 5px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 5px;
+    font-size: 12px;
+    z-index: 1;
+    width: 190px;
+}
 
-    .popup-table {
-        border-collapse: collapse;
-        width: 100%;
-        table-layout: fixed;
-    }
+.popup-table {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+}
 
-    .popup-table th,
-    .popup-table td {
-        border: 1px solid #ddd;
-        text-align: left;
-        padding: 8px;
-        overflow-wrap: break-word;
-        font-size: 14px;
-    }
+.popup-table th,
+.popup-table td {
+    border: 1px solid #ddd;
+    text-align: left;
+    padding: 8px;
+    overflow-wrap: break-word;
+    font-size: 14px;
+}
 
-    .popup-table th {
-        background-color: #f2f2f2;
-    }
+.popup-table th {
+    background-color: #f2f2f2;
+}
+
+.maplibregl-popup {
+    z-index: 9999 !important;
+}
+
+.maplibregl-popup-tip {
+    z-index: 9999 !important;
+}
+
+.maplibregl-popup-content {
+    z-index: 9999 !important;
+}
