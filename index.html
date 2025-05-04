@@ -88,6 +88,7 @@
     }
 
     #info {
+      width: 240px;
       padding: 6px 8px;
       font: 12px/14px Arial, Helvetica, sans-serif;
       color: navy;
@@ -99,6 +100,13 @@
       top: 10px;
       left: 10px;
       z-index: 10;
+      max-height: 250px;
+      overflow-y: auto;
+    }
+
+    #info details>fieldset {
+      padding: 0;
+      margin-bottom: 8px;
     }
 
     .yubi {
@@ -175,7 +183,7 @@
               <label for="toyko-shima-cs">東京都(島しょ地域)CS立体図</label>
             </div>
             <div>
-              <input type="checkbox" id="kanagawa-cs" value="kanagawa-cs"/>
+              <input type="checkbox" id="kanagawa-cs" value="kanagawa-cs" />
               <label for="kanagawa-cs">神奈川県CS立体図</label>
             </div>
             <div>
@@ -183,7 +191,7 @@
               <label for="nagaoka-cs">長岡地域CS立体図</label>
             </div>
             <div>
-              <input type="checkbox" id="toyama-cs" value="toyama-cs" checked/>
+              <input type="checkbox" id="toyama-cs" value="toyama-cs" checked />
               <label for="toyama-cs">富山県CS立体図</label>
             </div>
             <div>
@@ -195,7 +203,7 @@
               <label for="noto-cs-final">能登(石川県)CS立体図(発災後最終成果)</label>
             </div>
             <div>
-              <input type="checkbox" id="yamanashi-cs" value="yamanashi-cs"/>
+              <input type="checkbox" id="yamanashi-cs" value="yamanashi-cs" />
               <label for="yamanashi-cs">山梨県CS立体図</label>
             </div>
             <div>
@@ -211,7 +219,7 @@
               <label for="shizuoka-cs">静岡県CS立体図</label>
             </div>
             <div>
-              <input type="checkbox" id="kyoto-cs" value="kyoto-cs"/>
+              <input type="checkbox" id="kyoto-cs" value="kyoto-cs" />
               <label for="kyoto-cs">京都府CS立体図</label>
             </div>
             <div>
