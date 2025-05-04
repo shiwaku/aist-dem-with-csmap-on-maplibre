@@ -313,6 +313,7 @@ map.on("move", function () {
   updateCoordsDisplay(); // 座標を更新
 });
 
+/*
 // ============================== レイヤの表示・非表示切り替え制御 ==============================
 
 // レイヤ表示・非表示切り替え関数
@@ -398,6 +399,59 @@ toggleMapLayerVisibility("kumamoto-oita-cs", "kumamoto-oita-cs");
 toggleMapLayerVisibility("plateau-lod1", "plateau-lod1");
 toggleMapLayerVisibility("moj-xml", "moj-xml");
 toggleMapLayerVisibility("landslide", "landslide");
+*/
+
+// レイヤ表示・非表示切り替えの設定
+const layerMappings = {
+  // デフォルト（チェックボックスID＝レイヤーID）の場合は後で自動的に配列化します  
+  // 特殊なチェックボックスIDには関連レイヤー一覧をオーバーライドで定義  
+  "tokyo-shima-cs": [
+    "tokyo-shima-01-cs",
+    "tokyo-shima-02-cs",
+    "tokyo-shima-03-cs",
+    "tokyo-shima-04-cs",
+    "tokyo-shima-05-cs",
+    "tokyo-shima-06-cs"
+  ],
+  "moj-xml": ["fude-line", "fude-polygon"]
+};
+
+// 全レイヤー／チェックボックスIDをまとめた配列
+const allCheckboxIds = [
+  // CS立体図
+  "fukushima-cs", "tochigi-cs", "tokyo-23ku-cs", "tokyo-tama-cs",
+  "tokyo-shima-cs", "kanagawa-cs", "nagaoka-cs", "toyama-cs",
+  "noto-cs", "noto-cs-final", "yamanashi-cs", "nagano-cs",
+  "gifu-cs", "shizuoka-cs", "kyoto-cs", "osaka-cs",
+  "hyogo-cs", "wakayama-cs", "tottori-cs", "okayama-cs",
+  "hiroshima-cs", "hiroshima-05m-cs", "hiroshima-1m-cs",
+  "ehime-cs", "kochi-cs", "kumamoto-oita-cs",
+  // CS立体図以外
+  "plateau-lod1", "moj-xml", "landslide"
+];
+
+// マップ：checkboxId → 対応レイヤーID配列
+allCheckboxIds.forEach((checkboxId) => {
+  if (!layerMappings[checkboxId]) {
+    // 特殊定義がなければ自身のみを対象に
+    layerMappings[checkboxId] = [checkboxId];
+  }
+});
+
+// イベントリスナー登録
+Object.entries(layerMappings).forEach(([checkboxId, layerIds]) => {
+  const checkbox = document.getElementById(checkboxId);
+  if (!checkbox) {
+    console.warn(`"${checkboxId}" の要素が見つかりません`);
+    return;
+  }
+  checkbox.addEventListener("change", (e) => {
+    const visibility = e.target.checked ? "visible" : "none";
+    layerIds.forEach((layerId) => {
+      map.setLayoutProperty(layerId, "visibility", visibility);
+    });
+  });
+});
 
 // 地すべり地形分布図凡例
 
