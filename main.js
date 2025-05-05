@@ -157,8 +157,8 @@ map.on("load", () => {
   // 法務省地図ソース
   map.addSource("moj-xml", {
     type: "vector",
-    url: "pmtiles://https://data.source.coop/smartmaps/amx-2024-04/MojMap_amx_2024.pmtiles",
-    // url: "pmtiles://https://pmtiles-data.s3.ap-northeast-1.amazonaws.com/moj-xml/MojMap_amx_2024.pmtiles",
+    // url: "pmtiles://https://data.source.coop/smartmaps/amx-2024-04/MojMap_amx_2024.pmtiles",
+    url: "pmtiles://https://pmtiles-data.s3.ap-northeast-1.amazonaws.com/moj-xml/MojMap_amx_2024.pmtiles",
     attribution: '<a href="https://github.com/amx-project">法務省地図XML（amx-project）</a>'
   });
 
