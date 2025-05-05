@@ -1,10 +1,88 @@
-body {
+body,
+html {
     margin: 0;
+    padding: 0;
+    height: 100%;
 }
 
 #map {
     height: 100%;
     width: 100%;
+}
+
+a {
+    color: navy;
+}
+
+a:visited {
+    color: navy;
+}
+
+#menu-panel {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 30;
+    padding: 6px 8px;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.9);
+    border-radius: 5px;
+    font: 12px/14px Arial, Helvetica, sans-serif;
+    color: navy;
+}
+
+.summary-trigger {
+    cursor: pointer;
+}
+
+.select_box {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 14px;
+    line-height: 14px;
+}
+
+.select_box:last-child {
+    margin-bottom: 0;
+}
+
+.toggle-button-001 {
+    position: relative;
+    width: 20px;
+    height: 10px;
+    margin-right: 6px;
+    border: 3px solid #ddd;
+    border-radius: 10px;
+    cursor: pointer;
+    box-sizing: content-box;
+    transition: border-color 0.4s;
+}
+
+.toggle-button-001 input {
+    display: none;
+}
+
+.toggle-button-001::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 10px;
+    height: 10px;
+    background: #ddd;
+    border-radius: 50%;
+    transform: translateY(-50%);
+    transition: left 0.4s, background-color 0.4s;
+}
+
+.toggle-button-001:has(input:checked) {
+    border-color: #4bd865;
+}
+
+.toggle-button-001:has(input:checked)::after {
+    left: 10px;
+    background: #4bd865;
 }
 
 .map-overlay {
@@ -47,13 +125,13 @@ body {
     padding: 8px 10px;
     font: 12px/14px Arial, Helvetica, sans-serif;
     color: black;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.9);
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     border-radius: 5px;
     width: 280px;
-    height: auto;
+    height: 390px;
     z-index: 100;
-    /* overflow: scroll; */
+    overflow: scroll;
 }
 
 .maplibregl-ctrl-geocoder {
@@ -74,44 +152,6 @@ body {
     font-size: 14px;
 }
 
-#info {
-    padding: 6px 8px;
-    font: 12px/14px Arial, Helvetica, sans-serif;
-    color: navy;
-    background: rgba(255, 255, 255, 0.8);
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-    width: fit-content;
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    z-index: 1;
-    max-height: 400px;
-    overflow-y: auto;
-}
-
-#info details>fieldset {
-    padding: 0;
-    margin-bottom: 8px;
-}
-
-.yubi {
-    cursor: pointer;
-    z-index: 10;
-}
-
-.checkbox-button-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-}
-
-.column {
-    display: flex;
-    flex-direction: column;
-    margin-right: 20px;
-}
-
 .map-center-marker {
     position: absolute;
     top: 50%;
@@ -124,7 +164,7 @@ body {
 .coords-display {
     position: absolute;
     font: bold 12px/14px "Helvetica Neue", Arial, Helvetica, sans-serif;
-    bottom: 125px;
+    bottom: 90px;
     left: 0px;
     margin: 10px;
     padding: 5px;
@@ -164,4 +204,13 @@ body {
 
 .maplibregl-popup-content {
     z-index: 9999 !important;
+}
+
+#menu-panel details>fieldset>details>fieldset {
+    width: 250px;
+    max-height: 300px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 4px;
+    box-sizing: border-box;
 }

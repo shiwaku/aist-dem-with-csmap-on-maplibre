@@ -13,13 +13,6 @@
       ],
       "attribution": "<a href='https://github.com/gsi-cyberjapan/optimal_bvmap' target='_blank'>国土地理院最適化ベクトルタイル</a>"
     },
-    "h": {
-      "type": "raster",
-      "tiles": [
-        "https://cyberjapandata.gsi.go.jp/xyz/hillshademap/{z}/{x}/{y}.png"
-      ],
-      "attribution": "<a href='https://maps.gsi.go.jp/development/ichiran.html#hillshademap' target='_blank'>地理院タイル(陰影起伏図)</a>"
-    },
     "nagano-cs": {
       "type": "raster",
       "tiles": [
@@ -304,14 +297,6 @@
       "source-layer": "AdmArea",
       "paint": {
         "fill-color": "hsla(60,1%,97%,1)"
-      }
-    },
-    {
-      "id": "hillshade",
-      "type": "raster",
-      "source": "h",
-      "paint": {
-        "raster-opacity": 0
       }
     },
     {
@@ -24737,6 +24722,28 @@
       }
     },
     {
+      "id": "toyama-cs",
+      "type": "raster",
+      "source": "toyama-cs",
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "raster-opacity": 0.8
+      }
+    },
+    {
+      "id": "yamanashi-cs",
+      "type": "raster",
+      "source": "yamanashi-cs",
+      "layout": {
+        "visibility": "none"
+      },
+      "paint": {
+        "raster-opacity": 0.8
+      }
+    },
+    {
       "id": "nagano-cs",
       "type": "raster",
       "source": "nagano-cs",
@@ -24880,17 +24887,6 @@
       }
     },
     {
-      "id": "yamanashi-cs",
-      "type": "raster",
-      "source": "yamanashi-cs",
-      "layout": {
-        "visibility": "none"
-      },
-      "paint": {
-        "raster-opacity": 0.8
-      }
-    },
-    {
       "id": "shizuoka-cs",
       "type": "raster",
       "source": "shizuoka-cs",
@@ -24940,17 +24936,6 @@
       "source": "nagaoka-cs",
       "layout": {
         "visibility": "none"
-      },
-      "paint": {
-        "raster-opacity": 0.8
-      }
-    },
-    {
-      "id": "toyama-cs",
-      "type": "raster",
-      "source": "toyama-cs",
-      "layout": {
-        "visibility": "visible"
       },
       "paint": {
         "raster-opacity": 0.8

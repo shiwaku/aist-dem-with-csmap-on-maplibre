@@ -102,9 +102,44 @@ map.addControl(
   })
 );
 
-const layerIds = [
-  "plateau-lod1",
-  "fude-polygon"
+const csLayerIds = [
+  "nagano-cs",
+  "hiroshima-cs",
+  "hiroshima-05m-cs",
+  "hiroshima-1m-cs",
+  "okayama-cs",
+  "ehime-cs",
+  "kochi-cs",
+  "fukushima-cs",
+  "kumamoto-oita-cs",
+  "hyogo-cs",
+  "tochigi-cs",
+  "shizuoka-cs",
+  "gifu-cs",
+  "osaka-cs",
+  "nagaoka-cs",
+  "noto-cs",
+  "noto-cs-final",
+  "tokyo-23ku-cs",
+  "tokyo-tama-cs",
+  "tokyo-shima-01-cs",
+  "tokyo-shima-02-cs",
+  "tokyo-shima-03-cs",
+  "tokyo-shima-04-cs",
+  "tokyo-shima-05-cs",
+  "tokyo-shima-06-cs",
+  "wakayama-cs",
+  "kanagawa-cs",
+  "tottori-cs",
+  "kyoto-cs",
+  "yamanashi-cs",
+  "toyama-cs",
+];
+
+const otherlayerIds = [
+  "fude-polygon",
+  "fude-line",
+  "plateau-bldg",
 ];
 
 map.on("load", () => {
@@ -119,7 +154,7 @@ map.on("load", () => {
   // 産総研 シームレス標高タイルセット
   // map.setTerrain({ 'source': 'aist-dem-terrain-rgb', 'exaggeration': 1 });
 
-  // 法務省地図XML（PMTiles）ソース
+  // 法務省地図ソース
   map.addSource("moj-xml", {
     type: "vector",
     url: "pmtiles://https://data.source.coop/smartmaps/amx-2024-04/MojMap_amx_2024.pmtiles",
@@ -127,7 +162,7 @@ map.on("load", () => {
     attribution: '<a href="https://github.com/amx-project">法務省地図XML（amx-project）</a>'
   });
 
-  // 筆レイヤ（ポリゴン）
+  // 法務省地図レイヤー（ポリゴン）
   map.addLayer({
     "id": "fude-polygon",
     "source": "moj-xml",
@@ -142,7 +177,7 @@ map.on("load", () => {
     }
   });
 
-  // 筆レイヤ（ライン）
+  // 法務省地図レイヤー（ライン）
   map.addLayer({
     "id": "fude-line",
     "source": "moj-xml",
@@ -157,22 +192,22 @@ map.on("load", () => {
     }
   });
 
-  // 3D都市モデルPLATEAU建築物モデル（PMTiles）ソース
-  map.addSource("plateau-lod1", {
+  // 3D都市モデルPLATEAU建築物モデルソース
+  map.addSource("plateau-bldg", {
     type: "vector",
-    url: "pmtiles://https://shiworks.xsrv.jp/pmtiles-data/plateau/PLATEAU_2022_LOD1.pmtiles",
-    // url: "pmtiles://https://pmtiles-data.s3.ap-northeast-1.amazonaws.com/plateau/PLATEAU_2022_LOD1.pmtiles",
-    minzoom: 16,
+    // url: "pmtiles://https://shiworks.xsrv.jp/pmtiles-data/plateau/PLATEAU_2022_LOD1.pmtiles",
+    url: "pmtiles://https://pmtiles-data.s3.ap-northeast-1.amazonaws.com/plateau/PLATEAU_2023_LOD0.pmtiles",
+    minzoom: 14,
     maxzoom: 16,
     attribution:
-      '<a href="https://www.geospatial.jp/ckan/dataset/plateau">国土交通省 3D都市モデルPLATEAU（建築物LOD1）</a>',
+      '<a href="https://www.geospatial.jp/ckan/dataset/plateau">国土交通省3D都市モデルPLATEAU建築物</a>',
   });
 
-  // 3D都市モデルPLATEAU建築物モデル（PMTiles）レイヤ
+  // 3D都市モデルPLATEAU建築物モデルレイヤ
   map.addLayer({
-    id: "plateau-lod1",
-    source: "plateau-lod1",
-    "source-layer": "PLATEAU",
+    id: "plateau-bldg",
+    source: "plateau-bldg",
+    "source-layer": "PLATEAU_2023_LOD0",
     minzoom: 14,
     maxzoom: 23,
     type: "fill-extrusion",
@@ -182,44 +217,11 @@ map.on("load", () => {
     paint: {
       "fill-extrusion-color": "#FFFFFF",
       "fill-extrusion-opacity": 0.7,
-      "fill-extrusion-height": ["get", "measuredHeight"],
+      "fill-extrusion-height": ["get", "measured_height"],
     },
   });
 
-  const csLayerIds = [
-    "nagano-cs",
-    "hiroshima-cs",
-    "hiroshima-05m-cs",
-    "hiroshima-1m-cs",
-    "okayama-cs",
-    "ehime-cs",
-    "kochi-cs",
-    "fukushima-cs",
-    "kumamoto-oita-cs",
-    "hyogo-cs",
-    "tochigi-cs",
-    "shizuoka-cs",
-    "gifu-cs",
-    "osaka-cs",
-    "nagaoka-cs",
-    "noto-cs",
-    "noto-cs-final",
-    "tokyo-23ku-cs",
-    "tokyo-tama-cs",
-    "tokyo-shima-01-cs",
-    "tokyo-shima-02-cs",
-    "tokyo-shima-03-cs",
-    "tokyo-shima-04-cs",
-    "tokyo-shima-05-cs",
-    "tokyo-shima-06-cs",
-    "wakayama-cs",
-    "kanagawa-cs",
-    "tottori-cs",
-    "kyoto-cs",
-    "yamanashi-cs",
-    "toyama-cs",
-  ];
-
+  // スライダーでCS立体図の不透明度を制御
   const csSlider = document.getElementById("cs-slider-opacity");
   const csValueLabel = document.getElementById("cs-slider-opacity-value");
 
@@ -233,23 +235,6 @@ map.on("load", () => {
     csValueLabel.textContent = `${value}%`;
   });
 
-  // スライダーで陰影起伏図の不透明度を制御
-  const hillshade_sliderOpactiy = document.getElementById(
-    "hillshade-slider-opacity"
-  );
-  const hillshade_sliderOpactiyValue = document.getElementById(
-    "hillshade-slider-opacity-value"
-  );
-
-  hillshade_sliderOpactiy.addEventListener("input", (e) => {
-    map.setPaintProperty(
-      "hillshade",
-      "raster-opacity",
-      parseInt(e.target.value, 10) / 100
-    );
-    hillshade_sliderOpactiyValue.textContent = e.target.value + "%";
-  });
-
   // Skyレイヤ
   map.setSky({
     "sky-color": "#199EF3",
@@ -261,31 +246,21 @@ map.on("load", () => {
     "atmosphere-blend": ["interpolate", ["linear"], ["zoom"], 0, 1, 12, 0]
   });
 
-  updateCoordsDisplay(); // 初期座標を表示
-  layerIds.forEach(addPopupHandler);
+
+  // レイヤー切り替え
+  setupLayerSwitches();
+
+  // 初期座標を表示
+  updateCoordsDisplay();
+
+  // ポップアップ表示
+  otherlayerIds.forEach(addPopupHandler);
 
   // map.showTileBoundaries = true; // タイル境界
 
 });
 
 // 地図の中心座標と標高を表示する関数
-/*
-function updateCoordsDisplay() {
-  let center = map.getCenter();
-  let lat = center.lat.toFixed(5);
-  let lng = center.lng.toFixed(5);
-  // let elevTile = 'https://tiles.gsj.jp/tiles/elev/mixed/{z}/{y}/{x}.png' // 統合DEM
-  let elevTile = 'https://tiles.gsj.jp/tiles/elev/land/{z}/{y}/{x}.png' // 陸域統合DEM
-  getNumericalValue(elevTile, lat, lng, Math.trunc(map.getZoom()), 0.01, 0, -(2 ** 23)).then(function (v) {
-    document.getElementById("coords").innerHTML =
-      "中心座標: " + lat + ", " + lng + "<br>" +
-      "標高(ZL=15以下): " + ((isNaN(v)) ? '取得できません' : v.toFixed(2) + 'm') + "<br>" +
-      '<a href="https://www.google.com/maps?q=' + lat + "," + lng + '&hl=ja" target="_blank">🌎GoogleMaps</a>' +
-      " " + '<a href="https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=' + lat + "," + lng + '&hl=ja" target="_blank">📷StreetView</a>';
-  });
-}
-*/
-
 function updateCoordsDisplay() {
   let center = map.getCenter();
   let lat = center.lat.toFixed(5);
@@ -313,64 +288,31 @@ function updateCoordsDisplay() {
   }
 }
 
-
 // 地図が移動したら中心の座標を更新
 map.on("move", function () {
   updateCoordsDisplay(); // 座標を更新
 });
 
-// レイヤ表示・非表示切り替えの設定
-const layerMappings = {
-  // デフォルト（チェックボックスID＝レイヤーID）の場合は後で自動的に配列化します  
-  // 特殊なチェックボックスIDには関連レイヤー一覧をオーバーライドで定義  
-  "tokyo-shima-cs": [
-    "tokyo-shima-01-cs",
-    "tokyo-shima-02-cs",
-    "tokyo-shima-03-cs",
-    "tokyo-shima-04-cs",
-    "tokyo-shima-05-cs",
-    "tokyo-shima-06-cs"
-  ],
-  "moj-xml": ["fude-line", "fude-polygon"]
-};
-
-// 全レイヤー／チェックボックスIDをまとめた配列
-const allCheckboxIds = [
-  // CS立体図
-  "fukushima-cs", "tochigi-cs", "tokyo-23ku-cs", "tokyo-tama-cs",
-  "tokyo-shima-cs", "kanagawa-cs", "nagaoka-cs", "toyama-cs",
-  "noto-cs", "noto-cs-final", "yamanashi-cs", "nagano-cs",
-  "gifu-cs", "shizuoka-cs", "kyoto-cs", "osaka-cs",
-  "hyogo-cs", "wakayama-cs", "tottori-cs", "okayama-cs",
-  "hiroshima-cs", "hiroshima-05m-cs", "hiroshima-1m-cs",
-  "ehime-cs", "kochi-cs", "kumamoto-oita-cs",
-  // CS立体図以外
-  "plateau-lod1", "moj-xml", "landslide"
-];
-
-// マップ：checkboxId → 対応レイヤーID配列
-allCheckboxIds.forEach((checkboxId) => {
-  if (!layerMappings[checkboxId]) {
-    // 特殊定義がなければ自身のみを対象に
-    layerMappings[checkboxId] = [checkboxId];
-  }
-});
-
-// イベントリスナー登録
-Object.entries(layerMappings).forEach(([checkboxId, layerIds]) => {
-  const checkbox = document.getElementById(checkboxId);
-  if (!checkbox) {
-    console.warn(`"${checkboxId}" の要素が見つかりません`);
-    return;
-  }
-  checkbox.addEventListener("change", (e) => {
-    const visibility = e.target.checked ? "visible" : "none";
-    layerIds.forEach((layerId) => {
-      map.setLayoutProperty(layerId, "visibility", visibility);
+// CS立体図レイヤー切り替え
+function setupLayerSwitches() {
+  document.querySelectorAll(".layer-switch").forEach((input) => {
+    input.addEventListener("change", () => {
+      input.dataset.layer
+        .split(",")
+        .map((id) => id.trim())
+        .forEach((layer) => {
+          map.setLayoutProperty(
+            layer,
+            "visibility",
+            input.checked ? "visible" : "none"
+          );
+        });
     });
   });
-});
+}
 
+
+/*
 // 地すべり地形分布図凡例
 
 // イベントリスナーを追加
@@ -387,6 +329,7 @@ function OpenLegendRoad() {
   // 新しいウィンドウを開く
   window.open(legendUrl, "Legend", "width=1800,height=1200");
 }
+*/
 
 function addPopupHandler(layerId) {
   map.on("click", layerId, (e) => {
@@ -397,7 +340,7 @@ function addPopupHandler(layerId) {
 }
 
 /**
- * プロパティからテーブルを生成し、Popup を表示
+プロパティからテーブルを生成し、Popup を表示
  */
 function createPopup(coordinates, properties) {
   const table = document.createElement("table");
@@ -421,17 +364,6 @@ function createPopup(coordinates, properties) {
 //  戻り値: タイル座標オブジェクト（x, yフィールドを持ちます)
 //    ※通常，地図ライブラリ内に同様の関数が用意されています．
 /// ****************
-/*
-function latLngToTile(lat, lng, z) {
-  console.log("z=" + z + " " + "lat=" + lat + " " + "lng=" + lng);
-  const
-    w = Math.pow(2, (z === undefined) ? 0 : z) / 2,		// 世界全体のピクセル幅
-    yrad = Math.log(Math.tan(Math.PI * (90 + lat) / 360));
-
-  return { x: (lng / 180 + 1) * w, y: (1 - yrad / Math.PI) * w };
-};
-*/
-
 function latLngToTile(lat, lng, z) {
   // ズームレベル z におけるタイルの総数
   const n = Math.pow(2, z);
