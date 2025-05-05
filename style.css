@@ -208,7 +208,7 @@ a:visited {
 
 #menu-panel details>fieldset>details>fieldset {
     width: 250px;
-    max-height: 300px;
+    max-height: 250px;
     overflow-y: auto;
     overflow-x: hidden;
     padding-right: 4px;
