@@ -129,7 +129,7 @@ a:visited {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     border-radius: 5px;
     width: 280px;
-    height: 390px;
+    height: 370px;
     z-index: 100;
     overflow: scroll;
 }
