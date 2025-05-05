@@ -11,7 +11,15 @@
       "tiles": [
         "pmtiles://https://cyberjapandata.gsi.go.jp/xyz/optimal_bvmap-v1/optimal_bvmap-v1.pmtiles/{z}/{x}/{y}"
       ],
-      "attribution": "<a href='https://github.com/gsi-cyberjapan/optimal_bvmap' target='_blank'>国土地理院最適化ベクトルタイル</a>"
+      "attribution": "<a href='https://github.com/gsi-cyberjapan/optimal_bvmap' target='_blank'>国土地理院 最適化ベクトルタイル</a>"
+    },
+    "seamlessphoto": {
+      "type": "raster",
+      "tiles": [
+        "https://cyberjapandata.gsi.go.jp/xyz/seamlessphoto/{z}/{x}/{y}.jpg"
+      ],
+      "attribution": "<a href='https://maps.gsi.go.jp/development/ichiran.html#seamlessphoto'>国土地理院 全国最新写真（シームレス）",
+      "tileSize": 256
     },
     "nagano-cs": {
       "type": "raster",
@@ -24719,6 +24727,17 @@
         ],
         "text-halo-color": "hsla(0,0%,100%,1)",
         "text-halo-width": 1
+      }
+    },
+    {
+      "id": "seamlessphoto",
+      "type": "raster",
+      "source": "seamlessphoto",
+      "layout": {
+        "visibility": "none"
+      },
+      "paint": {
+        "raster-opacity": 1
       }
     },
     {
