@@ -216,7 +216,7 @@ map.on("load", () => {
     },
     paint: {
       "fill-extrusion-color": "#FFFFFF",
-      "fill-extrusion-opacity": 0.7,
+      "fill-extrusion-opacity": 0.8,
       "fill-extrusion-height": ["get", "measured_height"],
     },
   });
