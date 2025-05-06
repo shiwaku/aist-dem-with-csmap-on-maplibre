@@ -251,7 +251,7 @@ map.on('load', async () => {
   */
 
   // アイコン読み込み
-  const image = await map.loadImage('./png/shiro25x25r.png');
+  const image = await map.loadImage('./PNG/shiro25x25r.png');
   map.addImage('yamajiro-icon', image.data);
 
   map.addLayer({
