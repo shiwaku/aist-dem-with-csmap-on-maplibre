@@ -24745,7 +24745,7 @@
       "type": "raster",
       "source": "toyama-cs",
       "layout": {
-        "visibility": "visible"
+        "visibility": "none"
       },
       "paint": {
         "raster-opacity": 0.8
