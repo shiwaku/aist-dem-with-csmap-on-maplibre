@@ -6,13 +6,13 @@ maplibregl.addProtocol("pmtiles", protocol.tile);
 const map = new maplibregl.Map({
   container: "map",
   style: "./style/mono.json",
-  zoom: 7.2,
+  zoom: 7,
   minZoom: 0,
   maxZoom: 23,
   pitch: 0,
   bearing: 0,
   maxPitch: 85,
-  center: [133.668, 34.46],
+  center: [133.815, 34.234],
   hash: true,
   attributionControl: false,
 });
@@ -143,7 +143,7 @@ const otherlayerIds = [
   "yamajiro"
 ];
 
-map.on("load", () => {
+map.on('load', async () => {
   // 産総研 シームレス標高タイルソース
   map.addSource("aist-dem-terrain-rgb", {
     type: 'raster-dem',
@@ -230,6 +230,7 @@ map.on("load", () => {
       '<a href="https://gosenzo.net/yamajiro/">山城攻城記</a>',
   });
 
+  /*
   // 山城攻城記レイヤ
   map.addLayer({
     id: "yamajiro",
@@ -244,6 +245,24 @@ map.on("load", () => {
     "layout": {
       "visibility": "none",
     },
+  });
+  */
+
+  // アイコン読み込み
+  const image = await map.loadImage('./png/shiro25x25r.png');
+  map.addImage('yamajiro-icon', image.data);
+
+  map.addLayer({
+    id: "yamajiro",
+    type: "symbol",
+    source: "yamajiro",
+    layout: {
+      'icon-image': 'yamajiro-icon',
+      'icon-size': 0.7,
+      'icon-allow-overlap': true,
+      'icon-anchor': 'bottom',
+      'visibility': 'none'
+    }
   });
 
   // スライダーでCS立体図の不透明度を制御
@@ -318,7 +337,7 @@ map.on("move", function () {
   updateCoordsDisplay(); // 座標を更新
 });
 
-// CS立体図レイヤー切り替え
+// レイヤー切り替え
 function setupLayerSwitches() {
   document.querySelectorAll(".layer-switch").forEach((input) => {
     input.addEventListener("change", () => {
