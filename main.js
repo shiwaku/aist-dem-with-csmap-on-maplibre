@@ -137,6 +137,7 @@ const csLayerIds = [
   "toyama-cs",
 ];
 
+// その他レイヤー名セット
 const otherlayerIds = [
   "fude-polygon",
   "fude-line",
