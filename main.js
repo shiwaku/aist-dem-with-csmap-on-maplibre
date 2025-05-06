@@ -140,6 +140,7 @@ const otherlayerIds = [
   "fude-polygon",
   "fude-line",
   "plateau-bldg",
+  "yamajiro"
 ];
 
 map.on("load", () => {
@@ -218,6 +219,30 @@ map.on("load", () => {
       "fill-extrusion-color": "#FFFFFF",
       "fill-extrusion-opacity": 0.7,
       "fill-extrusion-height": ["get", "measured_height"],
+    },
+  });
+
+  // 山城攻城記ソース
+  map.addSource("yamajiro", {
+    type: "geojson",
+    data: "https://shiwaku.github.io/yamajiro-geojson/castles-data.geojson",
+    attribution:
+      '<a href="https://gosenzo.net/yamajiro/">山城攻城記</a>',
+  });
+
+  // 山城攻城記レイヤ
+  map.addLayer({
+    id: "yamajiro",
+    source: "yamajiro",
+    type: "circle",
+    paint: {
+      "circle-radius": 10,
+      "circle-color": "#0000ff",
+      "circle-stroke-width": 1,
+      "circle-stroke-color": "#ffffff"
+    },
+    "layout": {
+      "visibility": "none",
     },
   });
 
