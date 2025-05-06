@@ -102,6 +102,7 @@ map.addControl(
   })
 );
 
+// CS立体図レイヤー名セット
 const csLayerIds = [
   "nagano-cs",
   "hiroshima-cs",
