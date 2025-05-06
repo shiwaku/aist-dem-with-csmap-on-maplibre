@@ -24745,7 +24745,7 @@
       "type": "raster",
       "source": "toyama-cs",
       "layout": {
-        "visibility": "none"
+        "visibility": "visible"
       },
       "paint": {
         "raster-opacity": 0.8
@@ -24789,7 +24789,7 @@
       "type": "raster",
       "source": "hiroshima-05m-cs",
       "layout": {
-        "visibility": "visible"
+        "visibility": "none"
       },
       "paint": {
         "raster-opacity": 0.8
@@ -24811,7 +24811,7 @@
       "type": "raster",
       "source": "okayama-cs",
       "layout": {
-        "visibility": "visible"
+        "visibility": "none"
       },
       "paint": {
         "raster-opacity": 0.8
@@ -24822,7 +24822,7 @@
       "type": "raster",
       "source": "ehime-cs",
       "layout": {
-        "visibility": "visible"
+        "visibility": "none"
       },
       "paint": {
         "raster-opacity": 0.8
@@ -24833,7 +24833,7 @@
       "type": "raster",
       "source": "kochi-cs",
       "layout": {
-        "visibility": "visible"
+        "visibility": "none"
       },
       "paint": {
         "raster-opacity": 0.8
@@ -24866,7 +24866,7 @@
       "type": "raster",
       "source": "kyoto-cs",
       "layout": {
-        "visibility": "visible"
+        "visibility": "none"
       },
       "paint": {
         "raster-opacity": 0.8
@@ -24877,7 +24877,7 @@
       "type": "raster",
       "source": "hyogo-cs",
       "layout": {
-        "visibility": "visible"
+        "visibility": "none"
       },
       "paint": {
         "raster-opacity": 0.8
@@ -24932,7 +24932,7 @@
       "type": "raster",
       "source": "wakayama-cs",
       "layout": {
-        "visibility": "visible"
+        "visibility": "none"
       },
       "paint": {
         "raster-opacity": 0.8
@@ -24943,7 +24943,7 @@
       "type": "raster",
       "source": "osaka-cs",
       "layout": {
-        "visibility": "visible"
+        "visibility": "none"
       },
       "paint": {
         "raster-opacity": 0.8
@@ -25075,7 +25075,7 @@
       "type": "raster",
       "source": "tottori-cs",
       "layout": {
-        "visibility": "visible"
+        "visibility": "none"
       },
       "paint": {
         "raster-opacity": 0.8
