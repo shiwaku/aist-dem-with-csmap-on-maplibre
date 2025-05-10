@@ -102,6 +102,14 @@ map.addControl(
   })
 );
 
+// TerraDraw
+const draw = new MaplibreTerradrawControl.MaplibreTerradrawControl({
+  modes: ['render', 'point', 'linestring', 'polygon', 'rectangle', 'circle', 'freehand', 'angled-rectangle', 'sensor', 'sector', 'select', 'delete-selection', 'delete', 'download'],
+  open: true,
+
+});
+map.addControl(draw, 'top-right');
+
 // CS立体図レイヤー名セット
 const csLayerIds = [
   "nagano-cs",
