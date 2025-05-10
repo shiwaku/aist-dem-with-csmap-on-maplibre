@@ -105,7 +105,7 @@ map.addControl(
 // TerraDraw
 const draw = new MaplibreTerradrawControl.MaplibreTerradrawControl({
   modes: ['render', 'point', 'linestring', 'polygon', 'rectangle', 'circle', 'freehand', 'angled-rectangle', 'sensor', 'sector', 'select', 'delete-selection', 'delete', 'download'],
-  open: true,
+  open: false,
 
 });
 map.addControl(draw, 'top-right');
