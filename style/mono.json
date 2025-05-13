@@ -24751,6 +24751,17 @@
         "raster-opacity": 0.8
       }
     },
+        {
+      "id": "shizuoka-cs",
+      "type": "raster",
+      "source": "shizuoka-cs",
+      "layout": {
+        "visibility": "none"
+      },
+      "paint": {
+        "raster-opacity": 0.8
+      }
+    },
     {
       "id": "yamanashi-cs",
       "type": "raster",
@@ -24898,17 +24909,6 @@
       "id": "kanagawa-cs",
       "type": "raster",
       "source": "kanagawa-cs",
-      "layout": {
-        "visibility": "none"
-      },
-      "paint": {
-        "raster-opacity": 0.8
-      }
-    },
-    {
-      "id": "shizuoka-cs",
-      "type": "raster",
-      "source": "shizuoka-cs",
       "layout": {
         "visibility": "none"
       },
