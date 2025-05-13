@@ -24872,10 +24872,10 @@
         "raster-opacity": 0.8
       }
     },
-    {
-      "id": "kyoto-cs",
+        {
+      "id": "hyogo-cs",
       "type": "raster",
-      "source": "kyoto-cs",
+      "source": "hyogo-cs",
       "layout": {
         "visibility": "none"
       },
@@ -24884,9 +24884,9 @@
       }
     },
     {
-      "id": "hyogo-cs",
+      "id": "kyoto-cs",
       "type": "raster",
-      "source": "hyogo-cs",
+      "source": "kyoto-cs",
       "layout": {
         "visibility": "none"
       },
