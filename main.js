@@ -268,7 +268,15 @@ map.on('load', async () => {
     source: "yamajiro",
     layout: {
       'icon-image': 'yamajiro-icon',
-      'icon-size': 0.7,
+      // 'icon-size': 0.7,
+      'icon-size': [
+      'interpolate',
+      ['linear'],
+      ['zoom'],
+      5,  0.7,
+      10, 0.9,
+      15, 1.1
+    ],
       'icon-allow-overlap': true,
       'icon-anchor': 'bottom',
       'visibility': 'none'
