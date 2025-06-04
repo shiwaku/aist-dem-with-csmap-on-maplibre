@@ -24,7 +24,13 @@
     "nagano-cs": {
       "type": "raster",
       "tiles": ["https://tile.geospatial.jp/CS/VER2/{z}/{x}/{y}.png"],
-      "attribution": "<a href='https://www.geospatial.jp/ckan/dataset/nagano-csmap' target='_blank'>長野県CS立体図（ver.2）</a>",
+      "attribution": "<a href='https://www.geospatial.jp/ckan/dataset/nagano-csmap' target='_blank'>長野県CS立体図（長野県林業総合センター）</a>",
+      "tileSize": 256
+    },
+    "nagano-05m-cs": {
+      "type": "raster",
+      "tiles": ["https://shiworks2.xsrv.jp/raster-tiles/pref-nagano/nagano-csmap-tiles/{z}/{x}/{y}.png"],
+      "attribution": "<a href='https://www.geospatial.jp/ckan/dataset/r3-4-50cmdem' target='_blank'>この長野県CS立体図(0.5m)は長野県林務部長の承認を得て森林計画図を使用して作成したものである。承認番号 7森政第51-3号</a>",
       "tileSize": 256
     },
     "hiroshima-cs": {
@@ -13057,6 +13063,17 @@
         "raster-opacity": 0.8
       }
     },
+        {
+      "id": "nagano-05m-cs",
+      "type": "raster",
+      "source": "nagano-05m-cs",
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "raster-opacity": 0.8
+      }
+    },
     {
       "id": "hiroshima-1m-cs",
       "type": "raster",
@@ -13249,7 +13266,7 @@
       "type": "raster",
       "source": "toyama-cs",
       "layout": {
-        "visibility": "visible"
+        "visibility": "none"
       },
       "paint": {
         "raster-opacity": 0.8

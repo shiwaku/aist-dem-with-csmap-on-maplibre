@@ -6,13 +6,13 @@ maplibregl.addProtocol("pmtiles", protocol.tile);
 const map = new maplibregl.Map({
   container: "map",
   style: "./style/mono.json",
-  zoom: 9.1,
+  zoom: 8.06,
   minZoom: 0,
   maxZoom: 23,
   pitch: 0,
   bearing: 0,
   maxPitch: 85,
-  center: [137.1924, 36.6256],
+  center: [138.104, 36.13],
   hash: true,
   attributionControl: false,
 });
@@ -113,6 +113,7 @@ map.addControl(draw, 'top-right');
 // CS立体図レイヤー名セット
 const csLayerIds = [
   "nagano-cs",
+  "nagano-05m-cs",
   "hiroshima-cs",
   "hiroshima-05m-cs",
   "hiroshima-1m-cs",
