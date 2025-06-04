@@ -248,6 +248,17 @@ https://shiwaku.github.io/aist-dem-with-csmap-on-maplibre/
   - タイルサイズ：256x256 ピクセル
   - ライセンス：[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 
+- 長野県 CS立体図(0.5m)（**試験公開中のため、予告なく変更または公開を中止する場合があります。**）
+  - 出典（タイル URL）：`https://shiworks2.xsrv.jp/raster-tiles/pref-nagano/nagano-csmap-tiles/{z}/{x}/{y}.png`
+    - 原初データ出典：[長野県R3・4計測 50cmDEM](https://www.geospatial.jp/ckan/dataset/r3-4-50cmdem)
+    - 概要：長野県建設部砂防課が令和3・4年度に計測した航空レーザ測量成果のうちテキスト形式のDEMをGeoTiff形式に変換したものです。 水部及びデータのないセルはNodataとし、Nodata値を「-9999」としています。 ZIPファイル名の年度は計測年度を示します。 なお、データのプロセシングはQGIS3.30によっています。
+    - ライセンス：
+  - 概要：長野県が公開している、数値標高モデル（DEM）と株式会社[MIERUNE](https://github.com/MIERUNE)開発の[CS立体図作成ツール(csmap-py)](https://github.com/MIERUNE/csmap-py)を使用して CS立体図を作成。本データは CS 立体図を Web メルカトル（EPSG:3857）に再投影した上で[gdal2tiles](https://gdal.org/programs/gdal2tiles.html)を使用してラスタータイル化したデータです。
+  - ズームレベル：4 ～ 18
+  - タイルサイズ：256x256 ピクセル
+  - オープンデータの使用承認：この長野県CS立体図(0.5m)は、長野県林務部長の承認を得て、森林計画図を使用して作成したものである。承認番号 7森政第51-3号
+  - ライセンス：[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+
 ## 国土地理院
 
 - 地理院タイル(地すべり地形分布図日本全国版（防災科学技術研究所）)
