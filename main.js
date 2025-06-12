@@ -6,13 +6,13 @@ maplibregl.addProtocol("pmtiles", protocol.tile);
 const map = new maplibregl.Map({
   container: "map",
   style: "./style/mono.json",
-  zoom: 8.06,
+  zoom: 8.74,
   minZoom: 0,
   maxZoom: 23,
   pitch: 0,
   bearing: 0,
   maxPitch: 85,
-  center: [138.104, 36.13],
+  center: [140.9731, 38.3894],
   hash: true,
   attributionControl: false,
 });
@@ -97,18 +97,32 @@ map.addControl(
 // 3D地形コントロール表示
 map.addControl(
   new maplibregl.TerrainControl({
-    source: 'aist-dem-terrain-rgb',
-    exaggeration: 1 // 標高を強調する倍率
+    source: "aist-dem-terrain-rgb",
+    exaggeration: 1, // 標高を強調する倍率
   })
 );
 
 // TerraDraw
 const draw = new MaplibreTerradrawControl.MaplibreTerradrawControl({
-  modes: ['render', 'point', 'linestring', 'polygon', 'rectangle', 'circle', 'freehand', 'angled-rectangle', 'sensor', 'sector', 'select', 'delete-selection', 'delete', 'download'],
+  modes: [
+    "render",
+    "point",
+    "linestring",
+    "polygon",
+    "rectangle",
+    "circle",
+    "freehand",
+    "angled-rectangle",
+    "sensor",
+    "sector",
+    "select",
+    "delete-selection",
+    "delete",
+    "download",
+  ],
   open: false,
-
 });
-map.addControl(draw, 'top-right');
+map.addControl(draw, "top-right");
 
 // CS立体図レイヤー名セット
 const csLayerIds = [
@@ -144,23 +158,22 @@ const csLayerIds = [
   "kyoto-cs",
   "yamanashi-cs",
   "toyama-cs",
+  "miyagi-cs",
 ];
 
 // その他レイヤー名セット
-const otherlayerIds = [
-  "fude-polygon",
-  "fude-line",
-  "plateau-bldg",
-  "yamajiro"
-];
+const otherlayerIds = ["fude-polygon", "fude-line", "plateau-bldg", "yamajiro"];
 
-map.on('load', async () => {
+map.on("load", async () => {
   // 産総研 シームレス標高タイルソース
   map.addSource("aist-dem-terrain-rgb", {
-    type: 'raster-dem',
-    tiles: ["https://gbank.gsj.jp/seamless/elev/terrainRGB/land/{z}/{y}/{x}.png"],
-    attribution: '<a href="https://tiles.gsj.jp/tiles/elev/tiles.html" target="_blank">産総研 シームレス標高タイル(陸域統合DEM)</a>',
-    tileSize: 256
+    type: "raster-dem",
+    tiles: [
+      "https://gbank.gsj.jp/seamless/elev/terrainRGB/land/{z}/{y}/{x}.png",
+    ],
+    attribution:
+      '<a href="https://tiles.gsj.jp/tiles/elev/tiles.html" target="_blank">産総研 シームレス標高タイル(陸域統合DEM)</a>',
+    tileSize: 256,
   });
 
   // 産総研 シームレス標高タイルセット
@@ -171,37 +184,38 @@ map.on('load', async () => {
     type: "vector",
     // url: "pmtiles://https://data.source.coop/smartmaps/amx-2024-04/MojMap_amx_2024.pmtiles",
     url: "pmtiles://https://pmtiles-data.s3.ap-northeast-1.amazonaws.com/moj-xml/MojMap_amx_2024.pmtiles",
-    attribution: '<a href="https://github.com/amx-project">法務省地図XML（amx-project）</a>'
+    attribution:
+      '<a href="https://github.com/amx-project">法務省地図XML（amx-project）</a>',
   });
 
   // 法務省地図レイヤー（ポリゴン）
   map.addLayer({
-    "id": "fude-polygon",
-    "source": "moj-xml",
+    id: "fude-polygon",
+    source: "moj-xml",
     "source-layer": "fude",
-    "type": "fill",
-    "layout": {
-      "visibility": "none",
+    type: "fill",
+    layout: {
+      visibility: "none",
     },
-    "paint": {
-      'fill-color': '#FFF2CC',
-      'fill-opacity': 0.2
-    }
+    paint: {
+      "fill-color": "#FFF2CC",
+      "fill-opacity": 0.2,
+    },
   });
 
   // 法務省地図レイヤー（ライン）
   map.addLayer({
-    "id": "fude-line",
-    "source": "moj-xml",
+    id: "fude-line",
+    source: "moj-xml",
     "source-layer": "fude",
-    "type": "line",
-    "layout": {
-      "visibility": "none",
+    type: "line",
+    layout: {
+      visibility: "none",
     },
-    "paint": {
-      'line-color': '#FF3232',
-      'line-width': 1
-    }
+    paint: {
+      "line-color": "#FF3232",
+      "line-width": 1,
+    },
   });
 
   // 3D都市モデルPLATEAU建築物モデルソース
@@ -237,8 +251,7 @@ map.on('load', async () => {
   map.addSource("yamajiro", {
     type: "geojson",
     data: "https://shiwaku.github.io/yamajiro-geojson/castles-data.geojson",
-    attribution:
-      '<a href="https://gosenzo.net/yamajiro/">山城攻城記</a>',
+    attribution: '<a href="https://gosenzo.net/yamajiro/">山城攻城記</a>',
   });
 
   /*
@@ -260,28 +273,31 @@ map.on('load', async () => {
   */
 
   // アイコン読み込み
-  const image = await map.loadImage('./PNG/shiro25x25r.png');
-  map.addImage('yamajiro-icon', image.data);
+  const image = await map.loadImage("./PNG/shiro25x25r.png");
+  map.addImage("yamajiro-icon", image.data);
 
   map.addLayer({
     id: "yamajiro",
     type: "symbol",
     source: "yamajiro",
     layout: {
-      'icon-image': 'yamajiro-icon',
+      "icon-image": "yamajiro-icon",
       // 'icon-size': 0.7,
-      'icon-size': [
-      'interpolate',
-      ['linear'],
-      ['zoom'],
-      5,  0.7,
-      10, 0.9,
-      15, 1.1
-    ],
-      'icon-allow-overlap': true,
-      'icon-anchor': 'bottom',
-      'visibility': 'none'
-    }
+      "icon-size": [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        5,
+        0.7,
+        10,
+        0.9,
+        15,
+        1.1,
+      ],
+      "icon-allow-overlap": true,
+      "icon-anchor": "bottom",
+      visibility: "none",
+    },
   });
 
   // スライダーでCS立体図の不透明度を制御
@@ -306,9 +322,8 @@ map.on('load', async () => {
     "horizon-fog-blend": 0.8,
     "fog-color": "#2c7fb8",
     "fog-ground-blend": 0.9,
-    "atmosphere-blend": ["interpolate", ["linear"], ["zoom"], 0, 1, 12, 0]
+    "atmosphere-blend": ["interpolate", ["linear"], ["zoom"], 0, 1, 12, 0],
   });
-
 
   // レイヤー切り替え
   setupLayerSwitches();
@@ -320,7 +335,6 @@ map.on('load', async () => {
   otherlayerIds.forEach(addPopupHandler);
 
   // map.showTileBoundaries = true; // タイル境界
-
 });
 
 // 地図の中心座標と標高を表示する関数
@@ -330,24 +344,58 @@ function updateCoordsDisplay() {
   let lng = center.lng.toFixed(5);
   let zoomLevel = Math.trunc(map.getZoom());
   // let elevTile = 'https://tiles.gsj.jp/tiles/elev/mixed/{z}/{y}/{x}.png'; // 統合DEM
-  let elevTile = 'https://tiles.gsj.jp/tiles/elev/land/{z}/{y}/{x}.png'; // 陸域統合DEM
+  let elevTile = "https://tiles.gsj.jp/tiles/elev/land/{z}/{y}/{x}.png"; // 陸域統合DEM
 
   if (zoomLevel > 15) {
     document.getElementById("coords").innerHTML =
-      "中心座標: " + lat + ", " + lng + "<br>" +
-      "ズームレベル: " + map.getZoom().toFixed(2) + "<br>" +
+      "中心座標: " +
+      lat +
+      ", " +
+      lng +
+      "<br>" +
+      "ズームレベル: " +
+      map.getZoom().toFixed(2) +
+      "<br>" +
       "標高(ZL15以下): 取得できません<br>" +
-      '<a href="https://www.google.com/maps?q=' + lat + "," + lng + '&hl=ja" target="_blank">🌎GoogleMaps</a>' +
-      " " + '<a href="https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=' + lat + "," + lng + '&hl=ja" target="_blank">📷StreetView</a>';
+      '<a href="https://www.google.com/maps?q=' +
+      lat +
+      "," +
+      lng +
+      '&hl=ja" target="_blank">🌎GoogleMaps</a>' +
+      " " +
+      '<a href="https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=' +
+      lat +
+      "," +
+      lng +
+      '&hl=ja" target="_blank">📷StreetView</a>';
   } else {
-    getNumericalValue(elevTile, lat, lng, zoomLevel, 0.01, 0, -(2 ** 23)).then(function (v) {
-      document.getElementById("coords").innerHTML =
-        "中心座標: " + lat + ", " + lng + "<br>" +
-        "ズームレベル: " + map.getZoom().toFixed(2) + "<br>" +
-        "標高(ZL15以下):" + ((isNaN(v)) ? '取得できません' : v.toFixed(2) + 'm') + "<br>" +
-        '<a href="https://www.google.com/maps?q=' + lat + "," + lng + '&hl=ja" target="_blank">🌎GoogleMaps</a>' +
-        " " + '<a href="https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=' + lat + "," + lng + '&hl=ja" target="_blank">📷StreetView</a>';
-    });
+    getNumericalValue(elevTile, lat, lng, zoomLevel, 0.01, 0, -(2 ** 23)).then(
+      function (v) {
+        document.getElementById("coords").innerHTML =
+          "中心座標: " +
+          lat +
+          ", " +
+          lng +
+          "<br>" +
+          "ズームレベル: " +
+          map.getZoom().toFixed(2) +
+          "<br>" +
+          "標高(ZL15以下):" +
+          (isNaN(v) ? "取得できません" : v.toFixed(2) + "m") +
+          "<br>" +
+          '<a href="https://www.google.com/maps?q=' +
+          lat +
+          "," +
+          lng +
+          '&hl=ja" target="_blank">🌎GoogleMaps</a>' +
+          " " +
+          '<a href="https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=' +
+          lat +
+          "," +
+          lng +
+          '&hl=ja" target="_blank">📷StreetView</a>';
+      }
+    );
   }
 }
 
@@ -374,7 +422,6 @@ function setupLayerSwitches() {
   });
 }
 
-
 /*
 // 地すべり地形分布図凡例
 
@@ -397,7 +444,7 @@ function OpenLegendRoad() {
 function addPopupHandler(layerId) {
   map.on("click", layerId, (e) => {
     const feature = e.features[0];
-    const coords = [e.lngLat.lng, e.lngLat.lat];  // ← これだけで OK
+    const coords = [e.lngLat.lng, e.lngLat.lat]; // ← これだけで OK
     createPopup(coords, feature.properties);
   });
 }
@@ -434,12 +481,9 @@ function latLngToTile(lat, lng, z) {
   const x = ((lng / 180 + 1) * n) / 2;
   // 緯度 lat → タイル Y 座標
   // (メルカトル投影による変換)
-  const latRad = lat * Math.PI / 180;  // 緯度をラジアンに変換
-  const y = n * (
-    1 - Math.log(
-      Math.tan(latRad) + 1 / Math.cos(latRad)
-    ) / Math.PI
-  ) / 2;
+  const latRad = (lat * Math.PI) / 180; // 緯度をラジアンに変換
+  const y =
+    (n * (1 - Math.log(Math.tan(latRad) + 1 / Math.cos(latRad)) / Math.PI)) / 2;
 
   return { x, y };
 }
@@ -455,45 +499,48 @@ function latLngToTile(lat, lng, z) {
 //  invalid: 追加無効値を相当する数値で指定．デフォルトは指定なし
 //  戻り値: 成功時に数値を受け取るプロミス．無効値の場合はNaNを受け取ります
 /// ****************
-function getNumericalValue(url, lat, lng, z, factor = 1, offset = 0, invalid = undefined) {
+function getNumericalValue(
+  url,
+  lat,
+  lng,
+  z,
+  factor = 1,
+  offset = 0,
+  invalid = undefined
+) {
   console.log("z=" + z + " " + "lat=" + lat + " " + "lng=" + lng);
   return new Promise(function (resolve, reject) {
-    const
-      p = latLngToTile(lat, lng, z),
-      x = Math.floor(p.x),			// タイルX座標
-      y = Math.floor(p.y),			// タイルY座標
-      i = (p.x - x) * 256,			// タイル内i座標
-      j = (p.y - y) * 256,			// タイル内j座標
+    const p = latLngToTile(lat, lng, z),
+      x = Math.floor(p.x), // タイルX座標
+      y = Math.floor(p.y), // タイルY座標
+      i = (p.x - x) * 256, // タイル内i座標
+      j = (p.y - y) * 256, // タイル内j座標
       img = new Image();
 
     console.log("タイルURL=" + url);
     // console.log("z=" + z + " " + "lat=" + lat + " " + "lng=" + lng);
     console.log("タイルX座標=" + x + " " + "タイルY座標=" + y);
 
-    img.crossOrigin = 'anonymous';	// 画像ファイルからデータを取り出すために必要です
+    img.crossOrigin = "anonymous"; // 画像ファイルからデータを取り出すために必要です
     img.onload = function () {
-      const
-        canvas = document.createElement('canvas'),
-        context = canvas.getContext('2d');
-      let
-        r2,
-        v,
-        data;
+      const canvas = document.createElement("canvas"),
+        context = canvas.getContext("2d");
+      let r2, v, data;
 
       canvas.width = 1;
       canvas.height = 1;
       context.drawImage(img, i, j, 1, 1, 0, 0, 1, 1);
       data = context.getImageData(0, 0, 1, 1).data;
-      r2 = (data[0] < 2 ** 7) ? data[0] : data[0] - 2 ** 8;
+      r2 = data[0] < 2 ** 7 ? data[0] : data[0] - 2 ** 8;
       v = r2 * 2 ** 16 + data[1] * 2 ** 8 + data[2];
       if (data[3] !== 255 || (invalid != undefined && v == invalid)) {
         v = NaN;
       }
       resolve(v * factor + offset);
-    }
+    };
     img.onerror = function () {
       reject(null);
-    }
-    img.src = url.replace('{z}', z).replace('{y}', y).replace('{x}', x);
+    };
+    img.src = url.replace("{z}", z).replace("{y}", y).replace("{x}", x);
   });
-};
+}
