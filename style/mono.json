@@ -283,6 +283,14 @@
       "attribution": "<a href='https://miyagi.dataeye.jp/resources/1523' target='_blank'>宮城県CS立体図(宮城県グリッドデータを加工して作成)</a>",
       "tileSize": 256
     },
+    "okayama-2024-cs": {
+      "type": "raster",
+      "tiles": [
+        "https://shiworks2.xsrv.jp/raster-tiles/pref-okayama/okayama-csmap-tiles/{z}/{x}/{y}.png"
+      ],
+      "attribution": "<a href='https://miyagi.dataeye.jp/resources/1523' target='_blank'>宮城県CS立体図(宮城県グリッドデータを加工して作成)</a>",
+      "tileSize": 256
+    },
     "landslide": {
       "type": "raster",
       "tiles": [
@@ -13118,6 +13126,17 @@
       }
     },
     {
+      "id": "okayama-2024-cs",
+      "type": "raster",
+      "source": "okayama-2024-cs",
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "raster-opacity": 0.8
+      }
+    },
+    {
       "id": "okayama-cs",
       "type": "raster",
       "source": "okayama-cs",
@@ -13155,7 +13174,7 @@
       "type": "raster",
       "source": "miyagi-cs",
       "layout": {
-        "visibility": "visible"
+        "visibility": "none"
       },
       "paint": {
         "raster-opacity": 0.8

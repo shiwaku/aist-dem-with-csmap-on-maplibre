@@ -6,13 +6,13 @@ maplibregl.addProtocol("pmtiles", protocol.tile);
 const map = new maplibregl.Map({
   container: "map",
   style: "./style/mono.json",
-  zoom: 8.74,
+  zoom: 8.94,
   minZoom: 0,
   maxZoom: 23,
   pitch: 0,
   bearing: 0,
   maxPitch: 85,
-  center: [140.9731, 38.3894],
+  center: [133.8218, 34.8155],
   hash: true,
   attributionControl: false,
 });
@@ -132,6 +132,7 @@ const csLayerIds = [
   "hiroshima-05m-cs",
   "hiroshima-1m-cs",
   "okayama-cs",
+  "okayama-2024-cs",
   "ehime-cs",
   "kochi-cs",
   "fukushima-cs",
