@@ -288,7 +288,7 @@
       "tiles": [
         "https://shiworks2.xsrv.jp/raster-tiles/pref-okayama/okayama-csmap-tiles/{z}/{x}/{y}.png"
       ],
-      "attribution": "<a href='https://miyagi.dataeye.jp/resources/1523' target='_blank'>宮城県CS立体図(宮城県グリッドデータを加工して作成)</a>",
+      "attribution": "<a href='https://miyagi.dataeye.jp/resources/1523' target='_blank'>岡山県CS立体図(岡山県グリッドデータを加工して作成)</a>",
       "tileSize": 256
     },
     "landslide": {
