@@ -13138,7 +13138,7 @@
       "type": "raster",
       "source": "okayama-2024-cs",
       "layout": {
-        "visibility": "visible"
+        "visibility": "none"
       },
       "paint": {
         "raster-opacity": 0.8
@@ -13435,7 +13435,7 @@
       "type": "raster",
       "source": "tottori-2025-cs",
       "layout": {
-        "visibility": "none"
+        "visibility": "visible"
       },
       "paint": {
         "raster-opacity": 0.8

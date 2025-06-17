@@ -6,13 +6,13 @@ maplibregl.addProtocol("pmtiles", protocol.tile);
 const map = new maplibregl.Map({
   container: "map",
   style: "./style/mono.json",
-  zoom: 8.94,
+  zoom: 9.53,
   minZoom: 0,
   maxZoom: 23,
   pitch: 0,
   bearing: 0,
   maxPitch: 85,
-  center: [133.8218, 34.8155],
+  center: [133.7008, 35.3229],
   hash: true,
   attributionControl: false,
 });
