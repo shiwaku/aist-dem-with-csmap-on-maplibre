@@ -271,6 +271,7 @@ https://shiwaku.github.io/aist-dem-with-csmap-on-maplibre/
   - ライセンス：[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 
 - 宮城県 CS 立体図(1m)（**試験公開中のため、予告なく変更または公開を中止する場合があります。**）
+
   - 出典（タイル URL）：`https://shiworks2.xsrv.jp/raster-tiles/pref-miyagi/miyagi-csmap-tiles/{z}/{x}/{y}.png`
     - 原初データ出典：[【宮城県】3 次元点群データ*データ一覧*グリッドデータ\_CSV_2023](https://miyagi.dataeye.jp/resources/1523)
     - 概要：宮城県域の航空レーザ測量成果。
@@ -281,11 +282,22 @@ https://shiwaku.github.io/aist-dem-with-csmap-on-maplibre/
   - ライセンス：[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 
 - 岡山県 CS 立体図(0.5m)（**試験公開中のため、予告なく変更または公開を中止する場合があります。**）
+
   - 出典（タイル URL）：`https://shiworks2.xsrv.jp/raster-tiles/pref-okayama/okayama-csmap-tiles/{z}/{x}/{y}.png`
-    - 原初データ出典：[岡山県_3次元点群データ_グリッドデータ_2024](https://i-box.pref.okayama.jp/datasets/251)
+    - 原初データ出典：[岡山県*3 次元点群データ*グリッドデータ\_2024](https://i-box.pref.okayama.jp/datasets/251)
     - 概要：岡山県の航空レーザ測量成果。
     - ライセンス：クリエイティブ・コモンズ表示、Open Data Commons Open Database License (ODbL)
   - 概要：岡山県が公開している、グリッドデータを数値標高モデル（DEM）に変換して、株式会社[MIERUNE](https://github.com/MIERUNE)開発の[CS 立体図作成ツール(csmap-py)](https://github.com/MIERUNE/csmap-py)を使用して CS 立体図を作成。本データは CS 立体図を Web メルカトル（EPSG:3857）に再投影した上で[gdal2tiles](https://gdal.org/programs/gdal2tiles.html)を使用してラスタータイル化したデータです。
+  - ズームレベル：4 ～ 18
+  - タイルサイズ：256x256 ピクセル
+  - ライセンス：[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+
+- 鳥取県 CS 立体図(0.5m)（**試験公開中のため、予告なく変更または公開を中止する場合があります。**）
+  - 出典（タイル URL）：`https://shiworks2.xsrv.jp/raster-tiles/pref-tottori/tottori-csmap-tiles/{z}/{x}/{y}.png`
+    - 原初データ出典：[鳥取県「数値標高モデル(DEM)0.5m」](https://www.geospatial.jp/ckan/dataset/dem05_tottori)
+    - 概要：平成 30 年度～令和 6 年度に鳥取県等が実施した航空レーザ測量データを使用して作成した 0.5 ｍ解像度の「数値標高モデル（DEM）」です。
+    - ライセンス：公共データ利用規約（第 1.0 版）（PDL1.0）
+  - 概要：鳥取県が公開している、数値標高モデル（DEM）と株式会社[MIERUNE](https://github.com/MIERUNE)開発の[CS 立体図作成ツール(csmap-py)](https://github.com/MIERUNE/csmap-py)を使用して CS 立体図を作成。本データは CS 立体図を Web メルカトル（EPSG:3857）に再投影した上で[gdal2tiles](https://gdal.org/programs/gdal2tiles.html)を使用してラスタータイル化したデータです。
   - ズームレベル：4 ～ 18
   - タイルサイズ：256x256 ピクセル
   - ライセンス：[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
