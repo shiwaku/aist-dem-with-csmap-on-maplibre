@@ -274,10 +274,11 @@ map.on("load", async () => {
   });
   */
 
-  // アイコン読み込み
+  // 山城アイコン読み込み
   const image = await map.loadImage("./PNG/shiro25x25r.png");
   map.addImage("yamajiro-icon", image.data);
 
+  // 山城アイコンレイヤー
   map.addLayer({
     id: "yamajiro",
     type: "symbol",
@@ -300,6 +301,38 @@ map.on("load", async () => {
       "icon-anchor": "bottom",
       visibility: "none",
     },
+  });
+
+  // 山城ラベルレイヤー
+  map.addLayer({
+    id: 'yamajiro-label',
+    source: 'yamajiro',
+    type: 'symbol',
+    minzoom: 12,
+    layout: {
+      'text-field': ['get', '城名'],
+      'text-size': [
+        'interpolate', ['linear'], ['zoom'],
+        14, 12,
+        16, 14
+      ],
+      'text-font': ['NotoSansJP-Regular', 'NotoSerifJP-Medium'],
+      'text-anchor': 'bottom',
+      'text-offset': [0, -2],
+      // 'text-allow-overlap': true,
+      'text-allow-overlap': [
+        'step',
+        ['zoom'],
+        false,
+        16, true
+      ],
+      visibility: "none",
+    },
+    paint: {
+      'text-color': 'rgb(255,0,0)',
+      'text-halo-color': 'rgb(255,255,255)',
+      'text-halo-width': 1.5
+    }
   });
 
   // スライダーでCS立体図の不透明度を制御
