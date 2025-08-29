@@ -157,6 +157,7 @@ const csLayerIds = [
   "kanagawa-cs",
   "tottori-cs",
   "tottori-2025-cs",
+  "shiga-cs",
   "kyoto-cs",
   "yamanashi-cs",
   "toyama-cs",
