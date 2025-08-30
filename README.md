@@ -322,6 +322,11 @@ https://shiwaku.github.io/aist-dem-with-csmap-on-maplibre/
     - 概要：航空測量等に基づき取得したデータから建物等の地物を 3 次元で生成した 3D 都市モデルです。
   - ライセンス：CC BY 4.0 等のオープンライセンス。詳細は[PLATEAU Policy](https://www.mlit.go.jp/plateau/site-policy/)を参照。商用利用も含め、無償で自由に利用可能。
 
+## 山城（山城攻城記様提供）
+  - 出典：[山城攻城記](https://gosenzo.net/yamajiro/)
+  - 上記の山城攻城記様のサイトより山城に関するデータを取得して、GeoJSON形式に変換したものです。詳細はこちらの[GitHubレポジトリ](https://github.com/shiwaku/yamajiro-geojson)を参照。
+  - ライセンス：2次利用する場合は個別に[山城攻城記様](https://x.com/yamajirokoujyou)の許可を得てください。
+
 ## 背景地図及び標高タイル
 
 - 国土地理院 最適化ベクトルタイル
