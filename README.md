@@ -75,6 +75,11 @@ https://shiwaku.github.io/aist-dem-with-csmap-on-maplibre/
   - 概要：令和６年能登半島地震の発災後に林野庁と国土地理院が連携して実施した航空レーザ測量データを基に、林野庁が作成した CS 立体図です。
   - ライセンス：[公共データ利用規約（第 1.0 版）（PDL1.0）](https://www.digital.go.jp/resources/open_data/public_data_license_v1.0)参照。
 
+- 滋賀県 CS 立体図
+  - 出典：https://www.geospatial.jp/ckan/dataset/rinya-shiga-maptiles
+  - 概要：滋賀県森林政策課が整備した航空レーザ測量成果に基づく森林資源解析結果について、林野庁においてマップタイル等に２次加工し、公開するものです。
+  - ライセンス：[公共データ利用規約（第 1.0 版）（PDL1.0）](https://www.digital.go.jp/resources/open_data/public_data_license_v1.0)参照。
+
 ## 愛媛県
 
 - 愛媛県 CS 立体図
