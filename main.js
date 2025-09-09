@@ -6,13 +6,13 @@ maplibregl.addProtocol("pmtiles", protocol.tile);
 const map = new maplibregl.Map({
   container: "map",
   style: "./style/mono.json",
-  zoom: 9.53,
+  zoom: 9.62,
   minZoom: 0,
   maxZoom: 23,
   pitch: 0,
   bearing: 0,
   maxPitch: 85,
-  center: [133.7008, 35.3229],
+  center: [139.1005, 36.0306],
   hash: true,
   attributionControl: false,
 });
@@ -145,6 +145,7 @@ const csLayerIds = [
   "nagaoka-cs",
   "noto-cs",
   "noto-cs-final",
+  "saitama-cs",
   "tokyo-23ku-cs",
   "tokyo-tama-cs",
   "tokyo-shima-01-cs",
@@ -306,34 +307,25 @@ map.on("load", async () => {
 
   // 山城ラベルレイヤー
   map.addLayer({
-    id: 'yamajiro-label',
-    source: 'yamajiro',
-    type: 'symbol',
+    id: "yamajiro-label",
+    source: "yamajiro",
+    type: "symbol",
     minzoom: 12,
     layout: {
-      'text-field': ['get', '城名'],
-      'text-size': [
-        'interpolate', ['linear'], ['zoom'],
-        14, 12,
-        16, 14
-      ],
-      'text-font': ['NotoSansJP-Regular', 'NotoSerifJP-Medium'],
-      'text-anchor': 'bottom',
-      'text-offset': [0, -2],
+      "text-field": ["get", "城名"],
+      "text-size": ["interpolate", ["linear"], ["zoom"], 14, 12, 16, 14],
+      "text-font": ["NotoSansJP-Regular", "NotoSerifJP-Medium"],
+      "text-anchor": "bottom",
+      "text-offset": [0, -2],
       // 'text-allow-overlap': true,
-      'text-allow-overlap': [
-        'step',
-        ['zoom'],
-        false,
-        16, true
-      ],
+      "text-allow-overlap": ["step", ["zoom"], false, 16, true],
       visibility: "none",
     },
     paint: {
-      'text-color': 'rgb(255,0,0)',
-      'text-halo-color': 'rgb(255,255,255)',
-      'text-halo-width': 1.5
-    }
+      "text-color": "rgb(255,0,0)",
+      "text-halo-color": "rgb(255,255,255)",
+      "text-halo-width": 1.5,
+    },
   });
 
   // スライダーでCS立体図の不透明度を制御

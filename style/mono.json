@@ -311,6 +311,14 @@
       "attribution": "<a href='https://www.geospatial.jp/ckan/dataset/rinya-shiga-maptiles' target='_blank'>滋賀県CS立体図(林野庁 微地形表現図)</a>",
       "tileSize": 256
     },
+    "saitama-cs": {
+      "type": "raster",
+      "tiles": [
+        "https://shiworks.xsrv.jp/raster-tiles/pref-saitama/saitama-csmap-tiles/{z}/{x}/{y}.png"
+      ],
+      "attribution": "<a href='https://portal-pref-saitama.hub.arcgis.com/' target='_blank'>埼玉県CS立体図(埼玉県3次元点群データを加工して作成)</a>",
+      "tileSize": 256
+    },
     "landslide": {
       "type": "raster",
       "tiles": [
@@ -24792,6 +24800,17 @@
       }
     },
     {
+      "id": "saitama-cs",
+      "type": "raster",
+      "source": "saitama-cs",
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "raster-opacity": 0.8
+      }
+    },
+    {
       "id": "yamanashi-cs",
       "type": "raster",
       "source": "yamanashi-cs",
@@ -25170,7 +25189,7 @@
       "type": "raster",
       "source": "tottori-2025-cs",
       "layout": {
-        "visibility": "visible"
+        "visibility": "none"
       },
       "paint": {
         "raster-opacity": 0.8

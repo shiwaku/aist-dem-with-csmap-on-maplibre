@@ -1,310 +1,474 @@
 <html>
+  <head>
+    <title>CS立体図</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://unpkg.com/maplibre-gl@5.2.0/dist/maplibre-gl.css"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/maplibre-gl@5.2.0/dist/maplibre-gl.js"></script>
+    <script src="https://unpkg.com/pmtiles@3.2.0/dist/pmtiles.js"></script>
+    <script src="https://unpkg.com/@maplibre/maplibre-gl-geocoder@1.2.0/dist/maplibre-gl-geocoder.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@maplibre/maplibre-gl-geocoder@1.2.0/dist/maplibre-gl-geocoder.css"
+      type="text/css"
+    />
+    <link href="style.css" rel="stylesheet" />
+  </head>
 
-<head>
-  <title>CS立体図</title>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="https://unpkg.com/maplibre-gl@5.2.0/dist/maplibre-gl.css" rel="stylesheet" />
-  <script src="https://unpkg.com/maplibre-gl@5.2.0/dist/maplibre-gl.js"></script>
-  <script src="https://unpkg.com/pmtiles@3.2.0/dist/pmtiles.js"></script>
-  <script src="https://unpkg.com/@maplibre/maplibre-gl-geocoder@1.2.0/dist/maplibre-gl-geocoder.min.js"></script>
-  <link rel="stylesheet" href="https://unpkg.com/@maplibre/maplibre-gl-geocoder@1.2.0/dist/maplibre-gl-geocoder.css"
-    type="text/css" />
-  <link href="style.css" rel="stylesheet" />
-</head>
-
-<body>
-  <script
-    src="https://cdn.jsdelivr.net/npm/@watergis/maplibre-gl-terradraw@1.3.14/dist/maplibre-gl-terradraw.umd.js"></script>
-  <link rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/@watergis/maplibre-gl-terradraw@1.3.14/dist/maplibre-gl-terradraw.css" />
-  <div id="map"></div>
-  <div id="menu-panel">
-    <details>
-      <summary class="summary-trigger">
-        <strong><big>メニュー</big><br>（表示切替）</strong>
-      </summary>
-      <fieldset>
-        <details open>
-          <summary class="summary-trigger">
-            <strong><big>CS立体図</big></strong>
-          </summary>
-          <fieldset>
-            <div class="select_box">
-              <label class="toggle-button-001">
-                <input type="checkbox" class="layer-switch" data-layer="miyagi-cs" />
-                <span class="slider"></span>
-              </label>
-              宮城県CS立体図
-            </div>
-            <div class="select_box">
-              <label class="toggle-button-001">
-                <input type="checkbox" class="layer-switch" data-layer="fukushima-cs" />
-                <span class="slider"></span>
-              </label>
-              福島県CS立体図
-            </div>
-            <div class="select_box">
-              <label class="toggle-button-001">
-                <input type="checkbox" class="layer-switch" data-layer="tochigi-cs" />
-                <span class="slider"></span>
-              </label>
-              栃木県CS立体図
-            </div>
-            <div class="select_box">
-              <label class="toggle-button-001">
-                <input type="checkbox" class="layer-switch" data-layer="tokyo-23ku-cs" />
-                <span class="slider"></span>
-              </label>
-              東京都(区部)CS立体図
-            </div>
-            <div class="select_box">
-              <label class="toggle-button-001">
-                <input type="checkbox" class="layer-switch" data-layer="tokyo-tama-cs" />
-                <span class="slider"></span>
-              </label>
-              東京都(多摩地域)CS立体図
-            </div>
-            <div class="select_box">
-              <label class="toggle-button-001">
-                <input type="checkbox" class="layer-switch"
-                  data-layer="tokyo-shima-01-cs,tokyo-shima-02-cs,tokyo-shima-03-cs,tokyo-shima-04-cs,tokyo-shima-05-cs,tokyo-shima-06-cs" />
-                <span class="slider"></span>
-              </label>
-              東京都(島しょ地域)CS立体図
-            </div>
-            <div class="select_box">
-              <label class="toggle-button-001">
-                <input type="checkbox" class="layer-switch" data-layer="kanagawa-cs" />
-                <span class="slider"></span>
-              </label>
-              神奈川県CS立体図
-            </div>
-            <div class="select_box">
-              <label class="toggle-button-001">
-                <input type="checkbox" class="layer-switch" data-layer="nagaoka-cs" />
-                <span class="slider"></span>
-              </label>
-              長岡地域CS立体図
-            </div>
-            <div class="select_box">
-              <label class="toggle-button-001">
-                <input type="checkbox" class="layer-switch" data-layer="toyama-cs" />
-                <span class="slider"></span>
-              </label>
-              富山県CS立体図
-            </div>
-            <div class="select_box">
-              <label class="toggle-button-001">
-                <input type="checkbox" class="layer-switch" data-layer="noto-cs" />
-                <span class="slider"></span>
-              </label>
-              能登CS立体図(速報成果)
-            </div>
-            <div class="select_box">
-              <label class="toggle-button-001">
-                <input type="checkbox" class="layer-switch" data-layer="noto-cs-final" />
-                <span class="slider"></span>
-              </label>
-              能登CS立体図(最終成果)
-            </div>
-            <div class="select_box">
-              <label class="toggle-button-001">
-                <input type="checkbox" class="layer-switch" data-layer="yamanashi-cs" />
-                <span class="slider"></span>
-              </label>
-              山梨県CS立体図
-            </div>
-            <div class="select_box">
-              <label class="toggle-button-001">
-                <input type="checkbox" class="layer-switch" data-layer="nagano-cs" />
-                <span class="slider"></span>
-              </label>
-              長野県CS立体図(1m)
-            </div>
-            <div class="select_box">
-              <label class="toggle-button-001">
-                <input type="checkbox" class="layer-switch" data-layer="nagano-05m-cs" />
-                <span class="slider"></span>
-              </label>
-              長野県CS立体図(0.5m)
-            </div>
-            <div class="select_box">
-              <label class="toggle-button-001">
-                <input type="checkbox" class="layer-switch" data-layer="gifu-cs" />
-                <span class="slider"></span>
-              </label>
-              岐阜県CS立体図
-            </div>
-            <div class="select_box">
-              <label class="toggle-button-001">
-                <input type="checkbox" class="layer-switch" data-layer="shizuoka-cs" />
-                <span class="slider"></span>
-              </label>
-              静岡県CS立体図
-            </div>
-            <div class="select_box">
-              <label class="toggle-button-001">
-                <input type="checkbox" class="layer-switch" data-layer="shiga-cs" />
-                <span class="slider"></span>
-              </label>
-              滋賀県CS立体図
-            </div>
-            <div class="select_box">
-              <label class="toggle-button-001">
-                <input type="checkbox" class="layer-switch" data-layer="kyoto-cs" />
-                <span class="slider"></span>
-              </label>
-              京都府CS立体図
-            </div>
-            <div class="select_box">
-              <label class="toggle-button-001">
-                <input type="checkbox" class="layer-switch" data-layer="osaka-cs" />
-                <span class="slider"></span>
-              </label>
-              大阪府CS立体図
-            </div>
-            <div class="select_box">
-              <label class="toggle-button-001">
-                <input type="checkbox" class="layer-switch" data-layer="hyogo-cs" />
-                <span class="slider"></span>
-              </label>
-              兵庫県CS立体図
-            </div>
-            <div class="select_box">
-              <label class="toggle-button-001">
-                <input type="checkbox" class="layer-switch" data-layer="wakayama-cs" />
-                <span class="slider"></span>
-              </label>
-              和歌山県CS立体図
-            </div>
-            <div class="select_box">
-              <label class="toggle-button-001">
-                <input type="checkbox" class="layer-switch" data-layer="tottori-cs" />
-                <span class="slider"></span>
-              </label>
-              鳥取県CS立体図
-            </div>
-            <div class="select_box">
-              <label class="toggle-button-001">
-                <input type="checkbox" class="layer-switch" data-layer="tottori-2025-cs" checked />
-                <span class="slider"></span>
-              </label>
-              鳥取県CS立体図(2025年)
-            </div>
-            <div class="select_box">
-              <label class="toggle-button-001">
-                <input type="checkbox" class="layer-switch" data-layer="okayama-cs" />
-                <span class="slider"></span>
-              </label>
-              岡山県CS立体図(林野庁0.5m)
-            </div>
-            <div class="select_box">
-              <label class="toggle-button-001">
-                <input type="checkbox" class="layer-switch" data-layer="okayama-2024-cs" />
-                <span class="slider"></span>
-              </label>
-              岡山県CS立体図(岡山県0.5m)
-            </div>
-            <div class="select_box">
-              <label class="toggle-button-001">
-                <input type="checkbox" class="layer-switch" data-layer="hiroshima-cs" />
-                <span class="slider"></span>
-              </label>
-              広島県CS立体図(林野庁0.5m)
-            </div>
-            <div class="select_box">
-              <label class="toggle-button-001">
-                <input type="checkbox" class="layer-switch" data-layer="hiroshima-05m-cs" />
-                <span class="slider"></span>
-              </label>
-              広島県CS立体図(広島県0.5m)
-            </div>
-            <div class="select_box">
-              <label class="toggle-button-001">
-                <input type="checkbox" class="layer-switch" data-layer="hiroshima-1m-cs" />
-                <span class="slider"></span>
-              </label>
-              広島県CS立体図(広島県1m)
-            </div>
-            <div class="select_box">
-              <label class="toggle-button-001">
-                <input type="checkbox" class="layer-switch" data-layer="ehime-cs" />
-                <span class="slider"></span>
-              </label>
-              愛媛県CS立体図
-            </div>
-            <div class="select_box">
-              <label class="toggle-button-001">
-                <input type="checkbox" class="layer-switch" data-layer="kochi-cs" />
-                <span class="slider"></span>
-              </label>
-              高知県CS立体図
-            </div>
-            <div class="select_box">
-              <label class="toggle-button-001">
-                <input type="checkbox" class="layer-switch" data-layer="kumamoto-oita-cs" />
-                <span class="slider"></span>
-              </label>
-              熊本県・大分県CS立体図
-            </div>
-          </fieldset>
-        </details>
-      </fieldset>
-      <fieldset>
-        <details open>
-          <summary class="summary-trigger">
-            <strong><big>各種レイヤー</big></strong>
-          </summary>
-          <fieldset>
-            <div class="select_box">
-              <label class="toggle-button-001">
-                <input type="checkbox" class="layer-switch" data-layer="fude-polygon,fude-line" />
-                <span class="slider"></span>
-              </label>
-              法務省地図(2024年)
-            </div>
-            <div class="select_box">
-              <label class="toggle-button-001">
-                <input type="checkbox" class="layer-switch" data-layer="plateau-bldg" />
-                <span class="slider"></span>
-              </label>
-              3D都市モデル建築物(2023年)
-            </div>
-            <div class="select_box">
-              <label class="toggle-button-001">
-                <input type="checkbox" class="layer-switch" data-layer="seamlessphoto" />
-                <span class="slider"></span>
-              </label>
-              全国最新写真（シームレス）
-            </div>
-            <div class="select_box">
-              <label class="toggle-button-001">
-                <input type="checkbox" class="layer-switch" data-layer="yamajiro,yamajiro-label" />
-                <span class="slider"></span>
-              </label>
-              山城（山城攻城記）
-            </div>
-          </fieldset>
-        </details>
-      </fieldset>
-    </details>
-  </div>
-  <div class="map-center-marker">+</div>
-  <div class="coords-display" id="coords"></div>
-  <div class="map-overlay top">
-    <div class="map-overlay-inner">
-      <label>CS立体図 不透明度:
-        <span id="cs-slider-opacity-value">80%</span></label>
-      <input id="cs-slider-opacity" type="range" min="0" max="100" step="1" value="80" />
-      <!--
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/@watergis/maplibre-gl-terradraw@1.3.14/dist/maplibre-gl-terradraw.umd.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@watergis/maplibre-gl-terradraw@1.3.14/dist/maplibre-gl-terradraw.css"
+    />
+    <div id="map"></div>
+    <div id="menu-panel">
+      <details>
+        <summary class="summary-trigger">
+          <strong><big>メニュー</big><br />（表示切替）</strong>
+        </summary>
+        <fieldset>
+          <details open>
+            <summary class="summary-trigger">
+              <strong><big>CS立体図</big></strong>
+            </summary>
+            <fieldset>
+              <div class="select_box">
+                <label class="toggle-button-001">
+                  <input
+                    type="checkbox"
+                    class="layer-switch"
+                    data-layer="miyagi-cs"
+                  />
+                  <span class="slider"></span>
+                </label>
+                宮城県CS立体図
+              </div>
+              <div class="select_box">
+                <label class="toggle-button-001">
+                  <input
+                    type="checkbox"
+                    class="layer-switch"
+                    data-layer="fukushima-cs"
+                  />
+                  <span class="slider"></span>
+                </label>
+                福島県CS立体図
+              </div>
+              <div class="select_box">
+                <label class="toggle-button-001">
+                  <input
+                    type="checkbox"
+                    class="layer-switch"
+                    data-layer="tochigi-cs"
+                  />
+                  <span class="slider"></span>
+                </label>
+                栃木県CS立体図
+              </div>
+              <div class="select_box">
+                <label class="toggle-button-001">
+                  <input
+                    type="checkbox"
+                    class="layer-switch"
+                    data-layer="saitama-cs"
+                    checked
+                  />
+                  <span class="slider"></span>
+                </label>
+                埼玉県CS立体図
+              </div>
+              <div class="select_box">
+                <label class="toggle-button-001">
+                  <input
+                    type="checkbox"
+                    class="layer-switch"
+                    data-layer="tokyo-23ku-cs"
+                  />
+                  <span class="slider"></span>
+                </label>
+                東京都(区部)CS立体図
+              </div>
+              <div class="select_box">
+                <label class="toggle-button-001">
+                  <input
+                    type="checkbox"
+                    class="layer-switch"
+                    data-layer="tokyo-tama-cs"
+                  />
+                  <span class="slider"></span>
+                </label>
+                東京都(多摩地域)CS立体図
+              </div>
+              <div class="select_box">
+                <label class="toggle-button-001">
+                  <input
+                    type="checkbox"
+                    class="layer-switch"
+                    data-layer="tokyo-shima-01-cs,tokyo-shima-02-cs,tokyo-shima-03-cs,tokyo-shima-04-cs,tokyo-shima-05-cs,tokyo-shima-06-cs"
+                  />
+                  <span class="slider"></span>
+                </label>
+                東京都(島しょ地域)CS立体図
+              </div>
+              <div class="select_box">
+                <label class="toggle-button-001">
+                  <input
+                    type="checkbox"
+                    class="layer-switch"
+                    data-layer="kanagawa-cs"
+                  />
+                  <span class="slider"></span>
+                </label>
+                神奈川県CS立体図
+              </div>
+              <div class="select_box">
+                <label class="toggle-button-001">
+                  <input
+                    type="checkbox"
+                    class="layer-switch"
+                    data-layer="nagaoka-cs"
+                  />
+                  <span class="slider"></span>
+                </label>
+                長岡地域CS立体図
+              </div>
+              <div class="select_box">
+                <label class="toggle-button-001">
+                  <input
+                    type="checkbox"
+                    class="layer-switch"
+                    data-layer="toyama-cs"
+                  />
+                  <span class="slider"></span>
+                </label>
+                富山県CS立体図
+              </div>
+              <div class="select_box">
+                <label class="toggle-button-001">
+                  <input
+                    type="checkbox"
+                    class="layer-switch"
+                    data-layer="noto-cs"
+                  />
+                  <span class="slider"></span>
+                </label>
+                能登CS立体図(速報成果)
+              </div>
+              <div class="select_box">
+                <label class="toggle-button-001">
+                  <input
+                    type="checkbox"
+                    class="layer-switch"
+                    data-layer="noto-cs-final"
+                  />
+                  <span class="slider"></span>
+                </label>
+                能登CS立体図(最終成果)
+              </div>
+              <div class="select_box">
+                <label class="toggle-button-001">
+                  <input
+                    type="checkbox"
+                    class="layer-switch"
+                    data-layer="yamanashi-cs"
+                  />
+                  <span class="slider"></span>
+                </label>
+                山梨県CS立体図
+              </div>
+              <div class="select_box">
+                <label class="toggle-button-001">
+                  <input
+                    type="checkbox"
+                    class="layer-switch"
+                    data-layer="nagano-cs"
+                  />
+                  <span class="slider"></span>
+                </label>
+                長野県CS立体図(1m)
+              </div>
+              <div class="select_box">
+                <label class="toggle-button-001">
+                  <input
+                    type="checkbox"
+                    class="layer-switch"
+                    data-layer="nagano-05m-cs"
+                  />
+                  <span class="slider"></span>
+                </label>
+                長野県CS立体図(0.5m)
+              </div>
+              <div class="select_box">
+                <label class="toggle-button-001">
+                  <input
+                    type="checkbox"
+                    class="layer-switch"
+                    data-layer="gifu-cs"
+                  />
+                  <span class="slider"></span>
+                </label>
+                岐阜県CS立体図
+              </div>
+              <div class="select_box">
+                <label class="toggle-button-001">
+                  <input
+                    type="checkbox"
+                    class="layer-switch"
+                    data-layer="shizuoka-cs"
+                  />
+                  <span class="slider"></span>
+                </label>
+                静岡県CS立体図
+              </div>
+              <div class="select_box">
+                <label class="toggle-button-001">
+                  <input
+                    type="checkbox"
+                    class="layer-switch"
+                    data-layer="shiga-cs"
+                  />
+                  <span class="slider"></span>
+                </label>
+                滋賀県CS立体図
+              </div>
+              <div class="select_box">
+                <label class="toggle-button-001">
+                  <input
+                    type="checkbox"
+                    class="layer-switch"
+                    data-layer="kyoto-cs"
+                  />
+                  <span class="slider"></span>
+                </label>
+                京都府CS立体図
+              </div>
+              <div class="select_box">
+                <label class="toggle-button-001">
+                  <input
+                    type="checkbox"
+                    class="layer-switch"
+                    data-layer="osaka-cs"
+                  />
+                  <span class="slider"></span>
+                </label>
+                大阪府CS立体図
+              </div>
+              <div class="select_box">
+                <label class="toggle-button-001">
+                  <input
+                    type="checkbox"
+                    class="layer-switch"
+                    data-layer="hyogo-cs"
+                  />
+                  <span class="slider"></span>
+                </label>
+                兵庫県CS立体図
+              </div>
+              <div class="select_box">
+                <label class="toggle-button-001">
+                  <input
+                    type="checkbox"
+                    class="layer-switch"
+                    data-layer="wakayama-cs"
+                  />
+                  <span class="slider"></span>
+                </label>
+                和歌山県CS立体図
+              </div>
+              <div class="select_box">
+                <label class="toggle-button-001">
+                  <input
+                    type="checkbox"
+                    class="layer-switch"
+                    data-layer="tottori-cs"
+                  />
+                  <span class="slider"></span>
+                </label>
+                鳥取県CS立体図
+              </div>
+              <div class="select_box">
+                <label class="toggle-button-001">
+                  <input
+                    type="checkbox"
+                    class="layer-switch"
+                    data-layer="tottori-2025-cs"
+                  />
+                  <span class="slider"></span>
+                </label>
+                鳥取県CS立体図(2025年)
+              </div>
+              <div class="select_box">
+                <label class="toggle-button-001">
+                  <input
+                    type="checkbox"
+                    class="layer-switch"
+                    data-layer="okayama-cs"
+                  />
+                  <span class="slider"></span>
+                </label>
+                岡山県CS立体図(林野庁0.5m)
+              </div>
+              <div class="select_box">
+                <label class="toggle-button-001">
+                  <input
+                    type="checkbox"
+                    class="layer-switch"
+                    data-layer="okayama-2024-cs"
+                  />
+                  <span class="slider"></span>
+                </label>
+                岡山県CS立体図(岡山県0.5m)
+              </div>
+              <div class="select_box">
+                <label class="toggle-button-001">
+                  <input
+                    type="checkbox"
+                    class="layer-switch"
+                    data-layer="hiroshima-cs"
+                  />
+                  <span class="slider"></span>
+                </label>
+                広島県CS立体図(林野庁0.5m)
+              </div>
+              <div class="select_box">
+                <label class="toggle-button-001">
+                  <input
+                    type="checkbox"
+                    class="layer-switch"
+                    data-layer="hiroshima-05m-cs"
+                  />
+                  <span class="slider"></span>
+                </label>
+                広島県CS立体図(広島県0.5m)
+              </div>
+              <div class="select_box">
+                <label class="toggle-button-001">
+                  <input
+                    type="checkbox"
+                    class="layer-switch"
+                    data-layer="hiroshima-1m-cs"
+                  />
+                  <span class="slider"></span>
+                </label>
+                広島県CS立体図(広島県1m)
+              </div>
+              <div class="select_box">
+                <label class="toggle-button-001">
+                  <input
+                    type="checkbox"
+                    class="layer-switch"
+                    data-layer="ehime-cs"
+                  />
+                  <span class="slider"></span>
+                </label>
+                愛媛県CS立体図
+              </div>
+              <div class="select_box">
+                <label class="toggle-button-001">
+                  <input
+                    type="checkbox"
+                    class="layer-switch"
+                    data-layer="kochi-cs"
+                  />
+                  <span class="slider"></span>
+                </label>
+                高知県CS立体図
+              </div>
+              <div class="select_box">
+                <label class="toggle-button-001">
+                  <input
+                    type="checkbox"
+                    class="layer-switch"
+                    data-layer="kumamoto-oita-cs"
+                  />
+                  <span class="slider"></span>
+                </label>
+                熊本県・大分県CS立体図
+              </div>
+            </fieldset>
+          </details>
+        </fieldset>
+        <fieldset>
+          <details open>
+            <summary class="summary-trigger">
+              <strong><big>各種レイヤー</big></strong>
+            </summary>
+            <fieldset>
+              <div class="select_box">
+                <label class="toggle-button-001">
+                  <input
+                    type="checkbox"
+                    class="layer-switch"
+                    data-layer="fude-polygon,fude-line"
+                  />
+                  <span class="slider"></span>
+                </label>
+                法務省地図(2024年)
+              </div>
+              <div class="select_box">
+                <label class="toggle-button-001">
+                  <input
+                    type="checkbox"
+                    class="layer-switch"
+                    data-layer="plateau-bldg"
+                  />
+                  <span class="slider"></span>
+                </label>
+                3D都市モデル建築物(2023年)
+              </div>
+              <div class="select_box">
+                <label class="toggle-button-001">
+                  <input
+                    type="checkbox"
+                    class="layer-switch"
+                    data-layer="seamlessphoto"
+                  />
+                  <span class="slider"></span>
+                </label>
+                全国最新写真（シームレス）
+              </div>
+              <div class="select_box">
+                <label class="toggle-button-001">
+                  <input
+                    type="checkbox"
+                    class="layer-switch"
+                    data-layer="yamajiro,yamajiro-label"
+                  />
+                  <span class="slider"></span>
+                </label>
+                山城（山城攻城記）
+              </div>
+            </fieldset>
+          </details>
+        </fieldset>
+      </details>
+    </div>
+    <div class="map-center-marker">+</div>
+    <div class="coords-display" id="coords"></div>
+    <div class="map-overlay top">
+      <div class="map-overlay-inner">
+        <label
+          >CS立体図 不透明度:
+          <span id="cs-slider-opacity-value">80%</span></label
+        >
+        <input
+          id="cs-slider-opacity"
+          type="range"
+          min="0"
+          max="100"
+          step="1"
+          value="80"
+        />
+        <!--
       <label>陰影起伏図 不透明度:
         <span id="hillshade-slider-opacity-value">0%</span></label>
       <input id="hillshade-slider-opacity" type="range" min="0" max="100" step="1" value="0" />
-      -->
+      --></div>
     </div>
-  </div>
-  <script type="module" src="main.js"></script>
-</body>
-
+    <script type="module" src="main.js"></script>
+  </body>
 </html>
