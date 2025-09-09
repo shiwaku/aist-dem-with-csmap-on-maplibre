@@ -308,7 +308,7 @@ https://shiwaku.github.io/aist-dem-with-csmap-on-maplibre/
   - ライセンス：[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 
 - 埼玉県 CS 立体図(0.5m)（**試験公開中のため、予告なく変更または公開を中止する場合があります。**）
-  - 出典（タイル URL）：``
+  - 出典（タイル URL）：`https://shiworks.xsrv.jp/raster-tiles/pref-saitama/saitama-csmap-tiles/{z}/{x}/{y}.png`
     - 原初データ出典：[埼玉県 3次元点群データ](https://portal-pref-saitama.hub.arcgis.com/)
     - 概要：山間部を有する県西部地域（飯能、東松山、秩父、本庄、熊谷県土整備事務所管内）の航空レーザ測量（レーザプロファイラ）による3次元点群データ。
     - ライセンス：不明
