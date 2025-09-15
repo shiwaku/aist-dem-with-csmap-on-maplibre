@@ -315,8 +315,7 @@ https://shiwaku.github.io/aist-dem-with-csmap-on-maplibre/
   - 概要
     - 埼玉県が公開している、3次元点群データから以下の手順で0.5mDEMを作成。
       - オリジナルデータからグラウンドデータを作成（lassification=2で抽出）
-      - グラウンドデータを内挿補間(TINまたはスプライン補間)
-      - グリッドデータ作成
+      - グラウンドデータを内挿補間([TIN](https://docs.generic-mapping-tools.org/dev/triangulate.html)または[スプライン補間](https://docs.generic-mapping-tools.org/dev/surface.html))、グリッドデータ作成
       - グリッドデータから0.5mDEM作成
     - 作成した0.5mDEMと株式会社[MIERUNE](https://github.com/MIERUNE)開発の[CS 立体図作成ツール(csmap-py)](https://github.com/MIERUNE/csmap-py)を使用して CS 立体図を作成。本データは CS 立体図を Web メルカトル（EPSG:3857）に再投影した上で[gdal2tiles](https://gdal.org/programs/gdal2tiles.html)を使用してラスタータイル化したデータです。
   - ズームレベル：4 ～ 18
@@ -358,5 +357,6 @@ https://shiwaku.github.io/aist-dem-with-csmap-on-maplibre/
 ## 免責事項
 
 - 利用者がデータを用いて行う一切の行為について何ら責任を負うものではありません。
+
 
 
