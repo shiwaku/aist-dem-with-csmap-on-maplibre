@@ -311,7 +311,7 @@ https://shiwaku.github.io/aist-dem-with-csmap-on-maplibre/
   - 出典（タイル URL）：`https://shiworks.xsrv.jp/raster-tiles/pref-saitama/saitama-csmap-tiles/{z}/{x}/{y}.png`
     - 原初データ出典：[埼玉県 3次元点群データ](https://portal-pref-saitama.hub.arcgis.com/)
     - 概要：山間部を有する県西部地域（飯能、東松山、秩父、本庄、熊谷県土整備事務所管内）の航空レーザ測量（レーザプロファイラ）による3次元点群データ。
-    - ライセンス：不明
+    - ライセンス：クリエイティブ・コモンズ・ライセンス（以下「CCライセンス」という。）の表示4.0国際
   - 概要
     - 埼玉県が公開している、3次元点群データから以下の手順で0.5mDEMを作成。
       - オリジナルデータからグラウンドデータを作成（lassification=2で抽出）
@@ -357,3 +357,4 @@ https://shiwaku.github.io/aist-dem-with-csmap-on-maplibre/
 ## 免責事項
 
 - 利用者がデータを用いて行う一切の行為について何ら責任を負うものではありません。
+
