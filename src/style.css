@@ -45,7 +45,7 @@ html, body {
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   font-family: var(--font);
-  width: 248px;
+  width: 200px;
   overflow: hidden;
 }
 
@@ -54,7 +54,7 @@ html, body {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 11px 14px;
+  padding: 10px 12px;
   background: var(--bg-title);
   border-bottom: 1px solid var(--border);
   cursor: pointer;
@@ -90,7 +90,7 @@ html, body {
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 7px 14px;
+  padding: 7px 12px;
   background: var(--bg-section);
   border-bottom: 1px solid var(--border-item);
   cursor: pointer;
@@ -159,11 +159,12 @@ html, body {
 /* Label text */
 .layer-item-label {
   flex: 1;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 500;
   color: var(--text-muted);
-  padding: 0 8px 0 10px;
+  padding: 6px 8px 6px 10px;
   transition: color 0.15s;
+  line-height: 1.4;
 }
 .layer-item:has(input:checked) .layer-item-label { color: var(--text-primary); }
 
