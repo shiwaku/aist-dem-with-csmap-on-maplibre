@@ -348,8 +348,8 @@ map.on("load", async () => {
 // 地図の中心座標と標高を表示する関数
 function updateCoordsDisplay(): void {
   const center = map.getCenter();
-  const lat = center.lat.toFixed(5);
-  const lng = center.lng.toFixed(5);
+  const lat = center.lat.toFixed(4);
+  const lng = center.lng.toFixed(4);
   const zoomLevel = Math.trunc(map.getZoom());
   const elevTile = "https://tiles.gsj.jp/tiles/elev/land/{z}/{y}/{x}.png";
 
