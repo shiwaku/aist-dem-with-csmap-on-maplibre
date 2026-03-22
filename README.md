@@ -108,24 +108,36 @@ npm run preview
 
 CS立体図作成ツール [csmap-py](https://github.com/MIERUNE/csmap-py)（[MIERUNE](https://github.com/MIERUNE) 開発）を使用し、各都道府県のオープンデータから作成。Web メルカトル（EPSG:3857）に再投影後、[gdal2tiles](https://gdal.org/programs/gdal2tiles.html) でラスタータイル化。
 
-| レイヤー | 解像度 | ZL | 原初データ | ライセンス |
-|---|---|---|---|---|
-| 大阪府 | - | 4–18 | [大阪府 微地形地図](https://www.geospatial.jp/ckan/dataset/cs) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
-| 静岡県 | 0.5m | 4–18 | [VIRTUAL SHIZUOKA 静岡県 CS 立体図](https://www.geospatial.jp/ckan/dataset/shizuoka-2023-csmap) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
-| 東京都（区部） | 0.25m | 4–19 | [東京都デジタルツイン 区部点群データ](https://www.geospatial.jp/ckan/dataset/tokyopc-23ku-2024) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
-| 東京都（多摩地域） | 0.25m | 4–19 | [東京都デジタルツイン 多摩地域点群データ](https://www.geospatial.jp/ckan/dataset/tokyopc-tama-2023) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
-| 東京都（島しょ地域） | 0.25m | 4–19 | [東京都デジタルツイン 島しょ地域点群データ](https://www.geospatial.jp/ckan/dataset/tokyopc-shima-2023) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
-| 和歌山県 | 1m | 4–17 | [和歌山県 3 次元点群データ](https://www.pref.wakayama.lg.jp/prefg/012100/d00213012.html) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
-| 神奈川県 | 0.5m | 4–18 | [神奈川県 3 次元点群データ](https://www.geospatial.jp/ckan/dataset?q=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C+%E7%82%B9%E7%BE%A4) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
-| 広島県（広島県 0.5m） | 0.5m | 4–18 | [広島県 3 次元点群データ](https://hiroshima-dobox.jp/index2) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
-| 広島県（広島県 1m） | 1m | 4–17 | [広島県 3 次元点群データ](https://hiroshima-dobox.jp/index2) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
-| 京都府 | 0.5m | 4–18 | [京都府 数値標高モデル（DEM）](https://www.geospatial.jp/ckan/dataset/dem05_kyoto) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
-| 山梨県 | 0.5m | 4–18 | [山梨県点群データ グリッドデータ DEM](https://www.geospatial.jp/ckan/dataset/yamanashi-pointcloud-2024) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
-| 富山県 | 0.5m | 4–18 | [富山県 数値標高モデル（DEM）](https://www.geospatial.jp/ckan/dataset/dem) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
-| 長野県（0.5m） | 0.5m | 4–18 | [長野県 R3・4 計測 50cmDEM](https://www.geospatial.jp/ckan/dataset/r3-4-50cmdem) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)（承認番号：7 森政第 51-3 号） |
-| 宮城県 | 1m | 4–17 | [宮城県 3 次元点群データ](https://miyagi.dataeye.jp/resources/1523) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
-| 岡山県（岡山県 0.5m） | 0.5m | 4–18 | [岡山県 3 次元点群データ](https://i-box.pref.okayama.jp/datasets/251) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
-| 埼玉県 | 0.5m | 4–18 | [埼玉県 3 次元点群データ](https://portal-pref-saitama.hub.arcgis.com/) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
+| レイヤー | 解像度 | ZL | タイル URL | 原初データ | ライセンス |
+|---|---|---|---|---|---|
+| 大阪府 | - | 4–18 | `https://xs489works.xsrv.jp/raster-tiles/pref-osaka/osaka-cs-tiles/{z}/{x}/{y}.png` | [大阪府 微地形地図](https://www.geospatial.jp/ckan/dataset/cs) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
+| 静岡県 | 0.5m | 4–18 | `https://shiworks.xsrv.jp/raster-tiles/pref-shizuoka/shizuoka-cs-tiles/{z}/{x}/{y}.png` | [VIRTUAL SHIZUOKA 静岡県 CS 立体図](https://www.geospatial.jp/ckan/dataset/shizuoka-2023-csmap) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
+| 東京都（区部） | 0.25m | 4–19 | `https://shiworks.xsrv.jp/raster-tiles/tokyo-digitaltwin/tokyopc-23ku-2024-cs-tiles/{z}/{x}/{y}.png` | [東京都デジタルツイン 区部点群データ](https://www.geospatial.jp/ckan/dataset/tokyopc-23ku-2024) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
+| 東京都（多摩地域） | 0.25m | 4–19 | `https://shiworks.xsrv.jp/raster-tiles/tokyo-digitaltwin/tokyopc-tama-2023-cs-tiles/{z}/{x}/{y}.png` | [東京都デジタルツイン 多摩地域点群データ](https://www.geospatial.jp/ckan/dataset/tokyopc-tama-2023) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
+| 東京都（島しょ地域） | 0.25m | 4–19 | ※下記参照 | [東京都デジタルツイン 島しょ地域点群データ](https://www.geospatial.jp/ckan/dataset/tokyopc-shima-2023) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
+| 和歌山県 | 1m | 4–17 | `https://xs489works.xsrv.jp/raster-tiles/pref-wakayama/wakayamapc-cs-tiles/{z}/{x}/{y}.png` | [和歌山県 3 次元点群データ](https://www.pref.wakayama.lg.jp/prefg/012100/d00213012.html) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
+| 神奈川県 | 0.5m | 4–18 | `https://shiworks.xsrv.jp/raster-tiles/pref-kanagawa/kanagawapc-cs-tiles/{z}/{x}/{y}.png` | [神奈川県 3 次元点群データ](https://www.geospatial.jp/ckan/dataset?q=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C+%E7%82%B9%E7%BE%A4) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
+| 能登地域（最終） | 0.5m | 4–18 | `https://shiworks.xsrv.jp/raster-tiles/rinya/noto-2024-csmap-tiles/{z}/{x}/{y}.png` | [林野庁 能登地域 0.5mDEM(発災後)](https://www.geospatial.jp/ckan/dataset/2024noto_dem) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
+| 広島県（広島県 0.5m） | 0.5m | 4–18 | `https://shiworks.xsrv.jp/raster-tiles/pref-hiroshima/hiroshimapc-2022-cs-tiles/{z}/{x}/{y}.png` | [広島県 3 次元点群データ](https://hiroshima-dobox.jp/index2) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
+| 広島県（広島県 1m） | 1m | 4–17 | `https://xs489works.xsrv.jp/raster-tiles/pref-hiroshima/hiroshimapc-cs-tiles/{z}/{x}/{y}.png` | [広島県 3 次元点群データ](https://hiroshima-dobox.jp/index2) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
+| 京都府 | 0.5m | 4–18 | `https://shiworks2.xsrv.jp/raster-tiles/pref-kyoto/kyoto-csmap-tiles/{z}/{x}/{y}.png` | [京都府 数値標高モデル（DEM）](https://www.geospatial.jp/ckan/dataset/dem05_kyoto) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
+| 山梨県 | 0.5m | 4–18 | `https://shiworks2.xsrv.jp/raster-tiles/pref-yamanashi/yamanashi-csmap-tiles/{z}/{x}/{y}.png` | [山梨県点群データ グリッドデータ DEM](https://www.geospatial.jp/ckan/dataset/yamanashi-pointcloud-2024) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
+| 富山県 | 0.5m | 4–18 | `https://shiworks2.xsrv.jp/raster-tiles/pref-toyama/toyama-csmap-tiles/{z}/{x}/{y}.png` | [富山県 数値標高モデル（DEM）](https://www.geospatial.jp/ckan/dataset/dem) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
+| 長野県（0.5m） | 0.5m | 4–18 | `https://shiworks2.xsrv.jp/raster-tiles/pref-nagano/nagano-csmap-tiles/{z}/{x}/{y}.png` | [長野県 R3・4 計測 50cmDEM](https://www.geospatial.jp/ckan/dataset/r3-4-50cmdem) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)（承認番号：7 森政第 51-3 号） |
+| 宮城県 | 1m | 4–17 | `https://shiworks2.xsrv.jp/raster-tiles/pref-miyagi/miyagi-csmap-tiles/{z}/{x}/{y}.png` | [宮城県 3 次元点群データ](https://miyagi.dataeye.jp/resources/1523) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
+| 岡山県（岡山県 0.5m） | 0.5m | 4–18 | `https://shiworks2.xsrv.jp/raster-tiles/pref-okayama/okayama-csmap-tiles/{z}/{x}/{y}.png` | [岡山県 3 次元点群データ](https://i-box.pref.okayama.jp/datasets/251) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
+| 埼玉県 | 0.5m | 4–18 | `https://shiworks.xsrv.jp/raster-tiles/pref-saitama/saitama-csmap-tiles/{z}/{x}/{y}.png` | [埼玉県 3 次元点群データ](https://portal-pref-saitama.hub.arcgis.com/) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
+
+**※ 東京都（島しょ地域）タイル URL**
+
+| 島 | タイル URL |
+|---|---|
+| 伊豆大島 | `https://xs489works.xsrv.jp/raster-tiles/tokyo-digitaltwin/tokyopc-shima-01-2023-cs-tiles/{z}/{x}/{y}.png` |
+| 利島・新島・式根島・神津島 | `https://xs489works.xsrv.jp/raster-tiles/tokyo-digitaltwin/tokyopc-shima-02-2023-cs-tiles/{z}/{x}/{y}.png` |
+| 三宅島 | `https://xs489works.xsrv.jp/raster-tiles/tokyo-digitaltwin/tokyopc-shima-03-2023-cs-tiles/{z}/{x}/{y}.png` |
+| 御蔵島 | `https://xs489works.xsrv.jp/raster-tiles/tokyo-digitaltwin/tokyopc-shima-04-2023-cs-tiles/{z}/{x}/{y}.png` |
+| 八丈島 | `https://xs489works.xsrv.jp/raster-tiles/tokyo-digitaltwin/tokyopc-shima-05-2023-cs-tiles/{z}/{x}/{y}.png` |
+| 青ヶ島 | `https://xs489works.xsrv.jp/raster-tiles/tokyo-digitaltwin/tokyopc-shima-06-2023-cs-tiles/{z}/{x}/{y}.png` |
 
 ### 各種レイヤー
 
