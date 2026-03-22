@@ -45,8 +45,13 @@ html, body {
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   font-family: var(--font);
-  width: 200px;
+  width: 100px;
   overflow: hidden;
+}
+
+/* 展開時は 200px に広げる */
+#menu-panel:has(> details[open]) {
+  width: 200px;
 }
 
 /* Top-level summary = panel title bar */
@@ -359,7 +364,8 @@ html, body {
   box-shadow: var(--shadow) !important;
   font-family: var(--font) !important;
   font-size: 13px;
-  min-width: 160px;
+  min-width: 200px;
+  width: 200px !important;
 }
 .maplibregl-ctrl-geocoder input {
   background: transparent !important;
