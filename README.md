@@ -106,7 +106,15 @@ npm run preview
 
 #### [shi-works](https://twitter.com/shi__works) 作成
 
-CS立体図作成ツール [csmap-py](https://github.com/MIERUNE/csmap-py)（[MIERUNE](https://github.com/MIERUNE) 開発）を使用し、各都道府県のオープンデータから作成。Web メルカトル（EPSG:3857）に再投影後、[gdal2tiles](https://gdal.org/programs/gdal2tiles.html) でラスタータイル化。
+各都道府県が公開する 3 次元点群・DEM 等のオープンデータをもとに作成しています。
+
+**作成フロー：**
+
+1. オープンデータ（3 次元点群／DEM）を取得
+2. 3 次元点群（グリッドデータ）の場合は [GMT（Generic Mapping Tools）](https://www.generic-mapping-tools.org/) の [triangulate](https://docs.generic-mapping-tools.org/dev/triangulate.html) で DEM（GeoTIFF）を生成（テキスト形式 DEM は GeoTIFF 変換、必要に応じて NoData 処理）
+3. 前処理後の DEM を CS 立体図作成ツール [csmap-py](https://github.com/MIERUNE/csmap-py)（[MIERUNE](https://github.com/MIERUNE) 開発）で CS 立体図化
+4. Web メルカトル（EPSG:3857）に再投影
+5. [gdal2tiles](https://gdal.org/programs/gdal2tiles.html) でラスタータイル化
 
 | レイヤー | 解像度 | ZL | タイル URL | 原初データ | ライセンス |
 |---|---|---|---|---|---|
