@@ -5,7 +5,24 @@ import MaplibreGeocoder from "@maplibre/maplibre-gl-geocoder";
 import "@maplibre/maplibre-gl-geocoder/dist/maplibre-gl-geocoder.css";
 import { MaplibreTerradrawControl } from "@watergis/maplibre-gl-terradraw";
 import "@watergis/maplibre-gl-terradraw/dist/maplibre-gl-terradraw.css";
+import { CS_LAYERS, CS_LAYER_IDS, OTHER_LAYERS, type LayerDef } from "./layers";
+import { applyThemeAttr, initialTheme, type Theme } from "./theme";
+import {
+  applyBasemapTheme,
+  applySky,
+  captureBasemapColors,
+  type BasemapColors,
+} from "./basemap-theme";
 import "./style.css";
+
+const isMobile = window.matchMedia("(max-width: 640px)").matches;
+
+// テーマは地図生成前に反映しておく（パネルの初期描画がちらつかないように）
+let theme: Theme = initialTheme();
+applyThemeAttr(theme);
+
+// 背景地図のライト/ダーク配色の対応表（スタイル読み込み後に作る）
+let basemapColors: BasemapColors = [];
 
 // Protocolの設定
 const protocol = new Protocol();
@@ -14,7 +31,7 @@ maplibregl.addProtocol("pmtiles", protocol.tile);
 // マップの初期化
 const map = new maplibregl.Map({
   container: "map",
-  style: `${import.meta.env.BASE_URL}style/mono.json`,
+  style: `${import.meta.env.BASE_URL}style/pale.json`,
   zoom: 9.62,
   minZoom: 0,
   maxZoom: 23,
@@ -25,6 +42,12 @@ const map = new maplibregl.Map({
   hash: true,
   attributionControl: false,
 });
+
+// 開発時のみコンソールから地図を触れるようにする（本番ビルドでは除去される）
+if (import.meta.env.DEV) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  (window as any).__map = map;
+}
 
 // ジオコーダー（国土地理院 地名検索API）
 const geocoderApi = {
@@ -85,12 +108,13 @@ map.addControl(
   })
 );
 
-// スケール表示
+// スケール表示（左パネルが全高のため右下へ寄せる）
 map.addControl(
   new maplibregl.ScaleControl({
     maxWidth: 200,
     unit: "metric",
-  })
+  }),
+  "bottom-right"
 );
 
 // Attributionを折りたたみ表示
@@ -132,49 +156,8 @@ const draw = new MaplibreTerradrawControl({
 });
 map.addControl(draw, "top-right");
 
-// CS立体図レイヤー名セット
-const csLayerIds: string[] = [
-  "nagano-cs",
-  "nagano-05m-cs",
-  "hiroshima-cs",
-  "hiroshima-05m-cs",
-  "hiroshima-1m-cs",
-  "okayama-cs",
-  "okayama-2024-cs",
-  "ehime-cs",
-  "kochi-cs",
-  "fukushima-cs",
-  "kumamoto-oita-cs",
-  "hyogo-cs",
-  "tochigi-cs",
-  "shizuoka-cs",
-  "gifu-cs",
-  "osaka-cs",
-  "nagaoka-cs",
-  "noto-cs",
-  "noto-cs-final",
-  "saitama-cs",
-  "tokyo-23ku-cs",
-  "tokyo-tama-cs",
-  "tokyo-shima-01-cs",
-  "tokyo-shima-02-cs",
-  "tokyo-shima-03-cs",
-  "tokyo-shima-04-cs",
-  "tokyo-shima-05-cs",
-  "tokyo-shima-06-cs",
-  "wakayama-cs",
-  "kanagawa-cs",
-  "tottori-cs",
-  "tottori-2025-cs",
-  "shiga-cs",
-  "kyoto-cs",
-  "yamanashi-cs",
-  "toyama-cs",
-  "miyagi-cs",
-];
-
-// その他レイヤー名セット
-const otherLayerIds: string[] = [
+// ポップアップ対象（属性を持つレイヤーのみ。ラベルレイヤーは除く）
+const POPUP_LAYER_IDS: string[] = [
   "fude-polygon",
   "fude-line",
   "plateau-bldg",
@@ -254,11 +237,22 @@ map.on("load", async () => {
   });
 
   // 山城攻城記ソース
+  // 配信元の geojson には欠損値が標準外の裸 NaN リテラルとして出力されており、
+  // 1個でもファイル全体が JSON.parse に失敗して全城が表示されなくなる。
+  // MapLibre に URL を渡さず、取得後に null へ置換してから読み込む。
+  // 取得はパネル構築を待たせない（失敗してもUI全体を巻き込まないよう後から setData する）
   map.addSource("yamajiro", {
     type: "geojson",
-    data: "https://shiwaku.github.io/yamajiro-geojson/castles-data.geojson",
+    data: { type: "FeatureCollection", features: [] },
     attribution: '<a href="https://gosenzo.net/yamajiro/">山城攻城記</a>',
   });
+  void fetchYamajiro()
+    .then((data) => {
+      (map.getSource("yamajiro") as maplibregl.GeoJSONSource).setData(data);
+    })
+    .catch((e) => {
+      console.error("山城レイヤーを読み込めませんでした", e);
+    });
 
   // 山城アイコン読み込み
   const image = await map.loadImage(
@@ -296,7 +290,9 @@ map.on("load", async () => {
     layout: {
       "text-field": ["get", "城名"],
       "text-size": ["interpolate", ["linear"], ["zoom"], 14, 12, 16, 14],
-      "text-font": ["NotoSansJP-Regular", "NotoSerifJP-Medium"],
+      // 合成フォントスタック（"A,B"）は地理院グリフサーバが404を返し、
+      // 同一ソースの yamajiro アイコンごとシンボル配置が落ちるため単一指定にする
+      "text-font": ["NotoSansJP-Regular"],
       "text-anchor": "bottom",
       "text-offset": [0, -2],
       "text-allow-overlap": ["step", ["zoom"], false, 16, true],
@@ -309,41 +305,34 @@ map.on("load", async () => {
     },
   });
 
-  // スライダーでCS立体図の不透明度を制御
-  const csSlider = document.getElementById(
-    "cs-slider-opacity"
-  ) as HTMLInputElement;
-  const csValueLabel = document.getElementById("cs-slider-opacity-value")!;
+  // 背景地図の配色対応表を作る。CS立体図など重ねものを追加した後に走査しても
+  // ベースマップ層（source "v" と background）だけが対象になる。
+  basemapColors = captureBasemapColors(map);
+  applyBasemapTheme(map, basemapColors, theme);
+  applySky(map, theme);
 
-  csSlider.addEventListener("input", (e) => {
-    const value = Number((e.target as HTMLInputElement).value);
-    const opacity = value / 100;
-    csLayerIds.forEach((layerId) => {
-      map.setPaintProperty(layerId, "raster-opacity", opacity);
-    });
-    csValueLabel.textContent = `${value}%`;
-  });
-
-  // Skyレイヤ
-  map.setSky({
-    "sky-color": "#199EF3",
-    "sky-horizon-blend": 0.7,
-    "horizon-color": "#f0f8ff",
-    "horizon-fog-blend": 0.8,
-    "fog-color": "#2c7fb8",
-    "fog-ground-blend": 0.9,
-    "atmosphere-blend": ["interpolate", ["linear"], ["zoom"], 0, 1, 12, 0],
-  });
-
-  // レイヤー切り替え
-  setupLayerSwitches();
+  // パネル（レイヤートグル・不透明度・開閉・テーマ）を組み立てる
+  setupPanel();
 
   // 初期座標を表示
   updateCoordsDisplay();
 
   // ポップアップ表示
-  otherLayerIds.forEach(addPopupHandler);
+  POPUP_LAYER_IDS.forEach(addPopupHandler);
 });
+
+// 山城攻城記の geojson を取得する関数
+// 値の位置に現れる裸の NaN のみを null に置換する（"NaN県" のような文字列は壊さない）
+const YAMAJIRO_URL =
+  "https://shiwaku.github.io/yamajiro-geojson/castles-data.geojson";
+
+async function fetchYamajiro(): Promise<GeoJSON.FeatureCollection> {
+  const res = await fetch(YAMAJIRO_URL);
+  if (!res.ok) throw new Error(`山城geojsonの取得に失敗: HTTP ${res.status}`);
+  const text = await res.text();
+  const sanitized = text.replace(/([:,[]\s*)NaN(?=\s*[,\]}])/g, "$1null");
+  return JSON.parse(sanitized) as GeoJSON.FeatureCollection;
+}
 
 // 地図の中心座標と標高を表示する関数
 function updateCoordsDisplay(): void {
@@ -381,22 +370,112 @@ map.on("move", () => {
   updateCoordsDisplay();
 });
 
-// レイヤー切り替え
-function setupLayerSwitches(): void {
-  document.querySelectorAll<HTMLInputElement>(".layer-switch").forEach((input) => {
-    input.addEventListener("change", () => {
-      input.dataset["layer"]!
-        .split(",")
-        .map((id) => id.trim())
-        .forEach((layer) => {
-          map.setLayoutProperty(
-            layer,
-            "visibility",
-            input.checked ? "visible" : "none"
-          );
-        });
-    });
+// =============================================
+// パネル
+// =============================================
+function setLayerVisible(def: LayerDef, on: boolean): void {
+  def.on = on;
+  for (const id of def.ids) {
+    if (map.getLayer(id)) {
+      map.setLayoutProperty(id, "visibility", on ? "visible" : "none");
+    }
+  }
+}
+
+/** レイヤー定義から丸トグルの行を作って container に並べる。 */
+function buildToggles(container: HTMLElement, defs: LayerDef[]): void {
+  for (const def of defs) {
+    const label = document.createElement("label");
+    label.className = "toggle";
+
+    const input = document.createElement("input");
+    input.type = "checkbox";
+    input.checked = def.on === true;
+    input.addEventListener("change", () => setLayerVisible(def, input.checked));
+
+    const sw = document.createElement("span");
+    sw.className = "switch";
+
+    const text = document.createElement("span");
+    text.className = "t-label";
+    text.textContent = def.name;
+
+    // input → .switch → .t-label の順序は CSS の兄弟セレクタが前提にしている
+    label.append(input, sw, text);
+    container.append(label);
+
+    // style JSON 側の初期 visibility と定義を必ず一致させる
+    setLayerVisible(def, input.checked);
+  }
+}
+
+function setAll(container: HTMLElement, defs: LayerDef[], on: boolean): void {
+  const inputs = container.querySelectorAll<HTMLInputElement>("input");
+  defs.forEach((def, i) => {
+    const input = inputs[i];
+    if (input) input.checked = on;
+    setLayerVisible(def, on);
   });
+}
+
+function setupPanel(): void {
+  const csBox = document.getElementById("cs-layers")!;
+  const otherBox = document.getElementById("other-layers")!;
+  buildToggles(csBox, CS_LAYERS);
+  buildToggles(otherBox, OTHER_LAYERS);
+
+  document
+    .getElementById("cs-all-on")!
+    .addEventListener("click", () => setAll(csBox, CS_LAYERS, true));
+  document
+    .getElementById("cs-all-off")!
+    .addEventListener("click", () => setAll(csBox, CS_LAYERS, false));
+  document
+    .getElementById("other-all-on")!
+    .addEventListener("click", () => setAll(otherBox, OTHER_LAYERS, true));
+  document
+    .getElementById("other-all-off")!
+    .addEventListener("click", () => setAll(otherBox, OTHER_LAYERS, false));
+
+  // CS立体図の不透明度（各県のタイルは地域が重ならないので一括制御でよい）
+  const slider = document.getElementById("cs-opacity") as HTMLInputElement;
+  const sliderValue = document.getElementById("cs-opacity-value")!;
+  slider.addEventListener("input", () => {
+    const value = Number(slider.value);
+    sliderValue.textContent = `${value}%`;
+    for (const id of CS_LAYER_IDS) {
+      if (map.getLayer(id)) {
+        map.setPaintProperty(id, "raster-opacity", value / 100);
+      }
+    }
+  });
+
+  // パネル開閉
+  const panel = document.getElementById("panel")!;
+  const collapseBtn = document.getElementById("collapse-btn")!;
+  const renderCollapseBtn = (): void => {
+    collapseBtn.textContent = panel.classList.contains("collapsed") ? "▾" : "▴";
+  };
+  collapseBtn.addEventListener("click", () => {
+    panel.classList.toggle("collapsed");
+    renderCollapseBtn();
+  });
+  if (isMobile) panel.classList.add("collapsed");
+  renderCollapseBtn();
+
+  // テーマ切替（パネル・ポップアップ・コントロール・背景地図の配色が追従する）
+  const themeBtn = document.getElementById("theme-btn")!;
+  const renderThemeBtn = (): void => {
+    themeBtn.textContent = theme === "dark" ? "☀️" : "🌙";
+  };
+  themeBtn.addEventListener("click", () => {
+    theme = theme === "dark" ? "light" : "dark";
+    applyThemeAttr(theme);
+    renderThemeBtn();
+    applyBasemapTheme(map, basemapColors, theme);
+    applySky(map, theme);
+  });
+  renderThemeBtn();
 }
 
 function addPopupHandler(layerId: string): void {

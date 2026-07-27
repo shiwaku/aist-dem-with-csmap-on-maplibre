@@ -1,303 +1,370 @@
 /* =============================================
-   Base
+   Design Tokens
    ============================================= */
-html, body {
-  margin: 0;
-  padding: 0;
+:root {
+  --surface-solid: #ffffff;
+  --ink: #14161a;
+  --ink-2: #5a6069;
+  --ink-3: #8b919b;
+  --line: rgba(20, 22, 26, 0.1);
+  --line-2: rgba(20, 22, 26, 0.16);
+  --accent: #7b61ff;
+  --accent-2: #18d9b5;
+  --accent-ink: #ffffff;
+  --track: rgba(20, 22, 26, 0.14);
+  --hover: rgba(20, 22, 26, 0.05);
+  --shadow: 0 10px 30px -10px rgba(16, 24, 40, 0.35),
+    0 2px 8px -4px rgba(16, 24, 40, 0.2);
+  --radius: 16px;
+  --radius-sm: 10px;
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --surface-solid: #1b1e24;
+  --ink: #f2f4f7;
+  --ink-2: #b3b9c4;
+  --ink-3: #7d838e;
+  --line: rgba(255, 255, 255, 0.1);
+  --line-2: rgba(255, 255, 255, 0.16);
+  --accent: #a493ff;
+  --accent-2: #3ee7c6;
+  --accent-ink: #0a0c10;
+  --track: rgba(255, 255, 255, 0.16);
+  --hover: rgba(255, 255, 255, 0.07);
+  --shadow: 0 12px 32px -10px rgba(0, 0, 0, 0.6),
+    0 2px 8px -4px rgba(0, 0, 0, 0.5);
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
   height: 100%;
+  margin: 0;
+}
+
+body {
+  font: 14px/1.5 system-ui, -apple-system, "Segoe UI",
+    "Hiragino Kaku Gothic ProN", sans-serif;
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
 }
 
 #map {
-  width: 100%;
-  height: 100%;
-}
-
-/* =============================================
-   Design Tokens (kepler.gl inspired)
-   ============================================= */
-:root {
-  --bg-panel:    #ffffff;
-  --bg-title:    #f5f6f8;
-  --bg-section:  rgba(0, 0, 0, 0.025);
-  --bg-hover:    #f0f2f5;
-  --border:      rgba(0, 0, 0, 0.09);
-  --border-item: rgba(0, 0, 0, 0.06);
-  --text-primary:   #1a1d23;
-  --text-secondary: #555c6b;
-  --text-muted:     #9099aa;
-  --color-cs:    #7b61ff;
-  --color-other: #18d9b5;
-  --shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-  --font: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --radius: 4px;
-}
-
-/* =============================================
-   Menu Panel
-   ============================================= */
-#menu-panel {
   position: absolute;
-  top: 12px;
-  left: 12px;
+  inset: 0;
+}
+
+/* =============================================
+   Panel
+   ============================================= */
+/* 常に全高で固定。top:0 + bottom:0 で画面の縦いっぱいにする（100dvh に頼らない）。
+   height:auto にすると内容が画面より低いときパネルが縮んで下端が動く。
+   backdrop-filter（すりガラス）は内部スクロールを持つパネルで描画が破綻する
+   実例があるため使わず、不透明背景にする。 */
+.panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
   z-index: 30;
-  background: var(--bg-panel);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  max-width: 88vw;
+  background: var(--surface-solid);
+  border-right: 1px solid var(--line);
   box-shadow: var(--shadow);
-  font-family: var(--font);
-  width: 100px;
   overflow: hidden;
 }
 
-/* 展開時は 200px に広げる */
-#menu-panel:has(> details[open]) {
-  width: 200px;
+/* 畳んだらヘッダの高さだけに（全高固定を解除） */
+.panel.collapsed {
+  bottom: auto;
+  height: auto;
 }
 
-/* Top-level summary = panel title bar */
-#menu-panel > details > summary {
+.panel-head {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 12px 12px 12px 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+.brand {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 12px;
-  background: var(--bg-title);
-  border-bottom: 1px solid var(--border);
-  cursor: pointer;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text-secondary);
-  list-style: none;
-  user-select: none;
-}
-#menu-panel > details > summary::-webkit-details-marker { display: none; }
-#menu-panel > details > summary .arrow {
-  margin-left: auto;
-  color: var(--text-muted);
-  transition: transform 0.2s;
-  flex-shrink: 0;
-}
-#menu-panel > details:not([open]) > summary .arrow {
-  transform: rotate(-90deg);
+  min-width: 0;
 }
 
-/* Section wrapper */
-.panel-section {
-  border-bottom: 1px solid var(--border);
-}
-.panel-section:last-child {
-  border-bottom: none;
+.brand-mark {
+  font-size: 18px;
+  line-height: 1;
 }
 
-/* Section header */
-.panel-section > details > summary {
+.panel h1 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.head-actions {
   display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 7px 12px;
-  background: var(--bg-section);
-  border-bottom: 1px solid var(--border-item);
-  cursor: pointer;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  list-style: none;
-  user-select: none;
-}
-.panel-section > details > summary::-webkit-details-marker { display: none; }
-.panel-section > details > summary .arrow {
-  margin-left: auto;
-  transition: transform 0.2s;
-  flex-shrink: 0;
-}
-.panel-section > details:not([open]) > summary .arrow {
-  transform: rotate(-90deg);
+  gap: 4px;
 }
 
-/* Scrollable items container */
-.section-items {
-  max-height: 240px;
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: #3a4050 transparent;
-}
-.section-items::-webkit-scrollbar { width: 4px; }
-.section-items::-webkit-scrollbar-track { background: transparent; }
-.section-items::-webkit-scrollbar-thumb { background: #d0d4dc; border-radius: 2px; }
-
-/* ---- Layer item row ---- */
-.layer-item {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  border-bottom: 1px solid var(--border-item);
-  position: relative;
-  transition: background 0.15s;
-}
-.layer-item:last-child { border-bottom: none; }
-.layer-item:hover { background: var(--bg-hover); }
-.layer-item input[type="checkbox"] { display: none; }
-
-/* Left color bar */
-.layer-item::before {
-  content: "";
-  display: block;
-  width: 3px;
-  align-self: stretch;
-  flex-shrink: 0;
-  transition: opacity 0.2s;
-}
-.cs-group .layer-item::before {
-  background: var(--color-cs);
-  opacity: 0.3;
-}
-.cs-group .layer-item:has(input:checked)::before { opacity: 1; }
-.other-group .layer-item::before {
-  background: var(--color-other);
-  opacity: 0.3;
-}
-.other-group .layer-item:has(input:checked)::before { opacity: 1; }
-
-/* Label text */
-.layer-item-label {
-  flex: 1;
-  font-size: 11px;
-  font-weight: 500;
-  color: var(--text-muted);
-  padding: 6px 8px 6px 10px;
-  transition: color 0.15s;
-  line-height: 1.4;
-}
-.layer-item:has(input:checked) .layer-item-label { color: var(--text-primary); }
-
-/* Toggle switch */
-.toggle-switch {
-  width: 28px;
-  height: 16px;
+.icon-btn {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--line);
   border-radius: 8px;
-  background: #d0d4dc;
-  flex-shrink: 0;
-  position: relative;
-  margin: 14px 14px 14px 0;
-  transition: background 0.2s;
-}
-.toggle-thumb {
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: #9099aa;
-  transition: left 0.2s cubic-bezier(0.34, 1.4, 0.64, 1), background 0.2s;
+  background: transparent;
+  color: var(--ink-2);
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
 }
 
-/* CS group checked → purple */
-.cs-group .layer-item:has(input:checked) .toggle-switch {
-  background: rgba(123, 97, 255, 0.35);
-}
-.cs-group .layer-item:has(input:checked) .toggle-thumb {
-  left: 14px;
-  background: var(--color-cs);
+.icon-btn:hover {
+  background: var(--hover);
+  color: var(--ink);
 }
 
-/* Other group checked → teal */
-.other-group .layer-item:has(input:checked) .toggle-switch {
-  background: rgba(24, 217, 181, 0.25);
+.panel-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 14px;
+  display: grid;
+  gap: 16px;
+  align-content: start;
+  overflow-y: auto;
+  /* パネル内スクロールが地図のズームへ連鎖しないようにする */
+  overscroll-behavior: contain;
 }
-.other-group .layer-item:has(input:checked) .toggle-thumb {
-  left: 14px;
-  background: var(--color-other);
+
+.panel.collapsed .panel-body,
+.panel.collapsed .panel-foot {
+  display: none;
+}
+
+.field {
+  display: grid;
+  gap: 8px;
+}
+
+.field-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.field-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.field-actions {
+  display: flex;
+  gap: 4px;
+}
+
+.mini-btn {
+  appearance: none;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink-2);
+  font: inherit;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.mini-btn:hover {
+  background: var(--hover);
+  color: var(--ink);
 }
 
 /* =============================================
-   Bottom Panel (opacity + coords)
+   Layer toggles
    ============================================= */
-#bottom-panel {
-  position: absolute;
-  bottom: 44px;
-  left: 12px;
-  z-index: 30;
-  background: var(--bg-panel);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  font-family: var(--font);
-  width: 160px;
-  overflow: hidden;
-}
-
-.bottom-section {
-  padding: 8px 10px;
-  border-bottom: 1px solid var(--border);
-}
-.bottom-section:last-child { border-bottom: none; }
-
-.bottom-section-label {
-  display: flex;
-  flex-direction: column;
+.toggles {
+  display: grid;
   gap: 2px;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin-bottom: 6px;
-}
-.bottom-section-label span {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0;
-  text-transform: none;
-  color: var(--color-cs);
 }
 
-/* Custom range slider */
-#cs-slider-opacity {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 100%;
-  height: 4px;
+/* CS立体図は30件以上あり、そのまま並べると下の不透明度・各種レイヤー・地図中心が
+   毎回スクロールの向こう側になる。この一覧だけ高さを制限して内側でスクロールさせる。 */
+#cs-layers {
+  max-height: 40vh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+}
+
+#cs-layers::-webkit-scrollbar {
+  width: 4px;
+}
+
+#cs-layers::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#cs-layers::-webkit-scrollbar-thumb {
+  background: var(--track);
   border-radius: 2px;
-  background: #d0d4dc;
-  outline: none;
-  cursor: pointer;
-  display: block;
-}
-#cs-slider-opacity::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: var(--color-cs);
-  cursor: pointer;
-  box-shadow: 0 0 6px rgba(123, 97, 255, 0.7);
-}
-#cs-slider-opacity::-moz-range-thumb {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: var(--color-cs);
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 0 6px rgba(123, 97, 255, 0.7);
 }
 
-/* Coords */
-#coords {
-  font-size: 10px;
-  line-height: 1.7;
-  color: var(--text-secondary);
+/* 中の checkbox（視覚非表示・position:absolute）をこのラベル内に閉じ込める。
+   これが無いと基準がスクロール領域外になり、クリック時のフォーカス移動が
+   ブラウザのスクロール処理と衝突してパネルがスクロール不能になる。 */
+.toggle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 8px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.toggle:hover {
+  background: var(--hover);
+}
+
+.toggle input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.switch {
+  position: relative;
+  flex: none;
+  width: 34px;
+  height: 20px;
+  border-radius: 999px;
+  background: var(--track);
+  transition: background 0.18s ease;
+}
+
+.switch::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  transition: transform 0.18s ease;
+}
+
+.toggle input:checked + .switch {
+  background: var(--accent);
+}
+
+/* 各種レイヤーは CS立体図 と色で区別する */
+#other-layers .toggle input:checked + .switch {
+  background: var(--accent-2);
+}
+
+.toggle input:checked + .switch::after {
+  transform: translateX(14px);
+}
+
+.toggle input:focus-visible + .switch {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.toggle .t-label {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: 13px;
+  color: var(--ink-2);
+}
+
+.toggle input:checked ~ .t-label {
+  color: var(--ink);
+}
+
+/* =============================================
+   Opacity slider
+   ============================================= */
+.op-val {
+  flex: none;
+  font-size: 10.5px;
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+
+.opacity-range {
+  width: 100%;
+  height: 8px;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+/* =============================================
+   Coords
+   ============================================= */
+.coords {
+  font-size: 11.5px;
+  line-height: 1.65;
+  color: var(--ink-2);
+  font-variant-numeric: tabular-nums;
   word-break: break-all;
 }
-#coords a {
-  color: var(--color-cs);
+
+.coords a {
+  color: var(--accent);
   text-decoration: none;
 }
-#coords a:hover { text-decoration: underline; }
+
+.coords a:hover {
+  text-decoration: underline;
+}
+
+/* =============================================
+   Footer
+   ============================================= */
+.panel-foot {
+  flex: none;
+  padding: 12px 14px;
+  font-size: 10.5px;
+  line-height: 1.5;
+  color: var(--ink-3);
+  border-top: 1px solid var(--line);
+}
+
+.panel-foot a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.panel-foot a:hover {
+  text-decoration: underline;
+}
 
 /* =============================================
    Map center marker
@@ -308,29 +375,47 @@ html, body {
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 28px;
+  line-height: 1;
   pointer-events: none;
   color: rgba(0, 0, 0, 0.7);
-  text-shadow: 0 0 4px rgba(255, 255, 255, 0.9), 0 0 8px rgba(255, 255, 255, 0.6);
-  line-height: 1;
+  text-shadow: 0 0 4px rgba(255, 255, 255, 0.9),
+    0 0 8px rgba(255, 255, 255, 0.6);
+}
+
+:root[data-theme="dark"] .map-center-marker {
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.9), 0 0 8px rgba(0, 0, 0, 0.6);
 }
 
 /* =============================================
    Popup
    ============================================= */
-.maplibregl-popup            { z-index: 9999 !important; }
-.maplibregl-popup-tip        { z-index: 9999 !important; }
-.maplibregl-popup-content    { z-index: 9999 !important; }
+.maplibregl-popup {
+  z-index: 9999 !important;
+}
 
 .maplibregl-popup .maplibregl-popup-content {
   padding: 0;
-  background: var(--bg-panel);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
+  background: var(--surface-solid);
+  color: var(--ink);
+  border: 1px solid var(--line-2);
+  border-radius: 12px;
   box-shadow: var(--shadow);
   width: 280px;
   max-height: 320px;
   overflow: auto;
-  font-family: var(--font);
+  overscroll-behavior: contain;
+  font: inherit;
+}
+
+.maplibregl-popup-close-button {
+  color: var(--ink-3);
+  font-size: 18px;
+  padding: 2px 7px;
+}
+
+.maplibregl-popup-tip {
+  display: none;
 }
 
 .popup-table {
@@ -338,59 +423,165 @@ html, body {
   width: 100%;
   table-layout: fixed;
 }
+
 .popup-table th,
 .popup-table td {
-  border: 1px solid var(--border-item);
+  border: 1px solid var(--line);
   text-align: left;
   padding: 6px 8px;
   overflow-wrap: break-word;
   font-size: 12px;
-  color: var(--text-secondary);
+  color: var(--ink-2);
 }
+
 .popup-table th {
-  background: var(--bg-title);
-  color: var(--text-muted);
+  background: var(--hover);
+  color: var(--ink-3);
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.05em;
 }
 
 /* =============================================
-   Geocoder overrides
+   MapLibre controls
+   ============================================= */
+.maplibregl-ctrl-group {
+  background: var(--surface-solid);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow);
+}
+
+/* ダークテーマではコントロールのアイコン（黒の SVG）を反転して見えるようにする */
+:root[data-theme="dark"] .maplibregl-ctrl-group button .maplibregl-ctrl-icon {
+  filter: invert(1);
+}
+
+.maplibregl-ctrl-group button + button {
+  border-top: 1px solid var(--line);
+}
+
+.maplibregl-ctrl-attrib {
+  font-size: 10px;
+}
+
+.maplibregl-ctrl-attrib.maplibregl-compact {
+  background: var(--surface-solid);
+  color: var(--ink-2);
+}
+
+.maplibregl-ctrl-attrib a {
+  color: var(--ink-2);
+}
+
+.maplibregl-ctrl-scale {
+  background: var(--surface-solid);
+  border-color: var(--line-2);
+  color: var(--ink-2);
+}
+
+/* =============================================
+   Geocoder
    ============================================= */
 .maplibregl-ctrl-geocoder {
-  background: var(--bg-panel) !important;
-  border: 1px solid var(--border) !important;
-  border-radius: var(--radius) !important;
+  background: var(--surface-solid) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: var(--radius-sm) !important;
   box-shadow: var(--shadow) !important;
-  font-family: var(--font) !important;
-  font-size: 13px;
+  font: inherit !important;
+  font-size: 13px !important;
   min-width: 200px;
   width: 200px !important;
 }
+
 .maplibregl-ctrl-geocoder input {
   background: transparent !important;
-  color: var(--text-primary) !important;
+  color: var(--ink) !important;
 }
+
 .maplibregl-ctrl-geocoder input::placeholder {
-  color: var(--text-muted) !important;
+  color: var(--ink-3) !important;
 }
+
 .maplibregl-ctrl-geocoder .suggestions {
-  background: var(--bg-panel) !important;
-  border: 1px solid var(--border) !important;
-  border-radius: var(--radius) !important;
+  background: var(--surface-solid) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: var(--radius-sm) !important;
 }
+
 .maplibregl-ctrl-geocoder .suggestions > li > a {
-  color: var(--text-secondary) !important;
+  color: var(--ink-2) !important;
 }
+
 .maplibregl-ctrl-geocoder .suggestions > .active > a,
 .maplibregl-ctrl-geocoder .suggestions > li > a:hover {
-  background: var(--bg-hover) !important;
-  color: var(--text-primary) !important;
+  background: var(--hover) !important;
+  color: var(--ink) !important;
 }
+
 .maplibregl-ctrl-geocoder--icon {
-  fill: var(--text-muted) !important;
+  fill: var(--ink-3) !important;
 }
+
 .maplibregl-ctrl-geocoder--button {
   background: transparent !important;
+}
+
+/* =============================================
+   Responsive（モバイルはボトムシート）
+   ============================================= */
+@media (max-width: 640px) {
+  .panel {
+    top: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: auto;
+    max-width: none;
+    height: auto;
+    max-height: 62dvh;
+    border: none;
+    border-top: 1px solid var(--line);
+  }
+
+  /* デスクトップ用の .panel.collapsed { bottom:auto } を打ち消す。
+     モバイルは top:auto のため bottom まで auto になるとパネルが
+     画面最上部へ飛ぶ。畳んでも下端固定のボトムシートを維持する。 */
+  .panel.collapsed {
+    max-height: none;
+    bottom: 0;
+  }
+
+  .panel-head {
+    padding: 14px 12px;
+  }
+
+  .panel-foot {
+    padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  }
+
+  /* 畳んだパネルのヘッダ分だけ地図コントロールを持ち上げる */
+  .maplibregl-ctrl-bottom-right,
+  .maplibregl-ctrl-bottom-left {
+    margin-bottom: calc(64px + env(safe-area-inset-bottom, 0px));
+  }
+
+  /* タッチ操作しやすいよう当たり判定を拡大 */
+  .toggle {
+    padding: 9px 8px;
+  }
+
+  /* ボトムシート自体が 62dvh しかないため CS一覧の取り分を減らす */
+  #cs-layers {
+    max-height: 30vh;
+  }
+
+  .maplibregl-ctrl-top-right {
+    margin-top: env(safe-area-inset-top, 0px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
 }
