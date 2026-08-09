@@ -81,7 +81,6 @@ npm run preview
 | 兵庫県 | 令和 2〜3 年度 航空レーザ測量 | [G空間情報センター](https://www.geospatial.jp/ckan/dataset/csmap_hyogo) | [利用規約](https://www.geospatial.jp/ckan/dataset/csmap_hyogo/resource/ab5fab0d-99a1-4638-9807-a09eb53e14b7)参照 |
 | 高知県 | 平成 30 年度 林野庁 航空レーザ測量 | [G空間情報センター](https://www.geospatial.jp/ckan/dataset/csmap_kochi) | [利用規約](https://www.geospatial.jp/ckan/dataset/csmap_kochi/resource/86bbb203-3025-4c58-b130-b8fe692f9c09)参照 |
 | 能登地域（速報） | 令和 6 年能登半島地震 発災後 航空レーザ測量 速報成果 | [G空間情報センター](https://www.geospatial.jp/ckan/dataset/2024noto_rinya) | CC BY 4.0 互換 |
-| 能登地域（最終） | 同上 最終成果（手動フィルタリング済） | [G空間情報センター](https://www.geospatial.jp/ckan/dataset/2024noto_dem) | CC BY 4.0 互換 |
 | 長岡地域 | 令和 6 年能登半島地震 発災後 航空レーザ測量 | [G空間情報センター](https://www.geospatial.jp/ckan/dataset/rinya-csmap-nagaoka2024) | [PDL1.0](https://www.digital.go.jp/resources/open_data/public_data_license_v1.0) |
 | 滋賀県 | 滋賀県森林政策課 航空レーザ測量成果 | [G空間情報センター](https://www.geospatial.jp/ckan/dataset/rinya-shiga-maptiles) | [PDL1.0](https://www.digital.go.jp/resources/open_data/public_data_license_v1.0) |
 
@@ -148,6 +147,12 @@ npm run preview
 | 御蔵島 | `https://xs489works.xsrv.jp/raster-tiles/tokyo-digitaltwin/tokyopc-shima-04-2023-cs-tiles/{z}/{x}/{y}.png` |
 | 八丈島 | `https://xs489works.xsrv.jp/raster-tiles/tokyo-digitaltwin/tokyopc-shima-05-2023-cs-tiles/{z}/{x}/{y}.png` |
 | 青ヶ島 | `https://xs489works.xsrv.jp/raster-tiles/tokyo-digitaltwin/tokyopc-shima-06-2023-cs-tiles/{z}/{x}/{y}.png` |
+
+**能登地域（最終）の原初データについて**
+
+原初データの[林野庁 能登地域 0.5mDEM(発災後)](https://www.geospatial.jp/ckan/dataset/2024noto_dem)は、令和 6 年能登半島地震の発災後（令和 6 年 3〜4 月）に林野庁との連携の下で国土地理院が実施した航空レーザ測量業務（能登北部・中部・南部地区）の最終成果を基に、林野庁で簡易的に変換した 0.5m 解像度の数値標高モデルです。**グリッドデータを簡易的に変換したものであるため、公共測量の用に供するものではないことを前提に利用してください。**
+
+なお、令和 6 年 7 月に公開された微地形表現図等に使われている速報成果とは異なり、手動フィルタリング／コース間調整等が行われた点群データ（最終成果）を基に作成されています。
 
 ### 各種レイヤー
 
