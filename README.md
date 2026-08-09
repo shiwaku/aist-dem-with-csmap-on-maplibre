@@ -1,4 +1,4 @@
-# aist-dem-with-csmap-on-maplibre
+# csmap-on-maplibre
 
 国土地理院の最適化ベクトルタイルを背景に、全国の **CS立体図** 32 レイヤーをオーバーレイ表示する Web 地図アプリケーションです。産総研シームレス標高タイル（陸域統合 DEM）による 3D 地形表示に対応しています。
 
@@ -6,7 +6,7 @@ CS 立体図は林野庁・森林総合研究所・各自治体が公開して�
 
 ## デモ
 
-🌐 **https://shiwaku.github.io/aist-dem-with-csmap-on-maplibre/**
+🌐 **https://shiwaku.github.io/csmap-on-maplibre/**
 
 ## 機能
 
